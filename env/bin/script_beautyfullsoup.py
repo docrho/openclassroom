@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from math import *##utilisation de floor et ceil pour larrondi a lunité
 from urllib.parse import urljoin
+import time
 
 url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html'
 response=requests.get(url)
@@ -24,12 +25,24 @@ if response.ok:
         print(urljoin(url,pdpu['href']))# comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
         link.append(urljoin(url,pdpu['href']))
 
-    for a in link:
-        print(a)
+else:
+    print("no response")
+## tout les lien sont bel et bien dans la variable link, sans faute de chemin d accès
+response2=requests.get(link[0])
+if response2.ok:
+    soup2=BeautifulSoup(response2.text,'html.parser')
+    tableau=soup2.select("table tr td")
+    
+    product_info=['UPC','PDT','PriceEx','PriceInc','Tax','Avail','NOR']
+    tableaulist=[]
+    for tab in tableau:
+        tableaulist.append(tab.text)
+    product_dict=dict(zip(product_info,tableaulist))
+    print(product_dict)
 
-        ## tout les lien sont bel et bien dans la variable link, sans faute de chemin d accès
-    response2=requests.get(link[0])
-    if response2.ok:
-        soup2=BeautifulSoup(response.text,'html.parser')
-        print(soup2)
+    ########tout le tableau est stocké dans la variable product_dict
+
+        
+
+
 
