@@ -29,7 +29,9 @@ if response.ok:
 
 else:
     print("response not ok")
+
 ## tout les lien sont bel et bien dans la variable link, sans faute de chemin d accès
+for link in link:
 response2=requests.get(link[0])
 if response2.ok:
     soup2=BeautifulSoup(response2.text,'html.parser')
@@ -42,43 +44,67 @@ if response2.ok:
     print(product_dict)
     
     ########tout le tableau est stocké dans la variable product_dict
+    
     title=soup2.select("article h1")
+    titlelist=""
     for tit in title:
-
+        titlelist=tit.text
         print(tit.text)
+
+    
     ##########we got the title now#########
+    
     description=soup2.select('.product_page>p')
+    descriptionlist=""
     for desc in description:
+        descriptionlist=desc.text
         print(desc.text)
+    
     ####we got now the text########
+
     category=soup2.select("ul>li:nth-child(n+3)>a")
+    categorylist=""
     for cat in category:
+        categorylist=cat.text
         print(cat.text)
+
     #####"we got the category now#####
+
     image_url=soup2.select("article div>img")
+
     for img in image_url:
         image_url_real=img['src']
         #print(img['src'])
-    image_url_complete = urljoin(link[0],image_url_real)
+    image_url_complete = urljoin(link[0],image_url_real)#
     print(image_url_complete)
     ##### we got the image_url now####
     rating=soup2.select('div>p:nth-child(n+4)')
+    ratelist=""
     for rate in rating:
+        ratelist=rate["class"][1]
         print(rate['class'][1])
     #we got the rate too
     #affichage du nombre available
     product_dict['Avail']=product_dict["Avail"].split()
-    print(product_dict['Avail'][2][1:])
+    print(product_dict['Avail'][2][1:])#
 
-    with open('info.csv', 'w') as csvfile:
-        fieldnames = ['title', 'upc','pdt','priceEx','priceInc','avail','url','rate','img_url','category','description']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    ##############parametrage d une fonction pour lecriture des fichier csv###############
 
-        writer.writeheader()
-        writer.writerow({'title': 'Baked'})
-        writer.writerow({'upc': 'Lovely'})
-        writer.writerow({'pdt': 'Wonderful'})
+    def write_csv(title,upc,pdt,priceEx,priceInc,avail,url,rate,img_url,category,description):
+        with open('info.csv', 'w') as csvfile:
+            fieldnames = ['title', 'upc','pdt','priceEx','priceInc','avail','url','rate','img_url','category','description']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
+            writer.writeheader()
+            
+            writer.writerow({'title':title, 'upc':upc,'pdt':pdt,'priceEx':priceEx,
+            'priceInc':priceInc,'avail':avail,'url':url,'rate':rate,'img_url':img_url,
+            'category':category,'description':description})
+            
+        return print('ouverture faite correctement')
+   
+    write_csv(titlelist,product_dict["UPC"],product_dict["PDT"],product_dict["PriceEx"][1:],product_dict["PriceInc"][1:],product_dict['Avail'][2][1:],
+    link[0],ratelist,image_url_complete,categorylist,descriptionlist)
 
 else:
     print('response not ok')
