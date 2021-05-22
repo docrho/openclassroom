@@ -19,13 +19,22 @@ if response.ok:
     
     #####################getting product page url##########
     link=[]#les url seront stockée dans link
-    product_page_url=soup.select("section ol li h3 a[href]")
-    for pdpu in product_page_url:
-        #print(pdpu['href'])
-        #####tout les liens sont extrait dans une liste
-        #response=requests.get(link[0])
-        #print(urljoin(url,pdpu['href']))# comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
-        link.append(urljoin(url,pdpu['href']))
+    nombrePage=1
+    
+    while (nombrePage <= nombreOfPages):
+        url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-'+str(nombrePage)+'.html'
+        print("cc")
+        response=requests.get(url)
+        if response.ok:
+            soup = BeautifulSoup(response.text,'html.parser')
+            product_page_url=soup.select("section ol li h3 a[href]")
+            for pdpu in product_page_url:
+                #print(pdpu['href'])
+                #####tout les liens sont extrait dans une liste
+                #response=requests.get(link[0])
+                #print(urljoin(url,pdpu['href']))# comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
+                link.append(urljoin(url,pdpu['href']))
+        nombrePage +=1
 
 else:
     print("response not ok")
