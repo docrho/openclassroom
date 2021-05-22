@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from math import *##utilisation de floor et ceil pour larrondi a lunité
 from urllib.parse import urljoin
 import time
+import csv
+
 
 url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-1.html'
 response=requests.get(url)
@@ -64,6 +66,20 @@ if response2.ok:
     for rate in rating:
         print(rate['class'][1])
     #we got the rate too
+    #affichage du nombre available
+    product_dict['Avail']=product_dict["Avail"].split()
+    print(product_dict['Avail'][2][1:])
+
+    with open('info.csv', 'w') as csvfile:
+        fieldnames = ['title', 'upc','pdt','priceEx','priceInc','avail','url','rate','img_url','category','description']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerow({'title': 'Baked'})
+        writer.writerow({'upc': 'Lovely'})
+        writer.writerow({'pdt': 'Wonderful'})
+
+
 else:
     print('response not ok')
         
