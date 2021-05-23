@@ -21,10 +21,16 @@ if response.ok:
     link=[]#les url seront stockée dans link
     nombrePage=1
     
-    while (nombrePage <= nombreOfPages):
-        url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-'+str(nombrePage)+'.html'
-        print("cc")
-        response=requests.get(url)
+    while (nombrePage <= int(nombreOfPages)):
+        #url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-'+str(nombrePage)+'.html'
+        if nombrePage==1:
+            url2=url.replace("page-"+str(nombrePage),'page-'+str(nombrePage))
+        else:
+            url2=url.replace("page-"+str(nombrePage-1),'page-'+str(nombrePage))
+        print(url2)
+        print("boucle")
+        response=requests.get(url2)
+        nombrePage +=1
         if response.ok:
             soup = BeautifulSoup(response.text,'html.parser')
             product_page_url=soup.select("section ol li h3 a[href]")
@@ -33,9 +39,8 @@ if response.ok:
                 #####tout les liens sont extrait dans une liste
                 #response=requests.get(link[0])
                 #print(urljoin(url,pdpu['href']))# comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
-                link.append(urljoin(url,pdpu['href']))
-        nombrePage +=1
-
+                link.append(urljoin(url2,pdpu['href']))
+            
 else:
     print("response not ok")
 
