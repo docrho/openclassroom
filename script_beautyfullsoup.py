@@ -1,12 +1,15 @@
 import csv
 from math import *  ##utilisation de floor et ceil pour larrondi a lunité
 from urllib.parse import urljoin
-
+import os
 import requests
 from bs4 import BeautifulSoup
 ##final
+
+os.makedirs("img/", exist_ok = True)
 image_index = 0
 file_index = 0
+
 ###########recuperation de toute les url des differente category#######
 siteToscrap = 'https://books.toscrape.com/'
 url = []
