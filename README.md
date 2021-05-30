@@ -3,14 +3,20 @@ Open a terminal and type the following command
 
 first
 1.cd "your_folder_name"
+
 2.git clone -b P2 https://github.com/docrho/openclassroom
+
 3.cd openclassroom
 
 Then
 
+
 1.source env/bin/activate
+
 2.python3 pip install -r requirements.txt
+
 3.python3 script_beautyfullsoup.py
+
 4.Enjoy !!!!!
 
 Please make sur to install all packet needed !!
