@@ -15,7 +15,7 @@ siteToscrap = 'https://books.toscrape.com/'
 url = []
 response = requests.get(siteToscrap)
 if response.ok:
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.content, 'html.parser')
     resulta_raw = soup.select(".nav ul>li>a")
     for res in resulta_raw:
         url.append(urljoin(siteToscrap, res['href']))
@@ -26,7 +26,7 @@ for url in url:
     response = requests.get(url)
 
     if response.ok:
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.content, 'html.parser')
         resulta_raw = soup.select_one(
             ".form-horizontal strong")  ###stock le tag strong qui a la valeur du nombre de "result"
         resultaVrai = int(
@@ -52,7 +52,7 @@ for url in url:
             response = requests.get(url2)
             nombrePage += 1
             if response.ok:
-                soup = BeautifulSoup(response.text, 'html.parser')
+                soup = BeautifulSoup(response.content, 'html.parser')
                 product_page_url = soup.select("section ol li h3 a[href]")
                 for pdpu in product_page_url:
                     # print(pdpu['href'])
@@ -75,7 +75,7 @@ for url in url:
         image_index += 1
         response2 = requests.get(link)
         if response2.ok:
-            soup2 = BeautifulSoup(response2.text, 'html.parser')
+            soup2 = BeautifulSoup(response2.content, 'html.parser')
             tableau = soup2.select("table tr td")  # bug avec tbody
             product_info = ['UPC', 'PDT', 'PriceEx', 'PriceInc', 'Tax', 'Avail', 'NOR']
             tableaulist = []
@@ -100,7 +100,7 @@ for url in url:
                 descriptionlist = desc.text
                 print(desc.text)
 
-            ####we got now the text########
+            ####we got now the.text########
 
             category = soup2.select("ul>li:nth-child(n+3)>a")
             categorylist = ""
