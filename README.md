@@ -11,8 +11,7 @@ Then
 1.source env/bin/activate
 2.python3 pip install -r requirements.txt
 3.python3 script_beautyfullsoup.py
-4.Enjoy 
-
+4.Enjoy !!!!!
 
 Please make sur to install all packet needed !!
 Please read requirement.txt
