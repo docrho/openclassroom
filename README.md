@@ -8,12 +8,13 @@ first
 
 3.cd openclassroom
 
+4.python3 -m venv env
 Then
 
 
 1.source env/bin/activate
 
-2.python3 pip install -r requirements.txt
+2.pip install -r requirements.txt
 
 3.python3 script_beautyfullsoup.py
 
