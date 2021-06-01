@@ -1,6 +1,6 @@
 import csv
-from math import *  ##utilisation de floor et ceil pour larrondi a lunité
-from urllib.parse import urljoin
+from math import floor,ceil  ##utilisation de floor et ceil pour larrondi a lunité
+from urllib.parse import urljoin,urlparse
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -111,12 +111,12 @@ for url in url:
             #####"we got the category now#####
 
             image_url = soup2.select("article div>img")
-
             for img in image_url:
                 image_url_real = img['src']
-                # print(img['src'])
+
             image_url_complete = urljoin(link, image_url_real)  #
-            print(image_url_complete)
+            image_name=image_url_complete.split("/")[-1]
+            print(image_name)
             ##### we got the image_url now####
             rating = soup2.select('div>p:nth-child(n+4)')
             ratelist = ""
@@ -146,7 +146,7 @@ for url in url:
                       product_dict["PriceInc"][1:], product_dict['Avail'][2][1:],
                       link, ratelist, image_url_complete, categorylist, descriptionlist)
             imgdata = requests.get(image_url_complete)
-            with open("img/image" + str(image_index) + '.jpg', "wb") as imagefile:  ####opening in binary mode
+            with open("img/"+image_name, "wb") as imagefile:  ####opening in binary mode
                 imagefile.write(imgdata.content)
         else:
             print('response not ok')
