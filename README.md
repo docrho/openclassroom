@@ -16,9 +16,9 @@ Then
 
 1.source env/bin/activate
 
-2.pip install -r P2_03_requirements.txt
+2.pip install -r requirements.txt
 
-3.python3 P2_01_script.py
+3.python3 script.py
 
 4.Enjoy !!!!!
 
