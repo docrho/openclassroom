@@ -67,12 +67,7 @@ for url in url:
     else:
         print("response not ok")
 
-    with open('info' + str(file_index) + '.csv', 'w') as csvfile:
-        fieldnames = ['title', 'upc', 'pdt', 'priceEx', 'priceInc', 'number_available', 'url', 'rate', 'img_url', 'category',
-                      'description']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-
+    
     ## tout les lien sont bel et bien dans la variable link, sans faute de chemin d accès
     for link in link:
         image_index += 1
@@ -134,7 +129,7 @@ for url in url:
             ##############parametrage d une fonction pour lecriture des fichier csv###############
 
             def write_csv(title, upc, pdt, priceEx, priceInc, avail, url, rate, img_url, category, description):
-                with open(str(categorylist) + '.csv', 'a') as csvfile:
+                with open(categorylist + '.csv', 'a') as csvfile:
                     fieldnames = ['title', 'upc', 'pdt', 'priceEx', 'priceInc', 'number_available', 'url', 'rate', 'img_url',
                                   'category', 'description']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
