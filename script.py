@@ -32,34 +32,37 @@ for url in url:
         resultaVrai = int(
             resulta_raw.text)  # ont extrai le nombre du resulta puis on le converti en int pour pouvoir lexploiter
         nombreOfPages = floor(
-            resultaVrai / 20 + 1)  ###ont divise le tout par 20 +1 pour compter le nombre de pages disponibles
+            resultaVrai / 21 + 1)  ###ont divise le tout par 20 +1 pour compter le nombre de pages disponibles
         print("il y a " + str(nombreOfPages) + ' pages disponibles!')
         ### ont connais le nombre de pages, let extrat some value
 
         #####################getting product page url##########
         link = []  # les url seront stockée dans link
-
+        ########
         nombrePage = 1
-
+        str(url)
         while nombrePage <= int(nombreOfPages):
             # url='http://books.toscrape.com/catalogue/category/books/mystery_3/page-'+str(nombrePage)+'.html'
-            if nombrePage == 1:
-                url2 = url.replace("page-" + str(nombrePage), 'page-' + str(nombrePage))
+            if nombreOfPages >1:
+                url2=[]
+                url2.append(url.replace('index.html','page-'+str(nombrePage)+'.html'))
+                response = requests.get(url2[0])
+                if response.ok:
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    product_page_url = soup.select("section ol li h3 a[href]")
+                    for pdpu in product_page_url:
+                        # comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
+                        link.append(urljoin(url2[0], pdpu['href']))
             else:
-                url2 = url.replace("page-" + str(nombrePage - 1), 'page-' + str(nombrePage))
-            print(url2)
-            print("boucle")
-            response = requests.get(url2)
+                url2=url
+                response = requests.get(url2)
+                if response.ok:
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    product_page_url = soup.select("section ol li h3 a[href]")
+                    for pdpu in product_page_url:
+                        # comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
+                        link.append(urljoin(url2, pdpu['href']))
             nombrePage += 1
-            if response.ok:
-                soup = BeautifulSoup(response.content, 'html.parser')
-                product_page_url = soup.select("section ol li h3 a[href]")
-                for pdpu in product_page_url:
-                    # print(pdpu['href'])
-                    #####tout les liens sont extrait dans une liste
-                    # response=requests.get(link[0])
-                    # print(urljoin(url,pdpu['href']))# comme nous avont affaire à des urls relatives nous utilisont urljoint pour pallier au probleme
-                    link.append(urljoin(url2, pdpu['href']))
 
     else:
         print("response not ok")
@@ -131,7 +134,7 @@ for url in url:
             ##############parametrage d une fonction pour lecriture des fichier csv###############
 
             def write_csv(title, upc, pdt, priceEx, priceInc, avail, url, rate, img_url, category, description):
-                with open('info' + str(file_index) + '.csv', 'a') as csvfile:
+                with open(str(categorylist) + '.csv', 'a') as csvfile:
                     fieldnames = ['title', 'upc', 'pdt', 'priceEx', 'priceInc', 'number_available', 'url', 'rate', 'img_url',
                                   'category', 'description']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
