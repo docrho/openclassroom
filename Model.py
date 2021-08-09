@@ -15,7 +15,7 @@ class Player():
 
 
     def player_display (self,player):
-        print(player.lastname)
+        return player.lastname
 
 class DbManager(TinyDB):
 
@@ -24,11 +24,20 @@ class DbManager(TinyDB):
         self.players = self.db.table("players")
         self.tournament = self.db.table('tournament')
 
-    def store_player(self,player):
+    def _store_player(self,player):
         self.players.insert({
             "type": "player", "lastname": player.lastname, "first_name": player.first_name,
             "birth_date": player.birth_date, "gender": player.gender, "ranking": player.ranking
         })
+
+    def add_player(self,players_data, player):
+        for player_data in players_data:
+
+            if player_data['lastname'] == player.lastname and player_data['first_name'] == player.first_name and \
+                    player_data['birth_date'] == player.birth_date:
+                return False
+        self._store_player(player)
+        return True
 
     def store_tournament(self, tournament):
         self.tournament.insert({
@@ -42,6 +51,8 @@ class DbManager(TinyDB):
 
     def remove_tournament(self, id):
         self.tournament.remove(where("tournament_id") == id)
+    def list_all_players(self):
+        return self.players.all()
 
 class Round():
     def __init__(self, player1, player2):

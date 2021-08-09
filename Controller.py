@@ -15,14 +15,6 @@ def home():
     return responsemenu
 
 
-def add_player(players_data, player):
-    for player_data in players_data:
-
-        if player_data['lastname'] == player.lastname and player_data['first_name'] == player.first_name and player_data['birth_date'] == player.birth_date:
-            v.error("player_name_exist")
-            return "player_name_exist"
-    v.success("player_added")
-    return "player_added"
 
 ####stating app####
 
@@ -65,13 +57,14 @@ while True:
         player = Model.Player("cicconi","romano","05/03/1990","male","2000")
         all_players_data = db.players.all()
 
-        added = add_player(all_players_data, player)
+        added = db.add_player(all_players_data,player)
         print(added)
-        if added == "player_added":
-            db.store_player(player)
-
     elif responsemenu == "4":
         db.remove_players("first_name","romano")
+    elif responsemenu == "5":
+        all_players_data = db.list_all_players()
+        v.display_all_players(all_players_data)
+
 
 
 

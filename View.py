@@ -4,6 +4,9 @@ class Views():
     def success(self,success):
         if success == "player_added":
             print('Players added successfuly ')
+    def display_all_players(self,all_players):
+        for players in all_players:
+            print(players['lastname'])
     def error(self,error_name):
         if error_name == "player_name_exist":
             print("le player name existe déja")
