@@ -62,7 +62,7 @@ class Round():
     def winner(self):
         print("type 1 if "+self.player1.lastname +"have win, otherwise type 2")
         whowin=input()
-        return print("the player "+whowin+"have winned")
+        return winer
 
 
 class Tournament():
