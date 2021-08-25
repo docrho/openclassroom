@@ -30,7 +30,7 @@ while True:
     elif responsemenu == "2":
 
         v.load_page("create_tournament")
-          ####tournament id creator######
+        ####tournament id creator######
         ##init iterator
         id_i = []
         tournament_id_iterated = db.tournament.all()
@@ -62,8 +62,14 @@ while True:
     elif responsemenu == "4":
         db.remove_players("first_name","romano")
     elif responsemenu == "5":
-        all_players_data = db.list_all_players()
-        v.display_all_players(all_players_data)
+        v.display_all_players(db.list_all_players())
+    elif responsemenu == "6":
+        db.remove_tournament(v.response_input())
+    elif responsemenu == "7":
+        v.load_page("list_tournament",db.tournament.all())
+    elif responsemenu == "8":
+        print()
+
 
 
 

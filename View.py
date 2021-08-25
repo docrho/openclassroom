@@ -10,7 +10,9 @@ class Views():
     def error(self,error_name):
         if error_name == "player_name_exist":
             print("le player name existe déja")
-
+    def response_input (self):
+        print('tapez le numero du tournois a supprimer')
+        return input()
     def _base_menu(self):
         print("Hi, Welcome to tournament chess app!\nType "
               "\n1 to load a tournament "
@@ -25,6 +27,16 @@ class Views():
               "\n0 to quit the app")
     def _tournaments_displays(self):
         print("ont load le tournament")
+    def list_tournament(self,tournaments):
+        for tournament in tournaments:
+
+            print(
+            "tournament name :: "+tournament['name'],
+            "\ntournament place :: "+tournament["place"],
+            "\ntournament date :: "+tournament["date"],
+            "\n tournament id :: "+str(tournament.doc_id),
+            "\n----------------------------------------"
+            )
 
     def _create_tournament(self):
         print("creation du tournoi")
@@ -36,3 +48,5 @@ class Views():
             self._tournaments_displays()
         elif page_name== "create_tournament":
             self._create_tournament()
+        elif page_name== "list_tournament":
+            self.list_tournament(args[0])

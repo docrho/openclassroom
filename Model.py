@@ -50,7 +50,7 @@ class DbManager(TinyDB):
         self.players.remove(where(key)==value)
 
     def remove_tournament(self, id):
-        self.tournament.remove(where("tournament_id") == id)
+        self.tournament.remove(doc_ids=[int(id),])
     def list_all_players(self):
         return self.players.all()
 
