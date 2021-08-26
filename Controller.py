@@ -68,7 +68,10 @@ while True:
     elif responsemenu == "7":
         v.load_page("list_tournament",db.tournament.all())
     elif responsemenu == "8":
-        print()
+        if True == db.tournament_id_check(int(v.response_input())):
+            print("le tournois existe")
+        else:
+            v.load_page("error","tournament_id")
 
 
 

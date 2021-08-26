@@ -10,6 +10,9 @@ class Views():
     def error(self,error_name):
         if error_name == "player_name_exist":
             print("le player name existe déja")
+
+        elif error_name == "tournament_id":
+            print("The tournament id was not found!!")
     def response_input (self):
         print('tapez le numero du tournois a supprimer')
         return input()
@@ -44,9 +47,11 @@ class Views():
     def load_page(self, page_name: str, *args, **kwargs):
         if page_name == "home":
             self._base_menu()
-        elif page_name== "display_tournament":
+        elif page_name == "display_tournament":
             self._tournaments_displays()
-        elif page_name== "create_tournament":
+        elif page_name == "create_tournament":
             self._create_tournament()
-        elif page_name== "list_tournament":
+        elif page_name == "list_tournament":
             self.list_tournament(args[0])
+        elif page_name == "error":
+            self.error(args[0])

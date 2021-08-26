@@ -53,6 +53,15 @@ class DbManager(TinyDB):
         self.tournament.remove(doc_ids=[int(id),])
     def list_all_players(self):
         return self.players.all()
+    def tournament_id_check(self, id):
+        list_id =[]
+        all_tournaments = self.tournament.all()
+        for tournament in all_tournaments:
+            list_id.append(tournament.doc_id)
+        if (id in list_id):
+            return True
+        else:
+            return False
 
 class Round():
     def __init__(self, player1, player2):
