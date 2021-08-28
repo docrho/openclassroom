@@ -2,15 +2,9 @@ import Model
 import View
 import json
 
-<<<<<<< Updated upstream
 
 v = View.Views()
 db = Model.DbManager()
-=======
-v = View.Views()
-db = Model.DbManager()
-
->>>>>>> Stashed changes
 
 ###function######
 
