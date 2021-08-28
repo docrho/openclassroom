@@ -76,12 +76,14 @@ while True:
                 v.load_page("update_tournament_menu")
                 responsemenu = v.basic_input()
                 if responsemenu == "1": # change name condition
-                    db.update_tournament(tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
-
-
-
-
-
-
+                    db.update_tournament("name",tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
+                if responsemenu == "2":
+                    db.update_tournament("place",tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
+                if responsemenu == "3":
+                    db.update_tournament("date",tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
+                if responsemenu == "4":
+                    db.update_tournament("description",tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
+                if responsemenu == "5":
+                    db.remove_tournament(tournament_id)
         else:
             v.load_page("error", "tournament_id")

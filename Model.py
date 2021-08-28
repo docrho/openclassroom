@@ -61,8 +61,8 @@ class DbManager(TinyDB):
             return True
         else:
             return False
-    def update_tournament(self,id,update):
-        self.tournament.update(set("name",update),doc_ids=[int(id)])
+    def update_tournament(self,key,id,update):
+        self.tournament.update(set(key,update),doc_ids=[int(id)])
 class Round():
     def __init__(self, player1, player2,match_list):
         self.player1 = player1
