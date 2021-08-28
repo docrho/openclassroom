@@ -20,7 +20,7 @@ def home():
     return response
 
 
-####stating app####
+####starting app####
 
 
 while True:
