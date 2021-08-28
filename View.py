@@ -46,6 +46,23 @@ class Views():
     def _create_tournament(self):
         print("creation du tournoi")
 
+    def _update_tournament_menu(self):
+        print(
+            "\n1 to change name of tournament",
+            "\n2 to change place of tournament",
+            "\n3 to change date of tournament",
+            "\n4 to change description of tournament",
+            "\n5 to delete tournament",
+            "\n6 to return on main menu",
+              )
+    def _update_tournament_menu_prompt(self):
+        print("Type the tournament number that you want to select")
+        return input()
+    def change_tournament_prompt(self):
+        print("You can input the change now")
+
+    def basic_input(self):
+        return input()
     def load_page(self, page_name: str, *args, **kwargs):
         if page_name == "home":
             self._base_menu()
@@ -57,3 +74,5 @@ class Views():
             self.list_tournament(args)
         elif page_name == "error":
             self._error(args)
+        elif page_name == "update_tournament_menu":
+            self._update_tournament_menu()
