@@ -60,6 +60,7 @@ class Views():
         return input()
     def change_tournament_prompt(self):
         print("You can input the change now")
+        return input()
 
     def basic_input(self):
         return input()
@@ -76,3 +77,5 @@ class Views():
             self._error(args)
         elif page_name == "update_tournament_menu":
             self._update_tournament_menu()
+        elif page_name == "change_tournament_prompt":
+            return self.change_tournament_prompt()

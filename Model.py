@@ -1,5 +1,5 @@
 from tinydb import TinyDB, Query
-from tinydb.operations import delete
+from tinydb.operations import set
 from tinydb import where
 
 
@@ -61,7 +61,8 @@ class DbManager(TinyDB):
             return True
         else:
             return False
-
+    def update_tournament(self,id,update):
+        self.tournament.update(set("name",update),doc_ids=[int(id)])
 class Round():
     def __init__(self, player1, player2,match_list):
         self.player1 = player1

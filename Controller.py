@@ -66,16 +66,19 @@ while True:
     elif responsemenu == "7":
         v.load_page("list_tournament", db.tournament.all())
     elif responsemenu == "8":
-        responsemenu = int(v._update_tournament_menu_prompt()) #store the response on variable responsemenu
+        tournament_id = int(v._update_tournament_menu_prompt()) #store the response on variable tournament_id
         tournament= [] #the variable where to store the tournament
-        if db.tournament_id_check(responsemenu): # checking if the tournament id exist
-            tournament.append(db.tournament.get(doc_id=responsemenu)) # add to the variable all tournament matched the query
+        if db.tournament_id_check(tournament_id): # checking if the tournament id exist
+            tournament.append(db.tournament.get(doc_id=tournament_id)) # add to the variable all tournament matched the query
             v.load_page("list_tournament",tournament) #display the tournament selected
 
             while responsemenu != "6": # condition to exit the loop
                 v.load_page("update_tournament_menu")
                 responsemenu = v.basic_input()
                 if responsemenu == "1": # change name condition
+                    db.update_tournament(tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
+
+
 
 
 
