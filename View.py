@@ -33,13 +33,15 @@ class Views():
     def list_tournament(self,tournaments):
         for tournament in tournaments:
 
-            print(
-            "tournament name :: "+tournament['name'],
-            "\ntournament place :: "+tournament["place"],
-            "\ntournament date :: "+tournament["date"],
-            "\n tournament id :: "+str(tournament.doc_id),
-            "\n----------------------------------------"
-            )
+            for tour in tournament:
+
+                print(
+                "tournament name :: "+tour['name'],
+                "\ntournament place :: "+tour["place"],
+                "\ntournament date :: "+tour["date"],
+                "\n tournament id :: "+str(tour.doc_id),
+                "\n----------------------------------------"
+                )
 
     def _create_tournament(self):
         print("creation du tournoi")
@@ -52,6 +54,6 @@ class Views():
         elif page_name == "create_tournament":
             self._create_tournament()
         elif page_name == "list_tournament":
-            self.list_tournament(args[0])
+            self.list_tournament(args)
         elif page_name == "error":
             self._error(args)
