@@ -85,5 +85,6 @@ while True:
                     db.update_tournament("description",tournament_id,v.load_page("change_tournament_prompt"))#passing the id prompted to the method by tournament_id
                 if responsemenu == "5":
                     db.remove_tournament(tournament_id)
+
         else:
             v.load_page("error", "tournament_id")

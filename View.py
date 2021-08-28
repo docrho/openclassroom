@@ -26,7 +26,7 @@ class Views():
               "\n6 to remove a tournament "
               "\n7 to list all tournaments "
               "\n8 update tournament "
-              "\n9 to select a player by his id "
+              "\n9 update player "
               "\n0 to quit the app")
     def _tournaments_displays(self):
         print("ont load le tournament")
