@@ -1,11 +1,10 @@
 import Model
 import View
 import json
-from tinydb import where
-from tinydb.operations import delete
 
-v= View.Views()
-db= Model.DbManager()
+
+v = View.Views()
+db = Model.DbManager()
 
 ###function######
 

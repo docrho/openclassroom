@@ -7,12 +7,12 @@ class Views():
     def display_all_players(self,all_players):
         for players in all_players:
             print(players['lastname'])
-    def error(self,error_name):
-        if error_name == "player_name_exist":
-            print("le player name existe déja")
+    def _error(self,error_name):
+        if "player_name_exist" in error_name:
+            print("le player name already exist\n")
 
-        elif error_name == "tournament_id":
-            print("The tournament id was not found!!")
+        if "tournament_id" in error_name:
+            print("The tournament id was not found!!\n")
     def response_input (self):
         print('tapez le numero du tournois a supprimer')
         return input()
@@ -25,7 +25,7 @@ class Views():
               "\n5 to list all players "
               "\n6 to remove a tournament "
               "\n7 to list all tournaments "
-              "\n8 to select a tournament by his id "
+              "\n8 update tournament "
               "\n9 to select a player by his id "
               "\n0 to quit the app")
     def _tournaments_displays(self):
@@ -54,4 +54,4 @@ class Views():
         elif page_name == "list_tournament":
             self.list_tournament(args[0])
         elif page_name == "error":
-            self.error(args[0])
+            self._error(args)

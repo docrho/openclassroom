@@ -3,7 +3,7 @@ from tinydb.operations import delete
 from tinydb import where
 
 
-class Player():
+class Player:
 
     def __init__(self, last_name, first_name, birth_date, gender, ranking):
         self.lastname = last_name
@@ -11,11 +11,8 @@ class Player():
         self.birth_date = birth_date
         self.gender = gender
         self.ranking = ranking
-
-
-
-    def player_display (self,player):
-        return player.lastname
+    def __str__(self):
+        return self.lastname
 
 class DbManager(TinyDB):
 
@@ -51,8 +48,10 @@ class DbManager(TinyDB):
 
     def remove_tournament(self, id):
         self.tournament.remove(doc_ids=[int(id),])
+
     def list_all_players(self):
         return self.players.all()
+
     def tournament_id_check(self, id):
         list_id =[]
         all_tournaments = self.tournament.all()
@@ -64,14 +63,16 @@ class DbManager(TinyDB):
             return False
 
 class Round():
-    def __init__(self, player1, player2):
+    def __init__(self, player1, player2,match_list):
         self.player1 = player1
         self.player2 = player2
+        self.match_list = match_list
 
     def winner(self):
-        print("type 1 if "+self.player1.lastname +"have win, otherwise type 2")
-        whowin=input()
         return winer
+
+    def pair_generator(self):
+        return True
 
 
 class Tournament():
@@ -85,4 +86,6 @@ class Tournament():
         self.description = description
         self.tournament_id = tournament_id
 
+    def __str__(self):
+        return f"{self.name} {self.date}"
 
