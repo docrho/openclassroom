@@ -2,17 +2,22 @@ import Model
 import View
 import json
 
+<<<<<<< Updated upstream
 
 v = View.Views()
 db = Model.DbManager()
+=======
+v = View.Views()
+db = Model.DbManager()
+
+>>>>>>> Stashed changes
 
 ###function######
 
 def home():
     v.load_page("home")
-    responsemenu = str(input())
-    return responsemenu
-
+    response = str(input())
+    return response
 
 
 ####stating app####
@@ -23,8 +28,7 @@ while True:
     responsemenu = home()
     if responsemenu == "0":
         break
-
-    if responsemenu == "1":
+    elif responsemenu == "1":
         v.load_page('display_tournament')
     elif responsemenu == "2":
 
@@ -39,40 +43,36 @@ while True:
         for tournament_id_iterated in tournament_id_iterated:
             id_i.append(tournament_id_iterated["tournament_id"])
         ###creating the tournament with good id#####
-        players_serialized=db.players.all()
+        players_serialized = db.players.all()
 
-        players_serialized=json.dumps(players_serialized)
+        players_serialized = json.dumps(players_serialized)
         if not id_i:
-            max_value=0
+            max_value = 0
         else:
-            max_value=max(id_i)
-        tournament = Model.Tournament("de Noel","Paris","25/12/2021","4",players_serialized,"2h","c est le fameux tournois de noel",max_value+1)
+            max_value = max(id_i)
+        tournament = Model.Tournament("de Noel", "Paris", "25/12/2021", "4", players_serialized, "2h",
+                                      "c est le fameux tournois de noel", max_value + 1)
         ####store and remove####
         db.store_tournament(tournament)
-        #db.remove_tournament(2)
+        # db.remove_tournament(2)
         #####empy player storage#####
 
     elif responsemenu == "3":
-        player = Model.Player("cicconi","romano","05/03/1990","male","2000")
+        player = Model.Player("cicconi", "romano", "05/03/1990", "male", "2000")
         all_players_data = db.players.all()
 
-        added = db.add_player(all_players_data,player)
+        added = db.add_player(all_players_data, player)
         print(added)
     elif responsemenu == "4":
-        db.remove_players("first_name","romano")
+        db.remove_players("first_name", "romano")
     elif responsemenu == "5":
         v.display_all_players(db.list_all_players())
     elif responsemenu == "6":
         db.remove_tournament(v.response_input())
     elif responsemenu == "7":
-        v.load_page("list_tournament",db.tournament.all())
+        v.load_page("list_tournament", db.tournament.all())
     elif responsemenu == "8":
-        if True == db.tournament_id_check(int(v.response_input())):
+        if db.tournament_id_check(int(v.response_input())):
             print("le tournois existe")
         else:
-            v.load_page("error","tournament_id")
-
-
-
-
-
+            v.load_page("error", "tournament_id")
