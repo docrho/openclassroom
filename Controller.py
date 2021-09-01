@@ -88,3 +88,19 @@ while True:
 
         else:
             v.load_page("error", "tournament_id")
+    elif responsemenu == "9":
+        v.load_page("list_tournament", db.tournament.all())
+        tournament_id = int(v._update_tournament_menu_prompt())  # store the response on variable tournament_id
+        tournament = []  # the variable where to store the tournament
+        if db.tournament_id_check(tournament_id): # checking if the tournament id exist
+            tournament.append(db.tournament.get(doc_id=tournament_id)) # add to the variable all tournament matched the query
+            v.load_page("list_tournament",tournament) #display the tournament selected
+            ###extraire les player du tournament
+            player_list=[]
+            player_unserial=[]
+            for tournament in tournament:
+                player_list.append(tournament["players"])
+            for player_list in player_list: #deserialiser 
+                player_unserial.append(json.loads(player_list))
+                print(player_unserial[0][0])
+
