@@ -1,5 +1,7 @@
 import Player
 
 class Match:
-    def match(self,player1: Player, player2: Player):
+    def match(self,players_list):
         print()
+    def randomiser(self):
+        return players_list

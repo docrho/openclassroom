@@ -52,30 +52,8 @@ class DbManager(TinyDB):
             return False
     def update_tournament(self,key,id,update):
         self.tournament.update(set(key,update),doc_ids=[int(id)])
-class Round():
-    def __init__(self, player1, player2,match_list):
-        self.player1 = player1
-        self.player2 = player2
-        self.match_list = match_list
-
-    def winner(self):
-        return winer
-
-    def pair_generator(self):
-        return True
 
 
-class Tournament():
-    def __init__(self, name, place, date, nb_turn, players: Player, time, description, tournament_id):
-        self.name = name
-        self.place = place
-        self.date = date
-        self.nb_turn = nb_turn
-        self.players = players
-        self.time = time
-        self.description = description
-        self.tournament_id = tournament_id
 
-    def __str__(self):
-        return f"{self.name} {self.date}"
+
 
