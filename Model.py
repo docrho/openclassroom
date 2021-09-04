@@ -9,7 +9,8 @@ class DbManager(TinyDB):
         self.db = TinyDB("db.json")
         self.players = self.db.table("players")
         self.tournament = self.db.table('tournament')
-
+    def if_players_id_exist(self, id: list[]):
+        print(id)
     def _store_player(self,player):
         self.players.insert({
             "type": "player", "lastname": player.lastname, "first_name": player.first_name,

@@ -1,6 +1,8 @@
 
 
 class Views():
+    def tournament_players_creation(self):
+        print()
     def remove_player(self):
         player = []
         print("Type the Lastname of the player that you want to delete")
@@ -34,8 +36,9 @@ class Views():
         if success == "player_added":
             print('Players added successfuly ')
     def display_all_players(self,all_players):
+        print("Player list:\n")
         for player in all_players:
-            print(f"{player['lastname']} {player['first_name']} {player['birth_date']} {player['ranking']}")
+            print(f"{player.doc_id} {player['lastname']} {player['first_name']} {player['birth_date']} {player['ranking']}")
     def _error(self,error_name):
         if "player_name_exist" in error_name:
             print("le player name already exist\n")
@@ -71,7 +74,18 @@ class Views():
             )
 
     def _create_tournament(self):
-        print("creation du tournoi")
+        choice_list=[]
+        print(
+            "\nWelcome to the tournament creator\n"
+            "Please choose your 8 players with her number displayed below\n"
+            )
+        i = 1
+        while (i <= 8):
+            print(f"Type the number of player number {i} !")
+            choice_list.append(input())
+            i += 1
+        print(choice_list)
+        return choice_list
 
     def _update_tournament_menu(self):
         print(
@@ -97,7 +111,7 @@ class Views():
         elif page_name == "display_tournament":
             self._tournaments_displays()
         elif page_name == "create_tournament":
-            self._create_tournament()
+            return self._create_tournament()
         elif page_name == "list_tournament":
             self.list_tournaments(args[0])
         elif page_name == "error":
@@ -113,3 +127,7 @@ class Views():
             return self.player_successfully_added_or_not(args[0],args[1])
         elif page_name == "remove_player":
             return self.remove_player()
+        elif page_name == "display_all_players":
+            return self.display_all_players(args[0])
+        elif page_name == "tournament_players_creation":
+            return self.tournament_players_creation(args)

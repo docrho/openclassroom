@@ -3,6 +3,7 @@ import View
 import json
 import Match
 from Player import Player
+from Tournament import Tournament
 v = View.Views()
 db = Model.DbManager()
 
@@ -29,15 +30,29 @@ while True:
 
     elif responsemenu == "2": #  create new tournament
 
-        v.load_page("create_tournament")
         ###creating the tournament with good id#####
-        all_players = db.players.all()
-        all_players = json.dumps(all_players)
-        tournament = Model.Tournament("de Noel", "Paris", "25/12/2021", "4", all_players, "2h","c est le fameux tournois de noel")
+        all_players = db.players.all()#taking all player
+        all_id = []
+        for player in all_players: # taking all id
+            all_id.append(player.doc_id)
+
+        v.load_page("display_all_players",all_players)
+        ### return the 8 player number prompt taht we want to select
+        player_id_list = v.load_page("create_tournament")
+
+        #checking up if the id exist on all_id list
+        for player_id in player_id_list:
+            if str(player_id) not in str(all_id):
+                print("error not good")
+                break
+            else:
+                print("Player found")
+
+
+
+        #tournament = Tournament("de Noel", "Paris", "25/12/2021", "4", all_players, "2h","c est le fameux tournois de noel")
         ####store and remove####
-        db.store_tournament(tournament)
-        # db.remove_tournament(2)
-        #####empy player storage#####
+        #db.store_tournament(tournament)
 
     elif responsemenu == "3": # add a player on Player database
 
