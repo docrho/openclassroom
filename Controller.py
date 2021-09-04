@@ -29,30 +29,32 @@ while True:
         v.load_page('display_tournament')
 
     elif responsemenu == "2": #  create new tournament
-
-        ###creating the tournament with good id#####
-        all_players = db.players.all()#taking all player
-        all_id = []
-        for player in all_players: # taking all id
-            all_id.append(player.doc_id)
-
-        v.load_page("display_all_players",all_players)
+        #displaying all player on the console
+        v.load_page("display_all_players", db.get_all_players())
         ### return the 8 player number prompt taht we want to select
-        player_id_list = v.load_page("create_tournament")
-
+        player_id_list = v.load_page("create_tournament_players")
+        all_id = db.get_all_players_id()
         #checking up if the id exist on all_id list
-        for player_id in player_id_list:
-            if str(player_id) not in str(all_id):
-                print("error not good")
-                break
-            else:
-                print("Player found")
-
-
-
-        #tournament = Tournament("de Noel", "Paris", "25/12/2021", "4", all_players, "2h","c est le fameux tournois de noel")
-        ####store and remove####
-        #db.store_tournament(tournament)
+        id_exist = db.player_id_checking(player_id_list)
+        if id_exist:
+            player_selected = []
+            #getting all player from database with doc_id
+            for player_id in player_id_list:
+                # adding on player selected each player from id
+                player_selected.append(db.players.get(doc_id=int(player_id)))
+            #serialize player to put them on database
+            player_selected = json.dumps(player_selected)
+            #calling view for ask tournament name prompt ....
+            tournament_info  = v.create_tournament()
+            #creating tournament with tournament Class
+            tournament = Tournament(
+            tournament_info['name'], tournament_info['place'],
+            tournament_info['date'], "4", player_selected , tournament_info['time'],tournament_info['description']
+            )
+            ####store tournament on database
+            db.store_tournament(tournament)
+        else:
+            print("The id selected was not good,please try again")
 
     elif responsemenu == "3": # add a player on Player database
 

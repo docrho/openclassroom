@@ -73,7 +73,7 @@ class Views():
             "\n----------------------------------------"
             )
 
-    def _create_tournament(self):
+    def _create_tournament_players(self):
         choice_list=[]
         print(
             "\nWelcome to the tournament creator\n"
@@ -84,8 +84,25 @@ class Views():
             print(f"Type the number of player number {i} !")
             choice_list.append(input())
             i += 1
-        print(choice_list)
         return choice_list
+    def create_tournament(self):
+        tournament_info = {}
+        print("Type the tournament name")
+        tournament_info["name"] = input()
+        print("Type the tournament place")
+        tournament_info["place"] = input()
+        print("Type the tournament date")
+        tournament_info["date"] = input()
+        print("Type the tournament time")
+        tournament_info["time"] = input()
+        print("Type the tournament description")
+        tournament_info["description"] = input()
+
+        return tournament_info
+
+
+
+        return tournament_info
 
     def _update_tournament_menu(self):
         print(
@@ -110,8 +127,8 @@ class Views():
             self._base_menu()
         elif page_name == "display_tournament":
             self._tournaments_displays()
-        elif page_name == "create_tournament":
-            return self._create_tournament()
+        elif page_name == "create_tournament_players":
+            return self._create_tournament_players()
         elif page_name == "list_tournament":
             self.list_tournaments(args[0])
         elif page_name == "error":
@@ -131,3 +148,5 @@ class Views():
             return self.display_all_players(args[0])
         elif page_name == "tournament_players_creation":
             return self.tournament_players_creation(args)
+        elif page_name == "create_tournament":
+            return self.create_tournament()
