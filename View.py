@@ -1,12 +1,27 @@
 
 
 class Views():
+    def add_player_view(self,player):
+        print("You can now add a player\n")
+        print("Type his first name:\n")
+        player.first_name = input()
+        print("his lastname\n")
+        player.lastname = input()
+        print("his birth date\n")
+        player.birth_date = input()
+        print("his gender\n")
+        player.gender = input()
+        print("his rank \n")
+        player.ranking = input()
+
+        return player
+
     def success(self,success):
         if success == "player_added":
             print('Players added successfuly ')
     def display_all_players(self,all_players):
-        for players in all_players:
-            print(players['lastname'])
+        for player in all_players:
+            print(f"{player['lastname']} {player['first_name']} {player['ranking']} {player['birth_date']}")
     def _error(self,error_name):
         if "player_name_exist" in error_name:
             print("le player name already exist\n")
@@ -26,22 +41,20 @@ class Views():
               "\n6 to remove a tournament "
               "\n7 to list all tournaments "
               "\n8 update tournament "
-              "\n9 update player "
+              "\n9 Match "
               "\n0 to quit the app")
     def _tournaments_displays(self):
         print("ont load le tournament")
-    def list_tournament(self,tournaments):
+    def list_tournaments(self, tournaments: list):
         for tournament in tournaments:
 
-            for tour in tournament:
-
-                print(
-                "tournament name :: "+tour['name'],
-                "\ntournament place :: "+tour["place"],
-                "\ntournament date :: "+tour["date"],
-                "\n tournament id :: "+str(tour.doc_id),
-                "\n----------------------------------------"
-                )
+            print(
+            "tournament name :: "+tournament['name'],
+            "\ntournament place :: "+tournament["place"],
+            "\ntournament date :: "+tournament["date"],
+            "\n tournament id :: "+str(tournament.doc_id),
+            "\n----------------------------------------"
+            )
 
     def _create_tournament(self):
         print("creation du tournoi")
@@ -72,10 +85,12 @@ class Views():
         elif page_name == "create_tournament":
             self._create_tournament()
         elif page_name == "list_tournament":
-            self.list_tournament(args)
+            self.list_tournaments(args[0])
         elif page_name == "error":
             self._error(args)
         elif page_name == "update_tournament_menu":
             self._update_tournament_menu()
         elif page_name == "change_tournament_prompt":
             return self.change_tournament_prompt()
+        elif page_name == "add_player_view":
+            return self.add_player_view(args[0])

@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 from tinydb.operations import set
 from tinydb import where
-import Player
+import Player, Round, Tournament
 
 class DbManager(TinyDB):
 
@@ -29,7 +29,7 @@ class DbManager(TinyDB):
         self.tournament.insert({
             "name": tournament.name, "place": tournament.place,
             "date": tournament.date, "nb_turn": tournament.nb_turn , "players": tournament.players,
-            "time": tournament.time, "description": tournament.description, "tournament_id": tournament.tournament_id
+            "time": tournament.time, "description": tournament.description
         })
 
     def remove_players(self, key, value):
