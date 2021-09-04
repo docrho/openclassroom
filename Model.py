@@ -32,8 +32,8 @@ class DbManager(TinyDB):
             "time": tournament.time, "description": tournament.description
         })
 
-    def remove_players(self, key, value):
-        self.players.remove(where(key)==value)
+    def remove_players(self, lastname, birth_date):
+        self.players.remove(where('lastname') == str(lastname), where('birth_date') == str(birth_date))
 
     def remove_tournament(self, id):
         self.tournament.remove(doc_ids=[int(id),])

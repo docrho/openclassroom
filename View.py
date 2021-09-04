@@ -1,6 +1,20 @@
 
 
 class Views():
+    def remove_player(self):
+        player = []
+        print("Type the Lastname of the player that you want to delete")
+        player.append(input())
+        print("Type the date of birth of the player that you want to delete")
+        player.append(input())
+        return player
+    def player_successfully_added_or_not(self,added,player):
+        if added:
+
+            print(f"The player {player.lastname} {player.first_name} was added !!!\n")
+        else:
+            print("Player already exist, so not added")
+
     def add_player_view(self,player):
         print("You can now add a player\n")
         print("Type his first name:\n")
@@ -21,7 +35,7 @@ class Views():
             print('Players added successfuly ')
     def display_all_players(self,all_players):
         for player in all_players:
-            print(f"{player['lastname']} {player['first_name']} {player['ranking']} {player['birth_date']}")
+            print(f"{player['lastname']} {player['first_name']} {player['birth_date']} {player['ranking']}")
     def _error(self,error_name):
         if "player_name_exist" in error_name:
             print("le player name already exist\n")
@@ -94,3 +108,8 @@ class Views():
             return self.change_tournament_prompt()
         elif page_name == "add_player_view":
             return self.add_player_view(args[0])
+        elif page_name == "player_successfully_added_or_not":
+            # arg[0] is a boolean if added or not, arg[1] is player data
+            return self.player_successfully_added_or_not(args[0],args[1])
+        elif page_name == "remove_player":
+            return self.remove_player()

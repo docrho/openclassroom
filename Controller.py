@@ -22,8 +22,11 @@ while True:
     responsemenu = home()
     if responsemenu == "0":# To quit
         break
+
     elif responsemenu == "1": #load tournament
+
         v.load_page('display_tournament')
+
     elif responsemenu == "2": #  create new tournament
 
         v.load_page("create_tournament")
@@ -39,6 +42,7 @@ while True:
         #####empy player storage#####
 
     elif responsemenu == "3": # add a player on Player database
+
         ### init a player that we will send it to view
         player = Player()
         player = v.load_page("add_player_view",player)
@@ -46,16 +50,17 @@ while True:
         all_players_data = db.players.all()
         # add_player return True if there is no double
         added = db.add_player(all_players_data, player)
-        if added:
+        #load a page to print succeffull or not
+        v.load_page("player_successfully_added_or_not",added,player)
 
-            print(f"The player {player.lastname} {player.first_name} was added !!!\n")
-        else:
-            print("Player already exist, so not added")
 
-    elif responsemenu == "4":#remove a player on database
-        db.remove_players("first_name", "romano")
+    elif responsemenu == "4":#remove a player on Player database
+        player_to_remove = v.remove_player()
+        #player contain a list that contain lastname and birth_date from view
+        db.remove_players(player_to_remove[0], player_to_remove[1])
 
     elif responsemenu == "5":# list all players from Player database
+
         v.display_all_players(db.list_all_players())
 
     elif responsemenu == "6": # Remove a tournament
