@@ -31,11 +31,9 @@ while True:
 
         v.load_page("create_tournament")
         ###creating the tournament with good id#####
-        players_serialized = db.players.all()
-
-        players_serialized = json.dumps(players_serialized)
-        tournament = Model.Tournament("de Noel", "Paris", "25/12/2021", "4", players_serialized, "2h",
-                                      "c est le fameux tournois de noel")
+        all_players = db.players.all()
+        all_players = json.dumps(all_players)
+        tournament = Model.Tournament("de Noel", "Paris", "25/12/2021", "4", all_players, "2h","c est le fameux tournois de noel")
         ####store and remove####
         db.store_tournament(tournament)
         # db.remove_tournament(2)
