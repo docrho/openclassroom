@@ -100,10 +100,6 @@ class Views():
 
         return tournament_info
 
-
-
-        return tournament_info
-
     def _update_tournament_menu(self):
         print(
             "\n1 to change name of tournament",
