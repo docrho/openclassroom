@@ -1,7 +1,10 @@
 from tinydb import TinyDB, Query
 from tinydb.operations import set
 from tinydb import where
-import Player, Round, Tournament
+import Player
+import Round
+import Tournament
+
 
 class DbManager(TinyDB):
 
@@ -17,25 +20,25 @@ class DbManager(TinyDB):
     def get_all_players_id(self):
         all_players = self.players.all()
         all_id = []
-        for player in all_players: # taking all id
+        for player in all_players:  # taking all id
             all_id.append(player.doc_id)
         return all_id
 
-    def player_id_checking(self,ids : list):
+    def player_id_checking(self, ids: list):
         all_id = self.get_all_players_id()
         for id in ids:
             if str(id) not in str(all_id):
                 return False
         return True
-        #if for not broken return true
+#        if for not broken return true
 
-    def _store_player(self,player):
+    def _store_player(self, player):
         self.players.insert({
             "type": "player", "lastname": player.lastname, "first_name": player.first_name,
             "birth_date": player.birth_date, "gender": player.gender, "ranking": player.ranking
         })
 
-    def add_player(self,players_data, player):
+    def add_player(self, players_data, player):
         for player_data in players_data:
 
             if player_data['lastname'] == player.lastname and player_data['first_name'] == player.first_name and \
@@ -47,7 +50,7 @@ class DbManager(TinyDB):
     def store_tournament(self, tournament):
         self.tournament.insert({
             "name": tournament.name, "place": tournament.place,
-            "date": tournament.date, "nb_turn": tournament.nb_turn , "players": tournament.players,
+            "date": tournament.date, "nb_turn": tournament.nb_turn, "players": tournament.players,
             "time": tournament.time, "description": tournament.description
         })
 
@@ -55,24 +58,20 @@ class DbManager(TinyDB):
         self.players.remove(where('lastname') == str(lastname), where('birth_date') == str(birth_date))
 
     def remove_tournament(self, id):
-        self.tournament.remove(doc_ids=[int(id),])
+        self.tournament.remove(doc_ids=[int(id), ])
 
     def list_all_players(self):
         return self.players.all()
 
     def tournament_id_check(self, id):
-        list_id =[]
+        list_id = []
         all_tournaments = self.tournament.all()
         for tournament in all_tournaments:
             list_id.append(tournament.doc_id)
-        if (id in list_id):
+        if id in list_id:
             return True
         else:
             return False
-    def update_tournament(self,key,id,update):
-        self.tournament.update(set(key,update),doc_ids=[int(id)])
 
-
-
-
-
+    def update_tournament(self, key, id, update):
+        self.tournament.update(set(key, update), doc_ids=[int(id)])
