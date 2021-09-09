@@ -6,6 +6,7 @@ class Match:
         print(players_list)
 
         return players_list
+
     def first_match(self, players_list: list):
         sorted_list =  sorted(players_list, key=itemgetter("ranking"))
         players_match = {}
