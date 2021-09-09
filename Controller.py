@@ -125,6 +125,6 @@ while True:
             # extract players from tournament
             tournament_players_list = db.get_all_players_in_tournament(tournament_id)
             match = Match()
-            match.print_players_list(tournament_players_list)
+            match.first_match(tournament_players_list)
         else:
             v.load_page("error","tournament_id")

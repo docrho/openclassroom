@@ -59,7 +59,8 @@ class DbManager(TinyDB):
         self.tournament.insert({
             "name": tournament.name, "place": tournament.place,
             "date": tournament.date, "nb_turn": tournament.nb_turn, "players": tournament.players,
-            "time": tournament.time, "description": tournament.description
+            "time": tournament.time, "description": tournament.description,"rounds_list": tournament.rounds_list,
+            "tours_list":tournament.tours_list
         })
 
     def remove_players(self, lastname, birth_date):
