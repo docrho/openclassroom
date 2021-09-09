@@ -50,19 +50,21 @@ while True:
             # creating tournament with tournament Class
             tournament = Tournament(
                 tournament_info['name'], tournament_info['place'],
-                tournament_info['date'], "4", player_selected, tournament_info['time'], tournament_info['description']
+                tournament_info['date'], "4", player_selected,
+                tournament_info['time'], tournament_info['description']
             )
             # store tournament on database
             db.store_tournament(tournament)
         else:
-            v.load_page("error","player_id")
+            v.load_page("error", "player_id")
 
     elif responsemenu == "3":  # add a player on Player database
 
         # init a player that we will send it to view
         player = Player()
         player = v.load_page("add_player_view", player)
-        # Taking all player data to compare them with current player, its for avoiding double
+        # Taking all player data to compare them with current player,
+        # its for avoiding double
         all_players_data = db.players.all()
         # add_player return True if there is no double
         added = db.add_player(all_players_data, player)
@@ -73,10 +75,9 @@ while True:
         player_to_remove = v.remove_player()
         # player contain a list that contain lastname and birth_date from view
         if db.remove_players(player_to_remove[0], player_to_remove[1]):
-            v.load_page("success","player_removed")
+            v.load_page("success", "player_removed")
         else:
-            v.load_page("error","player_not_removed")
-
+            v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
 
@@ -84,31 +85,47 @@ while True:
 
     elif responsemenu == "6":  # Remove a tournament
         if db.remove_tournament(v.response_input()):
-            v.load_page("success","tournament_removed")
+            v.load_page("success", "tournament_removed")
         else:
-            v.load_page("error","tournament_not_removed")
+            v.load_page("error", "tournament_not_removed")
 
     elif responsemenu == "7":  # List all tournament
         v.load_page("list_tournament", db.tournament.all())
 
     elif responsemenu == "8":  # update a tournament
-        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))  # store the response on variable tournament_id
+        # store the response on variable tournament_id
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
         tournament = []  # the variable where to store the tournament
-        if db.tournament_id_check(tournament_id):  # checking if the tournament id exist
-            tournament.append(db.tournament.get(doc_id=tournament_id))  # add to the variable all tournament matched the query
-            v.load_page("list_tournament", tournament)  # display the tournament selected
+        # checking if the tournament id exist
+        if db.tournament_id_check(tournament_id):
+            # add to the variable all tournament matched the query
+            tournament.append(db.tournament.get(doc_id=tournament_id))
+            # display the tournament selected
+            v.load_page("list_tournament", tournament)
 
             while responsemenu != "6":  # condition to exit the loop
                 v.load_page("update_tournament_menu")
                 responsemenu = v.basic_input()
                 if responsemenu == "1":  # change name condition
-                    db.update_tournament("name", tournament_id, v.load_page("change_tournament_prompt"))  # passing the id prompted to the method by tournament_id
+                    # passing the id prompted to the method by tournament_id
+                    db.update_tournament(
+                        "name", tournament_id,
+                        v.load_page("change_tournament_prompt"))
                 if responsemenu == "2":
-                    db.update_tournament("place", tournament_id, v.load_page("change_tournament_prompt"))  # passing the id prompted to the method by tournament_id
+                    # passing the id prompted to the method by tournament_id
+                    db.update_tournament(
+                        "place", tournament_id,
+                        v.load_page("change_tournament_prompt"))
                 if responsemenu == "3":
-                    db.update_tournament("date", tournament_id, v.load_page("change_tournament_prompt"))  # passing the id prompted to the method by tournament_id
+                    # passing the id prompted to the method by tournament_id
+                    db.update_tournament(
+                        "date", tournament_id,
+                        v.load_page("change_tournament_prompt"))
                 if responsemenu == "4":
-                    db.update_tournament("description", tournament_id, v.load_page("change_tournament_prompt"))  # passing the id prompted to the method by tournament_id
+                    # passing the id prompted to the method by tournament_id
+                    db.update_tournament(
+                        "description", tournament_id,
+                        v.load_page("change_tournament_prompt"))
                 if responsemenu == "5":
                     db.remove_tournament(tournament_id)
 
@@ -116,15 +133,20 @@ while True:
             v.load_page("error", "tournament_id")
     elif responsemenu == "9":  # Match
         v.load_page("list_tournament", db.tournament.all())
-        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))  # store the response on variable tournament_id
+        # store the response on variable tournament_id
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
         tournaments = []  # the variable where to store the tournament
-        if db.tournament_id_check(tournament_id):  # checking if the tournament id exist
+        # checking if the tournament id exist
+        if db.tournament_id_check(tournament_id):
             # add to the variable all tournament who matched the query
             tournaments.append(db.tournament.get(doc_id=tournament_id))
-            v.load_page("list_tournament", tournaments)  # display the tournament selected
+            # display the tournament selected
+            v.load_page("list_tournament", tournaments)
             # extract players from tournament
-            tournament_players_list = db.get_all_players_in_tournament(tournament_id)
+            tournament_players_list = db.get_all_players_in_tournament(
+                tournament_id)
             match = Match()
-            match.first_match(tournament_players_list)
+            first_match = match.first_match(tournament_players_list)
+            print(first_match)
         else:
-            v.load_page("error","tournament_id")
+            v.load_page("error", "tournament_id")

@@ -1,8 +1,5 @@
 
-
-class Views():
-    def tournament_players_creation(self):
-        print()
+class Views:
     def remove_player(self):
         player = []
         print("Type the Lastname of the player that you want to delete")
@@ -10,14 +7,16 @@ class Views():
         print("Type the date of birth of the player that you want to delete")
         player.append(input())
         return player
-    def player_successfully_added_or_not(self,added,player):
+
+    def player_successfully_added_or_not(self, added, player):
         if added:
 
-            print(f"The player {player.lastname} {player.first_name} was added !!!\n")
+            print(f"The player {player.lastname} "
+                  f"{player.first_name} was added !!!\n")
         else:
             print("Player already exist, so not added")
 
-    def add_player_view(self,player):
+    def add_player_view(self, player):
         print("You can now add a player\n")
         print("Type his first name:\n")
         player.first_name = input()
@@ -39,11 +38,16 @@ class Views():
             print("Player removed successfully")
         if success == "tournament_removed":
             print("Tournament removed successfully")
-    def display_all_players(self,all_players):
+
+    def display_all_players(self, all_players):
         print("Player list:\n")
         for player in all_players:
-            print(f"{player.doc_id} {player['lastname']} {player['first_name']} {player['birth_date']} {player['ranking']}")
-    def _error(self,error_name):
+            print(f"{player.doc_id} {player['lastname']} "
+                  f"{player['first_name']} {player['birth_date']}"
+                  f" {player['ranking']}"
+                  )
+
+    def _error(self, error_name):
         if "player_name_exist" in error_name:
             print("le player name already exist\n")
 
@@ -55,9 +59,11 @@ class Views():
             print("Player not removed")
         if "tournament_not_removed" in error_name:
             print("Tournament not removed")
-    def response_input (self):
+
+    def response_input(self):
         print('tapez le numero du tournois a supprimer')
         return input()
+
     def _base_menu(self):
         print("Hi, Welcome to tournament chess app!\nType "
               "\n1 to load a tournament "
@@ -70,31 +76,34 @@ class Views():
               "\n8 update tournament "
               "\n9 Match "
               "\n0 to quit the app")
+
     def _tournaments_displays(self):
         print("ont load le tournament")
+
     def list_tournaments(self, tournaments: list):
         for tournament in tournaments:
 
             print(
-            "tournament name :: "+tournament['name'],
-            "\ntournament place :: "+tournament["place"],
-            "\ntournament date :: "+tournament["date"],
-            "\n tournament id :: "+str(tournament.doc_id),
-            "\n----------------------------------------"
-            )
+                "tournament name ::  " + tournament['name'],
+                "\ntournament place ::  " + tournament["place"],
+                "\ntournament date ::  " + tournament["date"],
+                "\n tournament id ::  " + str(tournament.doc_id),
+                "\n----------------------------------------"
+                )
 
     def _create_tournament_players(self):
-        choice_list=[]
+        choice_list = []
         print(
             "\nWelcome to the tournament creator\n"
             "Please choose your 8 players with her number displayed below\n"
             )
         i = 1
-        while (i <= 8):
+        while i <= 8:
             print(f"Type the number of player number {i} !")
             choice_list.append(input())
             i += 1
         return choice_list
+
     def create_tournament(self):
         tournament_info = {}
         print("Type the tournament name")
@@ -119,16 +128,19 @@ class Views():
             "\n5 to delete tournament",
             "\n6 to return on main menu",
               )
+
     def _update_tournament_menu_prompt(self):
         print("Type the tournament number that you want to select")
         return input()
+
     def change_tournament_prompt(self):
         print("You can input the change now")
         return input()
 
     def basic_input(self):
         return input()
-    def load_page(self, page_name: str, *args, **kwargs):
+
+    def load_page(self, page_name: str, *args,):
         if page_name == "home":
             self._base_menu()
         elif page_name == "display_tournament":
@@ -148,13 +160,11 @@ class Views():
             return self.add_player_view(args[0])
         elif page_name == "player_successfully_added_or_not":
             # arg[0] is a boolean if added or not, arg[1] is player data
-            return self.player_successfully_added_or_not(args[0],args[1])
+            return self.player_successfully_added_or_not(args[0], args[1])
         elif page_name == "remove_player":
             return self.remove_player()
         elif page_name == "display_all_players":
             return self.display_all_players(args[0])
-        elif page_name == "tournament_players_creation":
-            return self.tournament_players_creation(args)
         elif page_name == "create_tournament":
             return self.create_tournament()
         elif page_name == "success":
