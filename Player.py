@@ -6,5 +6,7 @@ class Player:
         self.birth_date = birth_date
         self.gender = gender
         self.ranking = ranking
+        self.point = 0
+
     def __str__(self):
         return self.lastname

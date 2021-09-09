@@ -32,9 +32,13 @@ class Views():
 
         return player
 
-    def success(self,success):
+    def success(self, success):
         if success == "player_added":
-            print('Players added successfuly ')
+            print('Players added successfully ')
+        if success == "player_removed":
+            print("Player removed successfully")
+        if success == "tournament_removed":
+            print("Tournament removed successfully")
     def display_all_players(self,all_players):
         print("Player list:\n")
         for player in all_players:
@@ -45,6 +49,12 @@ class Views():
 
         if "tournament_id" in error_name:
             print("The tournament id was not found!!\n")
+        if "player_id" in error_name:
+            print("Error on player id")
+        if "player_not_removed" in error_name:
+            print("Player not removed")
+        if "tournament_not_removed" in error_name:
+            print("Tournament not removed")
     def response_input (self):
         print('tapez le numero du tournois a supprimer')
         return input()
@@ -127,10 +137,11 @@ class Views():
             return self._create_tournament_players()
         elif page_name == "list_tournament":
             self.list_tournaments(args[0])
-        elif page_name == "error":
-            self._error(args)
+
         elif page_name == "update_tournament_menu":
             self._update_tournament_menu()
+        elif page_name == "_update_tournament_menu_prompt":
+            return self._update_tournament_menu_prompt()
         elif page_name == "change_tournament_prompt":
             return self.change_tournament_prompt()
         elif page_name == "add_player_view":
@@ -146,3 +157,7 @@ class Views():
             return self.tournament_players_creation(args)
         elif page_name == "create_tournament":
             return self.create_tournament()
+        elif page_name == "success":
+            return self.success(args[0])
+        elif page_name == "error":
+            self._error(args)

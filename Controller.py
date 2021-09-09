@@ -1,7 +1,7 @@
 import Model
 import View
 import json
-import Match
+from Match import Match
 from Player import Player
 from Tournament import Tournament
 v = View.Views()
@@ -55,7 +55,7 @@ while True:
             # store tournament on database
             db.store_tournament(tournament)
         else:
-            print("The id selected was not good,please try again")
+            v.load_page("error","player_id")
 
     elif responsemenu == "3":  # add a player on Player database
 
@@ -72,20 +72,27 @@ while True:
     elif responsemenu == "4":  # remove a player on Player database
         player_to_remove = v.remove_player()
         # player contain a list that contain lastname and birth_date from view
-        db.remove_players(player_to_remove[0], player_to_remove[1])
+        if db.remove_players(player_to_remove[0], player_to_remove[1]):
+            v.load_page("success","player_removed")
+        else:
+            v.load_page("error","player_not_removed")
+
 
     elif responsemenu == "5":  # list all players from Player database
 
         v.display_all_players(db.list_all_players())
 
     elif responsemenu == "6":  # Remove a tournament
-        db.remove_tournament(v.response_input())
+        if db.remove_tournament(v.response_input()):
+            v.load_page("success","tournament_removed")
+        else:
+            v.load_page("error","tournament_not_removed")
 
     elif responsemenu == "7":  # List all tournament
         v.load_page("list_tournament", db.tournament.all())
 
     elif responsemenu == "8":  # update a tournament
-        tournament_id = int(v.load_page("_update_tournament_menu_prompt()"))  # store the response on variable tournament_id
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))  # store the response on variable tournament_id
         tournament = []  # the variable where to store the tournament
         if db.tournament_id_check(tournament_id):  # checking if the tournament id exist
             tournament.append(db.tournament.get(doc_id=tournament_id))  # add to the variable all tournament matched the query
@@ -109,18 +116,15 @@ while True:
             v.load_page("error", "tournament_id")
     elif responsemenu == "9":  # Match
         v.load_page("list_tournament", db.tournament.all())
-        tournament_id = int(v.load_page("_update_tournament_menu_prompt()"))  # store the response on variable tournament_id
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))  # store the response on variable tournament_id
         tournaments = []  # the variable where to store the tournament
         if db.tournament_id_check(tournament_id):  # checking if the tournament id exist
             # add to the variable all tournament who matched the query
             tournaments.append(db.tournament.get(doc_id=tournament_id))
             v.load_page("list_tournament", tournaments)  # display the tournament selected
-            # extraire les player du tournament
-            player_list = []
-            player_deserial = []
-            for tournament in tournaments:
-                player_list.append(tournament["players"])
-            for player in player_list:  # deserialiser
-                player_deserial.append(json.loads(player))
-                print(player_deserial[0][0])
-
+            # extract players from tournament
+            tournament_players_list = db.get_all_players_in_tournament(tournament_id)
+            match = Match()
+            match.print_players_list(tournament_players_list)
+        else:
+            v.load_page("error","tournament_id")

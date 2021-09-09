@@ -1,3 +1,5 @@
+import json
+
 from tinydb import TinyDB, Query
 from tinydb.operations import set
 from tinydb import where
@@ -17,6 +19,12 @@ class DbManager(TinyDB):
         all_players = self.players.all()
         return all_players
 
+    def get_all_players_in_tournament(self, tournament_id: int):
+
+        tournament = self.tournament.get(doc_id=tournament_id)
+        players_deserialized = json.loads(tournament["players"])
+        return players_deserialized
+
     def get_all_players_id(self):
         all_players = self.players.all()
         all_id = []
@@ -35,7 +43,7 @@ class DbManager(TinyDB):
     def _store_player(self, player):
         self.players.insert({
             "type": "player", "lastname": player.lastname, "first_name": player.first_name,
-            "birth_date": player.birth_date, "gender": player.gender, "ranking": player.ranking
+            "birth_date": player.birth_date, "gender": player.gender, "ranking": player.ranking, "points": player.point,
         })
 
     def add_player(self, players_data, player):
@@ -55,10 +63,17 @@ class DbManager(TinyDB):
         })
 
     def remove_players(self, lastname, birth_date):
-        self.players.remove(where('lastname') == str(lastname), where('birth_date') == str(birth_date))
+        if self.players.remove(where('lastname') == str(lastname) and where('birth_date') == str(birth_date)):
+            return True
+        else:
+            return False
 
     def remove_tournament(self, id):
-        self.tournament.remove(doc_ids=[int(id), ])
+        if self.tournament_id_check(int(id)): # check if the tournament id exist
+            self.tournament.remove(doc_ids=[int(id), ])#remove the tournament if exist
+            return True
+        else:
+            return False # otherwise return false
 
     def list_all_players(self):
         return self.players.all()
