@@ -4,7 +4,18 @@ from operator import itemgetter
 class Match:
 
     def first_match(self, players_list: list):
-        sorted_list = sorted(players_list, key=itemgetter("ranking"))
+        players_list_serialized = []
+        for players in players_list:
+            players_list_serialized.append({
+                "type": "player",
+                "lastname": players.lastname,
+                "first_name": players.first_name,
+                "birth_date": players.birth_date,
+                "gender": players.gender,
+                "ranking": players.ranking,
+                "points": players.point,
+            })
+        sorted_list = sorted(players_list_serialized, key=itemgetter("ranking"))
         players_match = {}
         match = []
         i = 0

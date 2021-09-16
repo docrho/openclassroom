@@ -1,5 +1,13 @@
 
 class Views:
+    def match_winner(self, player_list):
+        print("Who is the winner ?\n")
+        print("Type the name of the winner")
+        i = 0
+        while i < 4:
+            print(f"{player_list[i]['players']} {player_list[i+1]['players']}")
+            print("next one")
+            i += 2
     def remove_player(self):
         player = []
         print("Type the Lastname of the player that you want to delete")

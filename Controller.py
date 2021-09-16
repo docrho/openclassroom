@@ -4,7 +4,7 @@ import json
 from Match import Match
 from Player import Player
 from Tournament import Tournament
-player=Player()
+player = Player()
 v = View.Views()
 db = DbManager()
 tournament = Tournament()
@@ -65,8 +65,7 @@ while True:
     elif responsemenu == "3":  # add a player on Player database
 
         # init a player that we will send it to view
-        player_prompt = Player()
-        player_prompt = v.load_page("add_player_view", player_prompt)
+        player_prompt = v.load_page("add_player_view", Player())
         # Taking all player data to compare them with current player,
         # its for avoiding double
         all_players_data = db.players.all()
@@ -160,19 +159,20 @@ while True:
         if db.tournament_id_check(tournament_id):
             # add to the variable the tournament who matched the query
             tournament_data = db.tournament.get(doc_id=tournament_id)
-            #creating instance
+            # creating instance tournament_list wich contain Tournament() list
             tournaments_list = tournament.tournament_instance(
                 tournament_data
             )
+            # loading the page for list all tournament
             v.load_page("list_tournament", tournaments_list)
-            # extract players from tournament
+            # extract players from tournament data
             tournament_players_list = player.get_all_players_in_tournament(
                 tournament_data
             )
+
             match = Match()
             first_match = match.first_match(tournament_players_list)
-            player_list = player.list_all_players(tournament_players_list)
-            v.display_all_players(player_list)
-            print(first_match)
+            v.display_all_players(tournament_players_list)
+            v.match_winner(first_match)
         else:
             v.load_page("error", "tournament_id")
