@@ -1,11 +1,12 @@
-import Model
+from Db import DbManager
 import View
 import json
 from Match import Match
 from Player import Player
 from Tournament import Tournament
+player=Player()
 v = View.Views()
-db = Model.DbManager()
+db = DbManager()
 
 # function######
 
@@ -31,12 +32,26 @@ while True:
 
     elif responsemenu == "2":  # create new tournament
         # displaying all player on the console
-        v.load_page("display_all_players", db.get_all_players())
+        all_players_data = db.players.all()
+        player_list = []
+        for player_data in all_players_data:
+            player_list.append(Player(
+                player_data["lastname"],
+                player_data["first_name"],
+                player_data["birth_date"],
+                player_data["gender"],
+                player_data["ranking"],
+                player_data["points"],
+                player_data.doc_id
+            )
+            )
+
+        v.load_page("display_all_players", player_list)
         # return the 8 player number prompt taht we want to select
         player_id_list = v.load_page("create_tournament_players")
-        all_id = db.get_all_players_id()
+        #all_id = player.get_all_players_id(all_players_data)
         # checking up if the id exist on all_id list
-        id_exist = db.player_id_checking(player_id_list)
+        id_exist = player.player_id_checking(player_id_list, all_players_data)
         if id_exist:
             player_selected = []
             # getting all player from database with doc_id
@@ -51,7 +66,7 @@ while True:
             tournament = Tournament(
                 tournament_info['name'], tournament_info['place'],
                 tournament_info['date'], "4", player_selected,
-                tournament_info['time'], tournament_info['description']
+                tournament_info['time'], tournament_info['description'],
             )
             # store tournament on database
             db.store_tournament(tournament)
@@ -61,15 +76,29 @@ while True:
     elif responsemenu == "3":  # add a player on Player database
 
         # init a player that we will send it to view
-        player = Player()
-        player = v.load_page("add_player_view", player)
+        player_prompt = Player()
+        player_prompt = v.load_page("add_player_view", player_prompt)
         # Taking all player data to compare them with current player,
         # its for avoiding double
         all_players_data = db.players.all()
+        player_list = []
+        # instancing the deserialized data
+        for player_data in all_players_data:
+
+            player_list.append(Player(
+                player_data["lastname"],
+                player_data["first_name"],
+                player_data["birth_date"],
+                player_data["gender"],
+                player_data["ranking"],
+                player_data["points"],
+                                      )
+                               )
+            
         # add_player return True if there is no double
-        added = db.add_player(all_players_data, player)
+        added = db.add_player(player_list, player_prompt)
         # load a page to print succeffull or not
-        v.load_page("player_successfully_added_or_not", added, player)
+        v.load_page("player_successfully_added_or_not", added, player_prompt)
 
     elif responsemenu == "4":  # remove a player on Player database
         player_to_remove = v.remove_player()
@@ -80,8 +109,10 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
-
-        v.display_all_players(db.list_all_players())
+        player = Player()
+        player_data = db.players.all()
+        player_list = player.list_all_players(player_data)
+        v.display_all_players(player_list)
 
     elif responsemenu == "6":  # Remove a tournament
         if db.remove_tournament(v.response_input()):
@@ -90,7 +121,24 @@ while True:
             v.load_page("error", "tournament_not_removed")
 
     elif responsemenu == "7":  # List all tournament
-        v.load_page("list_tournament", db.tournament.all())
+        tournament_list = []
+        all_tournament = db.tournament.all()
+
+        for tournament_data in all_tournament:
+            tournament_list.append(
+                Tournament(
+                    tournament_data["name"],
+                    tournament_data["place"],
+                    tournament_data["date"],
+                    tournament_data["nb_turn"],
+                    tournament_data["players"],
+                    tournament_data["time"],
+                    tournament_data["description"],
+                    tournament_data.doc_id,
+                            )
+
+            )
+        v.load_page("list_tournament", tournament_list)
 
     elif responsemenu == "8":  # update a tournament
         # store the response on variable tournament_id
@@ -99,7 +147,20 @@ while True:
         # checking if the tournament id exist
         if db.tournament_id_check(tournament_id):
             # add to the variable all tournament matched the query
-            tournament.append(db.tournament.get(doc_id=tournament_id))
+            tournament_data = db.tournament.get(doc_id=tournament_id)
+            tournament.append(
+                Tournament(
+                    tournament_data["name"],
+                    tournament_data["place"],
+                    tournament_data["date"],
+                    tournament_data["nb_turn"],
+                    tournament_data["players"],
+                    tournament_data["time"],
+                    tournament_data["description"],
+                    tournament_data.doc_id,
+                            )
+
+                              )
             # display the tournament selected
             v.load_page("list_tournament", tournament)
 
@@ -147,6 +208,6 @@ while True:
                 tournament_id)
             match = Match()
             first_match = match.first_match(tournament_players_list)
-            print(first_match)
+            print(first_match[0]["players"][0])
         else:
             v.load_page("error", "tournament_id")

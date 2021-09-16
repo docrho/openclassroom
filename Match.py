@@ -3,11 +3,6 @@ from operator import itemgetter
 
 class Match:
 
-    def print_players_list(self, players_list: list):
-        print(players_list)
-
-        return players_list
-
     def first_match(self, players_list: list):
         sorted_list = sorted(players_list, key=itemgetter("ranking"))
         players_match = {}

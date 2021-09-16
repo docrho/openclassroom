@@ -42,9 +42,9 @@ class Views:
     def display_all_players(self, all_players):
         print("Player list:\n")
         for player in all_players:
-            print(f"{player.doc_id} {player['lastname']} "
-                  f"{player['first_name']} {player['birth_date']}"
-                  f" {player['ranking']}"
+            print(f"{player.doc_id} {player.lastname} "
+                  f"{player.first_name} {player.birth_date}"
+                  f" {player.ranking}"
                   )
 
     def _error(self, error_name):
@@ -84,9 +84,9 @@ class Views:
         for tournament in tournaments:
 
             print(
-                "tournament name ::  " + tournament['name'],
-                "\ntournament place ::  " + tournament["place"],
-                "\ntournament date ::  " + tournament["date"],
+                "tournament name ::  " + tournament.name,
+                "\ntournament place ::  " + tournament.place,
+                "\ntournament date ::  " + tournament.date,
                 "\n tournament id ::  " + str(tournament.doc_id),
                 "\n----------------------------------------"
                 )
