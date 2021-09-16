@@ -46,6 +46,7 @@ class Views:
                   f"{player.first_name} {player.birth_date}"
                   f" {player.ranking}"
                   )
+        print("\n")
 
     def _error(self, error_name):
         if "player_name_exist" in error_name:

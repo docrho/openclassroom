@@ -1,3 +1,5 @@
+import json
+
 class Player:
 
     def __init__(self, last_name="", first_name="", birth_date="", gender="",
@@ -38,10 +40,9 @@ class Player:
                                )
         return player_list
 
-    def get_all_players_in_tournament(self, tournament_id: int):
+    def get_all_players_in_tournament(self, tournament_data: list):
 
-        tournament = self.tournament.get(doc_id=tournament_id)
-        players_deserialized = json.loads(tournament["players"])
+        players_deserialized = json.loads(tournament_data["players"])
         return players_deserialized
 
     def get_all_players_id(self, all_players):
