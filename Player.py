@@ -40,10 +40,23 @@ class Player:
                                )
         return player_list
 
-    def get_all_players_in_tournament(self, tournament_data: list):
 
+    def get_all_players_in_tournament(self, tournament_data: list):
+        players = []
         players_deserialized = json.loads(tournament_data["players"])
-        return players_deserialized
+        for player in players_deserialized:
+            players.append(Player(
+                player["lastname"],
+                player["first_name"],
+                player["birth_date"],
+                player["gender"],
+                player["ranking"],
+                player["points"],
+                "" #passing string to the doc id
+                                      )
+            )
+
+        return players
 
     def get_all_players_id(self, all_players):
         all_id = []

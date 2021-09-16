@@ -171,6 +171,8 @@ while True:
             )
             match = Match()
             first_match = match.first_match(tournament_players_list)
+            player_list = player.list_all_players(tournament_players_list)
+            v.display_all_players(player_list)
             print(first_match)
         else:
             v.load_page("error", "tournament_id")
