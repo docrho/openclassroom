@@ -1,5 +1,5 @@
 import Player
-
+import json
 
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
@@ -20,12 +20,16 @@ class Tournament:
         ####attribute from method
         self.tournament_list = []
         self.all_tournament_list = []
+        self.players_in_tournament = []
 
     def __str__(self):
         return f"{self.name} {self.date}"
 
     def status(self):
         return
+    def get_all_players_in_tournament(self,):
+        return self.tournament_list
+
     def tournament_instance_list(self,all_tournament):
         self.tournament_list = []
         for tournament_data in all_tournament:

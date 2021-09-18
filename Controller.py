@@ -138,11 +138,9 @@ while True:
             v.load_page("error", "tournament_id")
     elif responsemenu == "9":  # Match
 
-        tournament_list = tournament.tournament_instance_list(
-            db.tournament.all()
-        )
+        tournament.tournament_instance_list(db.tournament.all())
 
-        v.load_page("list_tournament", tournament_list)
+        v.load_page("list_tournament", tournament.tournament_list)
         # store the response on variable tournament_id
         tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
         tournaments_list = []  # the variable where to store the tournament
@@ -151,14 +149,11 @@ while True:
             # add to the variable the tournament who matched the query
             tournament_data = db.tournament.get(doc_id=tournament_id)
             #creating instance
-            tournaments_list = tournament.tournament_instance(
-                tournament_data
-            )
-            v.load_page("list_tournament", tournaments_list)
+            tournament.tournament_instance(tournament_data)
+            v.load_page("list_tournament", tournament.tournament_list)
             # extract players from tournament
-            tournament_players_list = player.get_all_players_in_tournament(
-                tournament_data
-            )
+            #attention trouver le bug
+            tournament_players_list = tournament.tournament_list[0].players
             match = Match()
             first_match = match.first_match(tournament_players_list)
             print(first_match)

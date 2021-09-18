@@ -43,10 +43,7 @@ class Player:
                                )
         return self.all_players
 
-    def get_all_players_in_tournament(self, tournament_data: list):
 
-        players_deserialized = json.loads(tournament_data["players"])
-        return players_deserialized
 
     def get_all_players_id(self, all_players):
 
