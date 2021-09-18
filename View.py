@@ -1,11 +1,10 @@
 
 class Views:
-    def remove_player(self):
-        player = []
+    def remove_player(self, player):
         print("Type the Lastname of the player that you want to delete")
-        player.append(input())
+        player.lastname = input()
         print("Type the date of birth of the player that you want to delete")
-        player.append(input())
+        player.birth_date = input()
         return player
 
     def player_successfully_added_or_not(self, added, player):
@@ -163,7 +162,7 @@ class Views:
             # arg[0] is a boolean if added or not, arg[1] is player data
             return self.player_successfully_added_or_not(args[0], args[1])
         elif page_name == "remove_player":
-            return self.remove_player()
+            return self.remove_player(args[0])
         elif page_name == "display_all_players":
             return self.display_all_players(args[0])
         elif page_name == "create_tournament":

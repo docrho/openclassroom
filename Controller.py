@@ -75,9 +75,10 @@ while True:
         v.load_page("player_successfully_added_or_not", added, player_prompt)
 
     elif responsemenu == "4":  # remove a player on Player database
-        player_to_remove = v.remove_player()
+        player_to_remove = v.remove_player(Player())
         # player contain a list that contain lastname and birth_date from view
-        if db.remove_players(player_to_remove[0], player_to_remove[1]):
+        if db.remove_players(player_to_remove.lastname,
+                             player_to_remove.birth_date):
             v.load_page("success", "player_removed")
         else:
             v.load_page("error", "player_not_removed")
@@ -104,10 +105,8 @@ while True:
             # add to the variable all tournament matched the query
             tournament_data = db.tournament.get(doc_id=tournament_id)
             # display the tournament selected
-            tournaments_list = tournament.tournament_instance(
-                tournament_data
-            )
-            v.load_page("list_tournament", tournament_list)
+            tournament.tournament_instance(tournament_data)
+            v.load_page("list_tournament", tournament.tournament_list)
 
             while responsemenu != "6":  # condition to exit the loop
                 v.load_page("update_tournament_menu")
