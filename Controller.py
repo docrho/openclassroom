@@ -4,7 +4,7 @@ import json
 from Match import Match
 from Player import Player
 from Tournament import Tournament
-player=Player()
+player = Player()
 v = View.Views()
 db = DbManager()
 tournament = Tournament()

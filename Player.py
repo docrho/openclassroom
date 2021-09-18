@@ -11,6 +11,9 @@ class Player:
         self.ranking = ranking
         self.point = point
         self.doc_id = doc_id
+        #attribute report from method
+        self.all_players = []
+        self.all_players_id = []
 
     def __str__(self):
         return self.lastname
@@ -26,7 +29,7 @@ class Player:
         return True
 
     def list_all_players(self, all_player_data):
-        player_list = []
+        self.all_players = []
         for player_data in all_player_data:
             player_list.append(Player(
                 player_data["lastname"],
@@ -38,7 +41,7 @@ class Player:
                 player_data.doc_id
                                       )
                                )
-        return player_list
+        return self.all_players
 
     def get_all_players_in_tournament(self, tournament_data: list):
 
@@ -46,7 +49,7 @@ class Player:
         return players_deserialized
 
     def get_all_players_id(self, all_players):
-        all_id = []
+
         for player in all_players:  # taking all id
-            all_id.append(player.doc_id)
-        return all_id
+            self.all_players_id.append(player.doc_id)
+        return self.all_players_id

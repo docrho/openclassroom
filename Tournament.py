@@ -16,7 +16,9 @@ class Tournament:
         self.description = description
         self.rounds_list = []
         self.tours_list = []
-        self.doc_id = doc_id
+        self.doc_id = doc_idall_id
+        ####attribute from method
+        self.tournament_list = []
 
     def __str__(self):
         return f"{self.name} {self.date}"
@@ -42,8 +44,8 @@ class Tournament:
         return tournament_list
 
     def tournament_instance(self, tournament):
-        tournament_list = []
-        tournament_list.append(
+        self.tournament_list = []
+        self.tournament_list.append(
             Tournament(
                 tournament["name"],
                 tournament["place"],
@@ -56,5 +58,5 @@ class Tournament:
             )
 
         )
-        return tournament_list
+        return self.tournament_list
 
