@@ -21,8 +21,8 @@ class Player:
     def __repr__(self):
         return self.lastname
 
-    def player_id_checking(self, ids: list, all_players):
-        all_id = self.get_all_players_id(all_players)
+    def player_id_checking(self, ids: list):
+        all_id = self.get_all_players_id(self.all_players)
         for id in ids:
             if str(id) not in str(all_id):
                 return False
@@ -31,7 +31,7 @@ class Player:
     def list_all_players(self, all_player_data):
         self.all_players = []
         for player_data in all_player_data:
-            player_list.append(Player(
+            self.all_players.append(Player(
                 player_data["lastname"],
                 player_data["first_name"],
                 player_data["birth_date"],

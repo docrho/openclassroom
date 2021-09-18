@@ -31,20 +31,18 @@ while True:
         v.load_page('display_tournament')
 
     elif responsemenu == "2":  # create new tournament
-        # displaying all player on the console
-        all_players_data = db.players.all()
-        player_list = player.list_all_players(
-            all_players_data
-        )
-        v.load_page("display_all_players", player_list)
-        # return the 8 player number prompt taht we want to select
+        # store on attribute all player from database
+        player.list_all_players(db.players.all())
+        # we are displaying all player ,like this we can choose them by id
+        v.load_page("display_all_players", player.all_players)
+        # return the 8 player number prompt that we want to select
         player_id_list = v.load_page("create_tournament_players")
         # checking up if the id exist on all_id list
-        id_exist = player.player_id_checking(player_id_list, all_players_data)
+        id_exist = player.player_id_checking(player_id_list)
         if id_exist:
             player_selected = []
-            # getting all player from database with doc_id
             for player_id in player_id_list:
+                # getting all player from database with doc_id
                 # adding on player selected each player from id
                 player_selected.append(db.players.get(doc_id=int(player_id)))
             # serialize player to put them on database
@@ -65,17 +63,14 @@ while True:
     elif responsemenu == "3":  # add a player on Player database
 
         # init a player that we will send it to view
-        player_prompt = Player()
-        player_prompt = v.load_page("add_player_view", player_prompt)
+        #player_prompt = Player()
+        player_prompt = v.load_page("add_player_view", Player())
         # Taking all player data to compare them with current player,
         # its for avoiding double
-        all_players_data = db.players.all()
         # instancing the deserialized data
-        player_list = player.list_all_players(
-            all_players_data
-        )
+        player.list_all_players(db.players.all())
         # add_player return True if there is no double
-        added = db.add_player(player_list, player_prompt)
+        added = db.add_player(player.all_players, player_prompt)
         # load a page to print successfull or not
         v.load_page("player_successfully_added_or_not", added, player_prompt)
 
@@ -88,10 +83,8 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
-        player = Player()
-        player_data = db.players.all()
-        player_list = player.list_all_players(player_data)
-        v.display_all_players(player_list)
+        player.list_all_players(db.players.all())
+        v.display_all_players(player.all_players)
 
     elif responsemenu == "6":  # Remove a tournament
         if db.remove_tournament(v.response_input()):
@@ -100,10 +93,8 @@ while True:
             v.load_page("error", "tournament_not_removed")
 
     elif responsemenu == "7":  # List all tournament
-        tournament_list = tournament.tournament_instance_list(
-            db.tournament.all()
-        )
-        v.load_page("list_tournament", tournament_list)
+        tournament.tournament_instance_list(db.tournament.all())
+        v.load_page("list_tournament", tournament.tournament_list)
 
     elif responsemenu == "8":  # update a tournament
         # store the response on variable tournament_id

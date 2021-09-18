@@ -16,9 +16,10 @@ class Tournament:
         self.description = description
         self.rounds_list = []
         self.tours_list = []
-        self.doc_id = doc_idall_id
+        self.doc_id = doc_id
         ####attribute from method
         self.tournament_list = []
+        self.all_tournament_list = []
 
     def __str__(self):
         return f"{self.name} {self.date}"
@@ -26,9 +27,9 @@ class Tournament:
     def status(self):
         return
     def tournament_instance_list(self,all_tournament):
-        tournament_list = []
+        self.tournament_list = []
         for tournament_data in all_tournament:
-            tournament_list.append(
+            self.tournament_list.append(
                 Tournament(
                     tournament_data["name"],
                     tournament_data["place"],
@@ -41,7 +42,7 @@ class Tournament:
                 )
 
             )
-        return tournament_list
+        return self.tournament_list
 
     def tournament_instance(self, tournament):
         self.tournament_list = []
