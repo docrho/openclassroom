@@ -4,10 +4,13 @@ import json
 from Match import Match
 from Player import Player
 from Tournament import Tournament
+
 player = Player()
 v = View.Views()
 db = DbManager()
 tournament = Tournament()
+
+
 # function######
 
 
@@ -38,23 +41,21 @@ while True:
         # return the 8 player number prompt that we want to select
         player_id_list = v.load_page("create_tournament_players")
         # checking up if the id exist on all_id list
-        id_exist = player.player_id_checking(player_id_list)
-        if id_exist:
-            player_selected = []
+        # player_id_checking method return boolean
+        if player.player_id_checking(player_id_list):
             for player_id in player_id_list:
                 # getting all player from database with doc_id
                 # adding on player selected each player from id
-                player_selected.append(db.players.get(doc_id=int(player_id)))
-            # serialize player to put them on database
-            player_selected = json.dumps(player_selected)
+                player.append_player_from_id(
+                    db.players.get(doc_id=int(player_id))
+                )
+            # serialize player
+            player.serialize_player()
             # calling view for ask tournament name prompt ....
             tournament_info = v.create_tournament()
-            # creating tournament with tournament Class
-            tournament = Tournament(
-                tournament_info['name'], tournament_info['place'],
-                tournament_info['date'], "4", player_selected,
-                tournament_info['time'], tournament_info['description'],
-            )
+            # creating tournament with tournament method
+            tournament.add_tournament_info(tournament_info,
+                                           player.serialized_players_list)
             # store tournament on database
             db.store_tournament(tournament)
         else:
@@ -63,16 +64,16 @@ while True:
     elif responsemenu == "3":  # add a player on Player database
 
         # init a player that we will send it to view
-        #player_prompt = Player()
+        # player_prompt = Player()
         player_prompt = v.load_page("add_player_view", Player())
         # Taking all player data to compare them with current player,
         # its for avoiding double
         # instancing the deserialized data
         player.list_all_players(db.players.all())
         # add_player return True if there is no double
-        added = db.add_player(player.all_players, player_prompt)
+        added_bol = db.add_player(player.all_players, player_prompt)
         # load a page to print successfull or not
-        v.load_page("player_successfully_added_or_not", added, player_prompt)
+        v.load_page("player_successfully_added_or_not", added_bol, player_prompt)
 
     elif responsemenu == "4":  # remove a player on Player database
         player_to_remove = v.remove_player(Player())
@@ -148,11 +149,11 @@ while True:
         if db.tournament_id_check(tournament_id):
             # add to the variable the tournament who matched the query
             tournament_data = db.tournament.get(doc_id=tournament_id)
-            #creating instance
+            # creating instance
             tournament.tournament_instance(tournament_data)
             v.load_page("list_tournament", tournament.tournament_list)
             # extract players from tournament
-            #attention trouver le bug
+            # attention trouver le bug
             tournament_players_list = tournament.tournament_list[0].players
             match = Match()
             first_match = match.first_match(tournament_players_list)

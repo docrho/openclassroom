@@ -21,16 +21,19 @@ class Tournament:
         self.tournament_list = []
         self.all_tournament_list = []
         self.players_in_tournament = []
+        self.tournament_info = []
 
     def __str__(self):
         return f"{self.name} {self.date}"
-
-    def status(self):
-        return
-    def get_all_players_in_tournament(self,):
-        return self.tournament_list
-
-    def tournament_instance_list(self,all_tournament):
+    def add_tournament_info(self,tournament_info, serialized_players_list):
+        self.name = tournament_info['name']
+        self.place = tournament_info['place']
+        self.date = tournament_info['date']
+        self.time = tournament_info['time']
+        self.description = tournament_info['description']
+        self.place = tournament_info['place']
+        self.players = serialized_players_list
+    def tournament_instance_list(self, all_tournament):
         self.tournament_list = []
         for tournament_data in all_tournament:
             self.tournament_list.append(
