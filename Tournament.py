@@ -1,5 +1,6 @@
 import Player
 import json
+from Db import DbManager
 
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
@@ -22,6 +23,7 @@ class Tournament:
         self.all_tournament_list = []
         self.players_in_tournament = []
         self.tournament_info = []
+        self.db = DbManager()
 
     def __str__(self):
         return f"{self.name} {self.date}"
@@ -33,10 +35,10 @@ class Tournament:
         self.description = tournament_info['description']
         self.place = tournament_info['place']
         self.players = serialized_players_list
-    def tournament_instance_list(self, all_tournament):
-        self.tournament_list = []
+
+    def _all_tournament_instance(self, all_tournament):
         for tournament_data in all_tournament:
-            self.tournament_list.append(
+            self.all_tournament_list.append(
                 Tournament(
                     tournament_data["name"],
                     tournament_data["place"],
@@ -49,22 +51,22 @@ class Tournament:
                 )
 
             )
-        return self.tournament_list
+        return self.all_tournament_list
 
     def tournament_instance(self, tournament):
-        self.tournament_list = []
-        self.tournament_list.append(
-            Tournament(
-                tournament["name"],
-                tournament["place"],
-                tournament["date"],
-                tournament["nb_turn"],
-                tournament["players"],
-                tournament["time"],
-                tournament["description"],
-                tournament.doc_id,
-            )
+        self.name = tournament["name"]
+        self.place = tournament["place"]
+        self.date = tournament["date"]
+        self.nb_turn = tournament["nb_turn"]
+        self.players = tournament["players"]
+        self.time = tournament["time"]
+        self.description = tournament["description"]
+        self.doc_id = tournament.doc_id
+        return True
 
-        )
-        return self.tournament_list
+    def remove_tournament(self,id):
+        self.db.remove_tournament(id)
+
+    def list_all_tournament(self):
+        return self._all_tournament_instance(self.db.tournament.all())
 

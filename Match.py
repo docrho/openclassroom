@@ -3,6 +3,15 @@ from operator import itemgetter
 
 class Match:
 
+    def __init__(self, player1, player2):
+        self.player1 = player1
+        self.player2 = player2
+
+    def white_or_black(self, player1, player2):
+        player1.color = "black"
+        player2.color = "white"
+        return True
+
     def first_match(self, players_list: list):
         sorted_list = sorted(players_list, key=itemgetter("ranking"))
         players_match = {}

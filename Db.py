@@ -28,7 +28,7 @@ class DbManager(TinyDB):
 
     def add_player(self, playerlist, player):
         for playerinlist in playerlist:
-
+            #checking if player exist
             if playerinlist.lastname == player.lastname \
                     and playerinlist.first_name == player.first_name \
                     and playerinlist.birth_date == player.birth_date:
