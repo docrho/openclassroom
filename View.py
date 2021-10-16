@@ -1,5 +1,8 @@
 
 class Views:
+    def start_match(self):
+        print("Type 1 to start match or 0 to leave")
+        return input()
     def remove_player(self, player):
         print("Type the Lastname of the player that you want to delete")
         player.lastname = input()
@@ -47,6 +50,15 @@ class Views:
                   )
         print("\n")
 
+    def display_all_players_from_tournament(self, all_players):
+        print("Player list:\n")
+        for player in all_players:
+            print(f"{player.lastname} "
+                  f"{player.first_name} {player.birth_date}"
+                  f" {player.ranking}"
+                  )
+        print("\n")
+
     def _error(self, error_name):
         if "player_name_exist" in error_name:
             print("le player name already exist\n")
@@ -80,16 +92,26 @@ class Views:
     def _tournaments_displays(self):
         print("ont load le tournament")
 
-    def list_tournaments(self, tournaments: list):
-        for tournament in tournaments:
+    def list_tournaments(self, tournaments):
+        if isinstance(tournaments, list):
+            for tournament in tournaments:
 
+                print(
+                    "tournament name ::  " + tournament.name,
+                    "\ntournament place ::  " + tournament.place,
+                    "\ntournament date ::  " + tournament.date,
+                    "\n tournament id ::  " + str(tournament.doc_id),
+                    "\n----------------------------------------"
+                    )
+        else:
             print(
-                "tournament name ::  " + tournament.name,
-                "\ntournament place ::  " + tournament.place,
-                "\ntournament date ::  " + tournament.date,
-                "\n tournament id ::  " + str(tournament.doc_id),
+                "tournament name ::  " + tournaments.name,
+                "\ntournament place ::  " + tournaments.place,
+                "\ntournament date ::  " + tournaments.date,
+                "\n tournament id ::  " + str(tournaments.doc_id),
                 "\n----------------------------------------"
-                )
+            )
+
 
     def _create_tournament_players(self):
         choice_list = []
@@ -165,6 +187,8 @@ class Views:
             return self.remove_player(args[0])
         elif page_name == "display_all_players":
             return self.display_all_players(args[0])
+        elif page_name == "display_all_players_from_tournament":
+            return self.display_all_players_from_tournament(args[0])
         elif page_name == "create_tournament":
             return self.create_tournament()
         elif page_name == "success":

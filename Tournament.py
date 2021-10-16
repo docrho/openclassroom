@@ -1,6 +1,7 @@
 import Player
 import json
 from Db import DbManager
+from Match import Match
 
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
@@ -58,15 +59,22 @@ class Tournament:
         self.place = tournament["place"]
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
-        self.players = tournament["players"]
+        #deserialising player from databse
+        self.players = json.loads(tournament["players"])
         self.time = tournament["time"]
         self.description = tournament["description"]
         self.doc_id = tournament.doc_id
         return True
 
-    def remove_tournament(self,id):
-        self.db.remove_tournament(id)
+    def remove_tournament(self):
+        self.db.remove_tournament(self.doc_id)
 
     def list_all_tournament(self):
         return self._all_tournament_instance(self.db.tournament.all())
+
+    def tournament_id_checking(self, id):
+        return self.db.tournament_id_check(id)
+
+    def get_tournament_by_id(self, id):
+        return self.db.tournament.get(doc_id= id)
 

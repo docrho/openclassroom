@@ -47,6 +47,7 @@ class Player:
                 return False
         return True
 
+    @staticmethod
     def list_all_players(self):
         all_players_data = self.db.players.all()
         self.all_players = []
@@ -63,6 +64,18 @@ class Player:
                                )
         return self.all_players
 
+    def player_instance(self, players_data):
+        for player in players_data:
+            self.players_list.append(Player(
+                player["lastname"],
+                player["first_name"],
+                player["birth_date"],
+                player["gender"],
+                player["ranking"],
+                player["points"],
+                                      )
+                               )
+        return self.players_list
     def get_all_players_id(self, all_players):
 
         for player in all_players:  # taking all id

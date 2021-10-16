@@ -1,12 +1,11 @@
 from Db import DbManager
 import View
-import json
 from Match import Match
 from Player import Player
 from Tournament import Tournament
 
 v = View.Views()
-
+db = DbManager()
 # function######
 
 
@@ -26,10 +25,40 @@ while True:
         break
 
     elif responsemenu == "1":  # load tournament
-        v.load_page('display_tournament')
+        tournament = Tournament()
+        player = Player()
+        # store the response on variable tournament_id
+
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
+        # checking if the tournament id exist
+        if tournament.tournament_id_checking(tournament_id):
+            # adding tournament from database on tournament instance
+            tournament.tournament_instance(tournament.get_tournament_by_id(
+                tournament_id)
+            )
+            tournament_players_list = tournament.players
+            v.load_page("list_tournament", tournament)
+            #instancing player from tournament.players
+            tournament.players = player.player_instance(tournament.players)
+            while True:
+                v.display_all_players_from_tournament(tournament.players)
+                responsemenu = v.start_match()
+                if responsemenu == '0':
+                    break
+                else:
+                    match = Match(list(tournament_players_list))
+                    first_match = match.first_match()
+                    print(first_match)
+
+                ###should tournament.start_match
+
+
+
+
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()
+        player = Player()
         # store on attribute all player from database
         list_players = player.list_all_players()
         # we are displaying all player ,like this we can choose them by id
@@ -39,6 +68,7 @@ while True:
         # checking up if the id prompted exist
         if player.players_id_checking(player_id_list):
             #this method add player and serialize them
+            #verifier les id dans append, la methode static
             player.append_player_from_id(player_id_list)
             # calling view for ask tournament name prompt ....
             tournament_info = v.create_tournament()
@@ -57,9 +87,9 @@ while True:
         # Taking all player data to compare them with current player,
         # its for avoiding double
         # instancing the deserialized data
-        player.list_all_players()
+        list_all_players = Player.list_all_players()#static
         # add_player return True if there is no double on database
-        added_bol = db.add_player(player.all_players, player_prompt)
+        added_bol = db.add_player(list_all_players, player_prompt)
         # load a page to print successfull or not
         v.load_page("player_successfully_added_or_not",
                     added_bol,
@@ -76,10 +106,15 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
-        player.list_all_players()
-        v.display_all_players(player.all_players)
+        v.display_all_players(Player.list_all_players()) # static
 
     elif responsemenu == "6":  # Remove a tournament
+        tournament = Tournament() #static needed
+        # le remove doit fonctionner que après une instance de tournois
+        #ensuite remove on ne devrai pas specifier l id quand on remove
+        #car c est déja instancié
+        #remove from id
+        ###########################
         if tournament.remove_tournament(v.response_input()):
             v.load_page("success", "tournament_removed")
         else:
@@ -87,21 +122,20 @@ while True:
 
     elif responsemenu == "7":  # List all tournament
         tournament = Tournament()
-        tournament.list_all_tournament()
+        tournament.list_all_tournament()#static
         v.load_page("list_tournament", tournament.all_tournament_list)
 
     elif responsemenu == "8":  # update a tournament
+        tournament = Tournament()
         # store the response on variable tournament_id
         tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
         # checking if the tournament id exist
-
-        ## faire tout en une etape
-        if db.tournament_id_check(tournament_id): # a mettre dans tournament
+        if tournament.tournament_id_checking(tournament_id):
             # adding tournament from database on tournament instance
-            tournament.tournament_instance(db.tournament.get(
-                doc_id=tournament_id))
-            v.load_page("list_tournament", tournament.tournament_list)
-        #########jusque ici########
+            tournament.tournament_instance(tournament.get_tournament_by_id(
+                tournament_id)
+            )
+            v.load_page("list_tournament", tournament)
             while responsemenu != "6":  # condition to exit the loop
                 v.load_page("update_tournament_menu")
                 responsemenu = v.basic_input()
@@ -126,19 +160,17 @@ while True:
                         "description", tournament_id,
                         v.load_page("change_tournament_prompt"))
                 if responsemenu == "5":
-                    db.remove_tournament(tournament_id)
+                    tournament.remove_tournament(tournament_id)
 
         else:
             v.load_page("error", "tournament_id")
     elif responsemenu == "9":  # Match
+        tournament = Tournament()
+        tournament._all_tournament_instance()
 
-        tournament.tournament_instance_list(db.tournament.all())
-
-        v.load_page("list_tournament", tournament.tournament_list)
+        v.load_page("list_tournament", tournament.all_tournament_list)
         # store the response on variable tournament_id
         tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
-        tournaments_list = []  # the variable where to store the tournament
-        # checking if the tournament id exist
         ########
 
         ######faire une seule etape cela doit rester caché#####
