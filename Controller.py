@@ -60,28 +60,27 @@ while True:
         tournament = Tournament()
         player = Player()
         # store on attribute all player from database
-        list_players = player.list_all_players()
+        list_players = Player.list_all_players()
         # we are displaying all player ,like this we can choose them by id
         v.load_page("display_all_players", list_players)
         # return the 8 player number prompt that we want to select
         player_id_list = v.load_page("create_tournament_players")
         # checking up if the id prompted exist
-        if player.players_id_checking(player_id_list):
+        if Player.players_id_checking(player_id_list):
             #this method add player and serialize them
             #verifier les id dans append, la methode static
-            player.append_player_from_id(player_id_list)
+            Player.append_player_from_id(player_id_list)
             # calling view for ask tournament name prompt ....
             tournament_info = v.create_tournament()
             # creating tournament with tournament method
             tournament.add_tournament_info(tournament_info,
-                                           player.serialized_players_list)
+                                           Player.serialized_players_list)
             # store tournament on database
             db.store_tournament(tournament)
         else:
             v.load_page("error", "player_id")
 
     elif responsemenu == "3":  # add a player on Player database
-        player = Player()
         # init a player that we will send it to view
         player_prompt = v.load_page("add_player_view", Player())
         # Taking all player data to compare them with current player,
@@ -106,7 +105,7 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
-        v.display_all_players(Player.list_all_players()) # static
+        v.display_all_players(Player().list_all_players())
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament() #static needed

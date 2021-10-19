@@ -25,6 +25,7 @@ class Player:
     def __repr__(self):
         return self.lastname
 
+    @staticmethod
     def append_player_from_id(self, player_id_list):
         for player_id in player_id_list:
             # getting all player from database with doc_id
@@ -36,10 +37,12 @@ class Player:
         self.serialize_player()
         return self.players_list
 
+    @staticmethod
     def serialize_player(self,):
         self.serialized_players_list = json.dumps(self.players_list)
         return self.serialized_players_list
 
+    @staticmethod
     def players_id_checking(self, ids: list): # checking if id exist
         all_id = self.get_all_players_id(self.all_players)
         for id in ids:
@@ -48,7 +51,7 @@ class Player:
         return True
 
     @staticmethod
-    def list_all_players(self):
+    def list_all_players(self,):
         all_players_data = self.db.players.all()
         self.all_players = []
         for player_data in all_players_data:
