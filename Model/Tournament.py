@@ -1,7 +1,7 @@
-import Player
+from Model.Player import Player
 import json
-from Db import DbManager
-from Match import Match
+from Model.Db import DbManager
+
 
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
