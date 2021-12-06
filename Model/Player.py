@@ -49,12 +49,8 @@ class Player:
                 return False
         return True
 
-<<<<<<< HEAD:Player.py
-    @staticmethod
-    def list_all_players(self,):
-=======
+
     def list_all_players(self):
->>>>>>> 632d506081e6636610ce961bf952e8262e4a882e:Model/Player.py
         all_players_data = self.db.players.all()
         self.all_players = []
         for player_data in all_players_data:
@@ -82,6 +78,7 @@ class Player:
                                       )
                                )
         return self.players_list
+    
     def get_all_players_id(self, all_players):
 
         for player in all_players:  # taking all id
