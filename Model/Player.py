@@ -78,7 +78,7 @@ class Player:
                                       )
                                )
         return self.players_list
-    
+
     def get_all_players_id(self, all_players):
 
         for player in all_players:  # taking all id

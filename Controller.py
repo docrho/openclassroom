@@ -105,13 +105,10 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
-<<<<<<< HEAD
-        v.display_all_players(Player().list_all_players())
-=======
+
         player = Player()
         v.display_all_players(player.list_all_players())
         player.all_players
->>>>>>> 632d506081e6636610ce961bf952e8262e4a882e
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament() #static needed
