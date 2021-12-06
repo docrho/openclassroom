@@ -1,5 +1,5 @@
 import json
-from Db import DbManager
+from Model.Db import DbManager
 class Player:
 
     def __init__(self, last_name="", first_name="", birth_date="", gender="",
@@ -11,7 +11,6 @@ class Player:
         self.ranking = ranking
         self.point = point
         self.doc_id = doc_id
-        self.color = ""
         #attribute report from method
         self.all_players = []
         self.all_players_id = []
@@ -50,8 +49,12 @@ class Player:
                 return False
         return True
 
+<<<<<<< HEAD:Player.py
     @staticmethod
     def list_all_players(self,):
+=======
+    def list_all_players(self):
+>>>>>>> 632d506081e6636610ce961bf952e8262e4a882e:Model/Player.py
         all_players_data = self.db.players.all()
         self.all_players = []
         for player_data in all_players_data:

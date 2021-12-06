@@ -1,5 +1,5 @@
 from operator import itemgetter
-from Player import Player
+from Model.Player import Player
 
 class Match:
 

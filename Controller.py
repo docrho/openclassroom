@@ -1,8 +1,8 @@
-from Db import DbManager
+from Model.Db import DbManager
 import View
-from Match import Match
-from Player import Player
-from Tournament import Tournament
+from Model.Match import Match
+from Model.Player import Player
+from Model.Tournament import Tournament
 
 v = View.Views()
 db = DbManager()
@@ -13,7 +13,7 @@ def home():
     v.load_page("home")
     response = str(input())
     return response
-
+    p
 
 # starting app####
 
@@ -105,7 +105,13 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
+<<<<<<< HEAD
         v.display_all_players(Player().list_all_players())
+=======
+        player = Player()
+        v.display_all_players(player.list_all_players())
+        player.all_players
+>>>>>>> 632d506081e6636610ce961bf952e8262e4a882e
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament() #static needed
