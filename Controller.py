@@ -6,7 +6,7 @@ from Player import Player
 from Tournament import Tournament
 
 v = View.Views()
-
+db = DbManager()
 # function######
 
 
@@ -76,6 +76,7 @@ while True:
             v.load_page("error", "player_not_removed")
 
     elif responsemenu == "5":  # list all players from Player database
+        player = Player()
         player.list_all_players()
         v.display_all_players(player.all_players)
 
@@ -131,13 +132,14 @@ while True:
         else:
             v.load_page("error", "tournament_id")
     elif responsemenu == "9":  # Match
-
-        tournament.tournament_instance_list(db.tournament.all())
+        tournament = Tournament()
+        ##instancie tout les tournois
+        tournament.all_tournament_instance(db.tournament.all())
 
         v.load_page("list_tournament", tournament.tournament_list)
         # store the response on variable tournament_id
         tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
-        tournaments_list = []  # the variable where to store the tournament
+
         # checking if the tournament id exist
         ########
 
@@ -152,9 +154,10 @@ while True:
             v.load_page("list_tournament", tournament.tournament_list)
             # extract players from tournament
             # attention trouver le bug
-            tournament_players_list = tournament.tournament_list[0].players
+            tournament_players_list = tournament.players
             match = Match()
-            first_match = match.first_match(tournament_players_list)
+            print(tournament.players)
+            first_match = match.first_match2(tournament.players)
             print(first_match)
         else:
             v.load_page("error", "tournament_id")

@@ -61,7 +61,7 @@ class Player:
                 player_data.doc_id
                                       )
                                )
-        return self.all_players
+        return all_players
 
     def get_all_players_id(self, all_players):
 

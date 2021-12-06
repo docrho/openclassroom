@@ -1,12 +1,14 @@
 import Player
 import json
 from Db import DbManager
+from Match import Match
 
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
                  date: str = "", nb_turn: int = "",
                  players: list[Player] = "", time: str = "",
-                 description: str = "", doc_id: int = ""
+                 description: str = "", doc_id: int = "",
+                 round: list = list
                  ):
         self.name = name
         self.place = place
@@ -15,7 +17,7 @@ class Tournament:
         self.players = players
         self.time = time
         self.description = description
-        self.rounds_list = []
+        self.rounds_list = round
         self.tours_list = []
         self.doc_id = doc_id
         ####attribute from method
@@ -36,7 +38,7 @@ class Tournament:
         self.place = tournament_info['place']
         self.players = serialized_players_list
 
-    def _all_tournament_instance(self, all_tournament):
+    def all_tournament_instance(self, all_tournament):
         for tournament_data in all_tournament:
             self.all_tournament_list.append(
                 Tournament(
@@ -68,5 +70,5 @@ class Tournament:
         self.db.remove_tournament(id)
 
     def list_all_tournament(self):
-        return self._all_tournament_instance(self.db.tournament.all())
+        return self.all_tournament_instance(self.db.tournament.all())
 
