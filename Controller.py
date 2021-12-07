@@ -3,7 +3,7 @@ import View
 from Model.Match import Match
 from Model.Player import Player
 from Model.Tournament import Tournament
-
+from Model.Match2 import Match
 v = View.Views()
 db = DbManager()
 # function######
@@ -192,3 +192,7 @@ while True:
             print(first_match)
         else:
             v.load_page("error", "tournament_id")
+
+    elif responsemenu == "10":  # remove a player on Player database
+        match = Match()
+        print(match.match())
