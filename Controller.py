@@ -1,9 +1,10 @@
 from Model.Db import DbManager
 import View
-from Model.Match import Match
 from Model.Player import Player
 from Model.Tournament import Tournament
 from Model.Match2 import Match
+
+from Model.Tour import Tour
 v = View.Views()
 db = DbManager()
 # function######
@@ -36,25 +37,9 @@ while True:
             tournament.tournament_instance(tournament.get_tournament_by_id(
                 tournament_id)
             )
-            tournament_players_list = tournament.players
             v.load_page("list_tournament", tournament)
-            #instancing player from tournament.players
-            tournament.players = player.player_instance(tournament.players)
-            while True:
-                v.display_all_players_from_tournament(tournament.players)
-                responsemenu = v.start_match()
-                if responsemenu == '0':
-                    break
-                else:
-                    match = Match(list(tournament_players_list))
-                    first_match = match.first_match()
-                    print(first_match)
-
-                ###should tournament.start_match
-
-
-
-
+            tour = Tour()
+            tour.tour1(tournament.players)
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()
@@ -194,5 +179,4 @@ while True:
             v.load_page("error", "tournament_id")
 
     elif responsemenu == "10":  # remove a player on Player database
-        match = Match()
-        print(match.match())
+        print()
