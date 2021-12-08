@@ -38,6 +38,7 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
+            #making a tour must be on tournament object
             tour = Tour()
             tour.tour1(tournament.players)
 

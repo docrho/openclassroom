@@ -18,6 +18,7 @@ class Tour:
                              key = itemgetter("ranking"))
         i = 0
         while i<=3:
+
             self.match_list.append(Match(
                 Player(
                     sorted_players_list_by_rank[i]['lastname'],
@@ -40,8 +41,32 @@ class Tour:
         return self.match_list
 
 
-    def tour2(self):
+    def tour2(self,tournament_players):
         self.name = 'Round2'
+        sorted_players_list_by_point = sorted(tournament_players,
+                                             key = itemgetter("points"))
+        i = 0
+        while i <= 3:
+            self.match_list.append(Match(
+                Player(
+                    sorted_players_list_by_point[i]['lastname'],
+                    sorted_players_list_by_point[i]['first_name'],
+                    sorted_players_list_by_point[i]['birth_date'],
+                    sorted_players_list_by_point[i]['gender'],
+                    sorted_players_list_by_point[i]['ranking'],
+                    sorted_players_list_by_point[i]['points'],
+                ),
+                Player(
+                    sorted_players_list_by_point[i]['lastname'],
+                    sorted_players_list_by_point[i]['first_name'],
+                    sorted_players_list_by_point[i]['birth_date'],
+                    sorted_players_list_by_point[i]['gender'],
+                    sorted_players_list_by_point[i]['ranking'],
+                    sorted_players_list_by_point[i]['points'],
+                ),
+            ))
+            i += 1
+            #ajouter condition if point sont egal alors par rank
         return
 
     def tour3(self):
