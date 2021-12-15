@@ -42,7 +42,7 @@ while True:
             #####entrez le resultat ensuite tour 2 entrele resultat
             score = v.load_page("add_score_to_match",
                         tournament.current_tour.match_list)
-
+            print(tournament.current_tour.add_score_to_match(score))
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()

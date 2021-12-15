@@ -72,9 +72,12 @@ class Tour:
 
     #adding result prompt from view to all match from match list
     def add_score_to_match(self, score_from_view: list):
+        match_list_update = []
         for match in self.match_list:
-            listmatch = list(match)
-            listmatch[1] = score_from_view[0]
-            listmatch[3] = score_from_view[1]
-            match = tuple(listmatch)
+            current_match_list = list(match)
+            for seq in range(1):
+                current_match_list[seq+1]= score_from_view[seq]
+            current_match_list = tuple(current_match_list)
+            match_list_update.append(current_match_list)
+            self.match_list = match_list_update
         return self.match_list
