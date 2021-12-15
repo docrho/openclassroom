@@ -17,6 +17,7 @@ class Tournament:
         self.players = players
         self.time = time
         self.description = description
+        #round already played
         self.rounds_list = []
         self.current_tour = Tour()
         self.tours_list = []
@@ -79,4 +80,16 @@ class Tournament:
 
     def get_tournament_by_id(self, id):
         return self.db.tournament.get(doc_id= id)
+
+    def store_tour_already_played(self):
+        self.rounds_list = self.current_tour.match_list
+        return self.rounds_list
+
+#a terminer car quand les players sont trié differement le resultat ne sera pa le meme
+    def store_new_score_on_players(self,score):
+        x= 0
+        for player in self.players:
+            player["points"] = score[x]
+            x+=1
+        return self.players
 
