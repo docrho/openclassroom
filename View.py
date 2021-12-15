@@ -161,10 +161,14 @@ class Views:
 
     def basic_input(self):
         return input()
-    def add_score_to_match(self, match : tuple()):
+    def add_score_to_match(self, tour : list()):
         score_list = []
-        match_list = list(match)
-        match_list []
+        match_list = list(tour)
+        for match in match_list:
+            print(f"Entrez le score pour ce match \n {match}")
+            score_list.append(int(input()))
+        return score_list
+
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
             self._base_menu()
@@ -196,5 +200,7 @@ class Views:
             return self.create_tournament()
         elif page_name == "success":
             return self.success(args[0])
+        elif page_name == "add_score_to_match":
+            return self.add_score_to_match(args[0])
         elif page_name == "error":
             self._error(args)

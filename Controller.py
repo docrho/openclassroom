@@ -38,8 +38,11 @@ while True:
             )
             v.load_page("list_tournament", tournament)
             #making a tour from tournament object
-            print(tournament.tour.tour1(tournament.players))
+            tournament.current_tour.tour1(tournament.players)
             #####entrez le resultat ensuite tour 2 entrele resultat
+            score = v.load_page("add_score_to_match",
+                        tournament.current_tour.match_list)
+
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()

@@ -18,7 +18,7 @@ class Tournament:
         self.time = time
         self.description = description
         self.rounds_list = []
-        self.tour = Tour()
+        self.current_tour = Tour()
         self.tours_list = []
         self.doc_id = doc_id
         ####attribute from method
