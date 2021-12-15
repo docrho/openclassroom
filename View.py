@@ -161,7 +161,10 @@ class Views:
 
     def basic_input(self):
         return input()
-
+    def add_score_to_match(self, match : tuple()):
+        score_list = []
+        match_list = list(match)
+        match_list []
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
             self._base_menu()

@@ -1,4 +1,3 @@
-from Model.Match2 import Match
 from operator import itemgetter
 from Model.Player import Player
 
@@ -12,74 +11,70 @@ class Tour:
         self.end_time = ""
         self.end_Date = ""
 
-    def tour1(self, tournament_players):
+    def tour1(self, tournament_players: Player()):
         self.name = 'Round1'
         sorted_players_list_by_rank = sorted(tournament_players,
                              key = itemgetter("ranking"))
-        i = 0
-        while i<=3:
+        for seq in range(4):
 
-            self.match_list.append(Match(
+            self.match_list.append((
                 Player(
-                    sorted_players_list_by_rank[i]['lastname'],
-                    sorted_players_list_by_rank[i]['first_name'],
-                    sorted_players_list_by_rank[i]['birth_date'],
-                    sorted_players_list_by_rank[i]['gender'],
-                    sorted_players_list_by_rank[i]['ranking'],
-                    sorted_players_list_by_rank[i]['points'],
+                    sorted_players_list_by_rank[seq]['lastname'],
+                    sorted_players_list_by_rank[seq]['first_name'],
+                    sorted_players_list_by_rank[seq]['birth_date'],
+                    sorted_players_list_by_rank[seq]['gender'],
+                    sorted_players_list_by_rank[seq]['ranking'],
+                    sorted_players_list_by_rank[seq]['points'],
                 ),
+                sorted_players_list_by_rank[seq]['points'],
                 Player(
-                    sorted_players_list_by_rank[i+4]['lastname'],
-                    sorted_players_list_by_rank[i+4]['first_name'],
-                    sorted_players_list_by_rank[i+4]['birth_date'],
-                    sorted_players_list_by_rank[i+4]['gender'],
-                    sorted_players_list_by_rank[i+4]['ranking'],
-                    sorted_players_list_by_rank[i+4]['points'],
+                    sorted_players_list_by_rank[seq+4]['lastname'],
+                    sorted_players_list_by_rank[seq+4]['first_name'],
+                    sorted_players_list_by_rank[seq+4]['birth_date'],
+                    sorted_players_list_by_rank[seq+4]['gender'],
+                    sorted_players_list_by_rank[seq+4]['ranking'],
+                    sorted_players_list_by_rank[seq+4]['points'],
                 ),
+                sorted_players_list_by_rank[seq]['points'],
             ))
-            i+=1
         return self.match_list
 
 
     def tour2(self,tournament_players):
-        self.name = 'Round2'
+        self.name = 'Round'
         sorted_players_list_by_point = sorted(tournament_players,
                                              key = itemgetter("points"))
-        i = 0
-        while i <= 3:
-            self.match_list.append(Match(
+        for seq in range(4):
+
+            self.match_list.append((
                 Player(
-                    sorted_players_list_by_point[i]['lastname'],
-                    sorted_players_list_by_point[i]['first_name'],
-                    sorted_players_list_by_point[i]['birth_date'],
-                    sorted_players_list_by_point[i]['gender'],
-                    sorted_players_list_by_point[i]['ranking'],
-                    sorted_players_list_by_point[i]['points'],
+                    sorted_players_list_by_point[seq]['lastname'],
+                    sorted_players_list_by_point[seq]['first_name'],
+                    sorted_players_list_by_point[seq]['birth_date'],
+                    sorted_players_list_by_point[seq]['gender'],
+                    sorted_players_list_by_point[seq]['ranking'],
+                    sorted_players_list_by_point[seq]['points'],
                 ),
+                sorted_players_list_by_point[seq]['points'],
                 Player(
-                    sorted_players_list_by_point[i]['lastname'],
-                    sorted_players_list_by_point[i]['first_name'],
-                    sorted_players_list_by_point[i]['birth_date'],
-                    sorted_players_list_by_point[i]['gender'],
-                    sorted_players_list_by_point[i]['ranking'],
-                    sorted_players_list_by_point[i]['points'],
+                    sorted_players_list_by_point[seq+4]['lastname'],
+                    sorted_players_list_by_point[seq+4]['first_name'],
+                    sorted_players_list_by_point[seq+4]['birth_date'],
+                    sorted_players_list_by_point[seq+4]['gender'],
+                    sorted_players_list_by_point[seq+4]['ranking'],
+                    sorted_players_list_by_point[seq+4]['points'],
                 ),
+                sorted_players_list_by_point[seq]['points'],
             ))
-            i += 1
+        return self.match_list
             #ajouter condition if point sont egal alors par rank
-        return
-
-    def tour3(self):
-        self.name = 'Round3'
-        return
-
-    def tour4(self):
-        self.name = 'Round4'
         return
 
     #adding result prompt from view to all match from match list
     def add_score_to_match(self, score_from_view: list):
         for match in self.match_list:
-            match.score_joueur1 = score_from_view[0]
-            match.score_joueur2 = score_from_view[1]
+            listmatch = list(match)
+            listmatch[1] = score_from_view[0]
+            listmatch[3] = score_from_view[1]
+            match = tuple(listmatch)
         return self.match_list

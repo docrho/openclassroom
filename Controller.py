@@ -14,7 +14,6 @@ def home():
     v.load_page("home")
     response = str(input())
     return response
-    p
 
 # starting app####
 
@@ -38,9 +37,9 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
-            #making a tour must be on tournament object
-            tour = Tour()
-            tour.tour1(tournament.players)
+            #making a tour from tournament object
+            print(tournament.tour.tour1(tournament.players))
+            #####entrez le resultat ensuite tour 2 entrele resultat
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()

@@ -1,4 +1,5 @@
 from Model.Player import Player
+from Model.Tour import Tour
 import json
 from Model.Db import DbManager
 
@@ -17,6 +18,7 @@ class Tournament:
         self.time = time
         self.description = description
         self.rounds_list = []
+        self.tour = Tour()
         self.tours_list = []
         self.doc_id = doc_id
         ####attribute from method

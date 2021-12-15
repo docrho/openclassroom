@@ -50,7 +50,7 @@ class Player:
         return True
 
     def convert_match_list_in_Plist(self):
-
+        return ""
 
     def list_all_players(self):
         all_players_data = self.db.players.all()
