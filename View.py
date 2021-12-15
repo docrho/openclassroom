@@ -167,6 +167,7 @@ class Views:
         for match in match_list:
             print(f"Entrez le score pour ce match \n {match}")
             score_list.append(int(input()))
+            score_list.append(int(input()))
         return score_list
 
     def load_page(self, page_name: str, *args,):
