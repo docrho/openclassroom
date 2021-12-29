@@ -89,7 +89,7 @@ class Tournament:
     def store_new_score_on_players(self, score):
         x= 0
         for player in self.players:
-            player["points"] = score[x]
+            player["points"] = player["points"] + score[x]
             x+=1
         return self.players
 

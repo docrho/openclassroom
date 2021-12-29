@@ -1,6 +1,7 @@
 from operator import itemgetter
 from Model.Player import Player
 
+
 class Tour:
 
     def __init__(self):
@@ -14,7 +15,7 @@ class Tour:
     def tour1(self, tournament_players: Player()):
         self.name = 'Round1'
         sorted_players_list_by_rank = sorted(tournament_players,
-                             key = itemgetter("ranking"))
+                                             key=itemgetter("ranking"))
         for seq in range(4):
 
             self.match_list.append((
@@ -39,11 +40,10 @@ class Tour:
             ))
         return self.match_list
 
-
-    def tour2(self,tournament_players):
+    def tour2(self, tournament_players):
         self.name = 'Round'
         sorted_players_list_by_point = sorted(tournament_players,
-                                             key = itemgetter("points"))
+                                              key=itemgetter("points"))
         for seq in range(4):
 
             self.match_list.append((
@@ -67,10 +67,10 @@ class Tour:
                 sorted_players_list_by_point[seq+4]['points'],
             ))
         return self.match_list
-            #ajouter condition if point sont egal alors par rank
-        return
+        # ajouter condition if point sont egal alors par rank
 
-    #adding result prompt from view to all match from match list
+    # adding result prompt from view to all match from match list
+
     def add_score_to_match(self, score_from_view: list):
         match_list_update = []
         x = 0
@@ -80,6 +80,6 @@ class Tour:
             current_match_list[3] = score_from_view[x+1]
             current_match_list = tuple(current_match_list)
             match_list_update.append(current_match_list)
-            x +=2
+            x += 2
         self.match_list = match_list_update
         return self.match_list
