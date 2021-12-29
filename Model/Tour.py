@@ -44,6 +44,7 @@ class Tour:
         self.name = 'Round'
         sorted_players_list_by_point = sorted(tournament_players,
                                               key=itemgetter("points"))
+        self.match_list = []
         for seq in range(4):
 
             self.match_list.append((
@@ -76,8 +77,8 @@ class Tour:
         x = 0
         for match in self.match_list:
             current_match_list = list(match)
-            current_match_list[1] = score_from_view[x]
-            current_match_list[3] = score_from_view[x+1]
+            current_match_list[1] = current_match_list[1] + score_from_view[x]
+            current_match_list[3] = current_match_list[3]+ score_from_view[x+1]
             current_match_list = tuple(current_match_list)
             match_list_update.append(current_match_list)
             x += 2

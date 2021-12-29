@@ -2,6 +2,8 @@ from Model.Player import Player
 from Model.Tour import Tour
 import json
 from Model.Db import DbManager
+from operator import itemgetter
+
 
 
 class Tournament:
@@ -87,9 +89,17 @@ class Tournament:
 
 #a terminer car quand les players sont trié differement le resultat ne sera pa le meme
     def store_new_score_on_players(self, score):
-        x= 0
-        for player in self.players:
-            player["points"] = player["points"] + score[x]
+        x = 0
+        for self.player in self.players:
+            self.player["points"] = self.player["points"] + score[x]
             x+=1
+        return self.players
+
+    def sort_player_by_rank(self):
+        self.players = sorted(self.players,key=itemgetter("ranking"))
+        return self.players
+
+    def sort_player_by_points(self):
+        self.players = sorted(self.players, key=itemgetter("points"))
         return self.players
 

@@ -38,15 +38,32 @@ while True:
             )
             v.load_page("list_tournament", tournament)
             #making a tour from tournament object
+            tournament.sort_player_by_rank()
             tournament.current_tour.tour1(tournament.players)
             #prompt score from view
             score = v.load_page("add_score_to_match",
                         tournament.current_tour.match_list)
-            print(tournament.current_tour.add_score_to_match(score))
+            tournament.current_tour.add_score_to_match(score)
             ###store round already played on tournament.attribute
-            tournament.store_tour_already_played()
+            #tournament.store_tour_already_played()
             tournament.store_new_score_on_players(score)
             print(tournament.players)
+            #for each 3 other round play the second turn again
+
+
+            for seq in range(3):
+                tournament.sort_player_by_points()
+                tournament.current_tour.tour2(tournament.players)
+                score = v.load_page("add_score_to_match",
+                                    tournament.current_tour.match_list)
+
+                tournament.current_tour.add_score_to_match(score)
+                print(tournament.current_tour.match_list)
+                #tournament.store_tour_already_played()
+                tournament.store_new_score_on_players(score)
+                print(tournament.players)
+
+
             #second turn
 
     elif responsemenu == "2":  # create new tournament
