@@ -69,8 +69,8 @@ class Tournament:
         self.doc_id = tournament.doc_id
         return True
 
-    def remove_tournament(self):
-        self.db.remove_tournament(self.doc_id)
+    def remove_tournament(self, id: int()):
+        self.db.remove_tournament(id)
 
     def list_all_tournament(self):
         return self._all_tournament_instance(self.db.tournament.all())
@@ -86,7 +86,7 @@ class Tournament:
         return self.rounds_list
 
 #a terminer car quand les players sont trié differement le resultat ne sera pa le meme
-    def store_new_score_on_players(self,score):
+    def store_new_score_on_players(self, score):
         x= 0
         for player in self.players:
             player["points"] = score[x]

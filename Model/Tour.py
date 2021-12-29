@@ -35,7 +35,7 @@ class Tour:
                     sorted_players_list_by_rank[seq+4]['ranking'],
                     sorted_players_list_by_rank[seq+4]['points'],
                 ),
-                sorted_players_list_by_rank[seq]['points'],
+                sorted_players_list_by_rank[seq+4]['points'],
             ))
         return self.match_list
 
@@ -64,7 +64,7 @@ class Tour:
                     sorted_players_list_by_point[seq+4]['ranking'],
                     sorted_players_list_by_point[seq+4]['points'],
                 ),
-                sorted_players_list_by_point[seq]['points'],
+                sorted_players_list_by_point[seq+4]['points'],
             ))
         return self.match_list
             #ajouter condition if point sont egal alors par rank
@@ -73,7 +73,7 @@ class Tour:
     #adding result prompt from view to all match from match list
     def add_score_to_match(self, score_from_view: list):
         match_list_update = []
-        x= 0
+        x = 0
         for match in self.match_list:
             current_match_list = list(match)
             current_match_list[1] = score_from_view[x]

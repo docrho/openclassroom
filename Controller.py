@@ -54,20 +54,21 @@ while True:
         player = Player()
         # store on attribute all player from database
         list_players = Player.list_all_players()
+        player.all_players = list_players
         # we are displaying all player ,like this we can choose them by id
         v.load_page("display_all_players", list_players)
         # return the 8 player number prompt that we want to select
         player_id_list = v.load_page("create_tournament_players")
         # checking up if the id prompted exist
-        if Player.players_id_checking(player_id_list):
+        if player.players_id_checking(player_id_list):
             #this method add player and serialize them
             #verifier les id dans append, la methode static
-            Player.append_player_from_id(player_id_list)
+            player.append_player_from_id(player_id_list)
             # calling view for ask tournament name prompt ....
             tournament_info = v.create_tournament()
             # creating tournament with tournament method
             tournament.add_tournament_info(tournament_info,
-                                           Player.serialized_players_list)
+                                           player.serialized_players_list)
             # store tournament on database
             db.store_tournament(tournament)
         else:
