@@ -14,58 +14,55 @@ class Tour:
 
     def tour1(self, tournament_players: Player()):
         self.name = 'Round1'
-        sorted_players_list_by_rank = sorted(tournament_players,
-                                             key=itemgetter("ranking"))
-        for seq in range(4):
-
-            self.match_list.append((
-                Player(
-                    sorted_players_list_by_rank[seq]['lastname'],
-                    sorted_players_list_by_rank[seq]['first_name'],
-                    sorted_players_list_by_rank[seq]['birth_date'],
-                    sorted_players_list_by_rank[seq]['gender'],
-                    sorted_players_list_by_rank[seq]['ranking'],
-                    sorted_players_list_by_rank[seq]['points'],
-                ),
-                sorted_players_list_by_rank[seq]['points'],
-                Player(
-                    sorted_players_list_by_rank[seq+4]['lastname'],
-                    sorted_players_list_by_rank[seq+4]['first_name'],
-                    sorted_players_list_by_rank[seq+4]['birth_date'],
-                    sorted_players_list_by_rank[seq+4]['gender'],
-                    sorted_players_list_by_rank[seq+4]['ranking'],
-                    sorted_players_list_by_rank[seq+4]['points'],
-                ),
-                sorted_players_list_by_rank[seq+4]['points'],
-            ))
-        return self.match_list
-
-    def tour2(self, tournament_players):
-        self.name = 'Round'
-        sorted_players_list_by_point = sorted(tournament_players,
-                                              key=itemgetter("points"))
         self.match_list = []
         for seq in range(4):
 
             self.match_list.append((
                 Player(
-                    sorted_players_list_by_point[seq]['lastname'],
-                    sorted_players_list_by_point[seq]['first_name'],
-                    sorted_players_list_by_point[seq]['birth_date'],
-                    sorted_players_list_by_point[seq]['gender'],
-                    sorted_players_list_by_point[seq]['ranking'],
-                    sorted_players_list_by_point[seq]['points'],
+                    tournament_players[seq]['lastname'],
+                    tournament_players[seq]['first_name'],
+                    tournament_players[seq]['birth_date'],
+                    tournament_players[seq]['gender'],
+                    tournament_players[seq]['ranking'],
+                    tournament_players[seq]['points'],
                 ),
-                sorted_players_list_by_point[seq]['points'],
+                tournament_players[seq]['points'],
                 Player(
-                    sorted_players_list_by_point[seq+4]['lastname'],
-                    sorted_players_list_by_point[seq+4]['first_name'],
-                    sorted_players_list_by_point[seq+4]['birth_date'],
-                    sorted_players_list_by_point[seq+4]['gender'],
-                    sorted_players_list_by_point[seq+4]['ranking'],
-                    sorted_players_list_by_point[seq+4]['points'],
+                    tournament_players[seq+3]['lastname'],
+                    tournament_players[seq+3]['first_name'],
+                    tournament_players[seq+3]['birth_date'],
+                    tournament_players[seq+3]['gender'],
+                    tournament_players[seq+3]['ranking'],
+                    tournament_players[seq+3]['points'],
                 ),
-                sorted_players_list_by_point[seq+4]['points'],
+                tournament_players[seq+3]['points'],
+            ))
+        return self.match_list
+
+    def tour2(self, tournament_players):
+        self.name = 'Round'
+        self.match_list = []
+        for seq in range(4):
+
+            self.match_list.append((
+                Player(
+                    tournament_players[seq]['lastname'],
+                    tournament_players[seq]['first_name'],
+                    tournament_players[seq]['birth_date'],
+                    tournament_players[seq]['gender'],
+                    tournament_players[seq]['ranking'],
+                    tournament_players[seq]['points'],
+                ),
+                tournament_players[seq]['points'],
+                Player(
+                    tournament_players[seq+3]['lastname'],
+                    tournament_players[seq+3]['first_name'],
+                    tournament_players[seq+3]['birth_date'],
+                    tournament_players[seq+3]['gender'],
+                    tournament_players[seq+3]['ranking'],
+                    tournament_players[seq+3]['points'],
+                ),
+                tournament_players[seq+3]['points'],
             ))
         return self.match_list
         # ajouter condition if point sont egal alors par rank
@@ -74,6 +71,7 @@ class Tour:
 
     def add_score_to_match(self, score_from_view: list):
         match_list_update = []
+
         x = 0
         for match in self.match_list:
             current_match_list = list(match)

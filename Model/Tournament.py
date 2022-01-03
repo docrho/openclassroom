@@ -16,7 +16,7 @@ class Tournament:
         self.place = place
         self.date = date
         self.nb_turn = nb_turn
-        self.players = players
+        self.players = []
         self.time = time
         self.description = description
         #round already played
@@ -65,7 +65,17 @@ class Tournament:
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
         #deserialising player from databse
-        self.players = json.loads(tournament["players"])
+        players_deserialised = json.loads(tournament["players"])
+        #instancing player
+        for player in players_deserialised:
+            self.players.append(Player(
+                player["lastname"],
+                player["first_name"],
+                player["birth_date"],
+                player["gender"],
+                player["ranking"],
+                player["points"],
+            ))
         self.time = tournament["time"]
         self.description = tournament["description"]
         self.doc_id = tournament.doc_id
@@ -88,15 +98,13 @@ class Tournament:
         return self.rounds_list
 
 #a terminer car quand les players sont trié differement le resultat ne sera pa le meme
-    def store_new_score_on_players(self, score):
-        x = 0
-        for self.player in self.players:
-            self.player["points"] = self.player["points"] + score[x]
-            x+=1
-        return self.players
+    def store_player_data_from_match(self,):
+        return self.current_tour.match_list
 
     def sort_player_by_rank(self):
-        self.players = sorted(self.players,key=itemgetter("ranking"))
+        for player in self.players:
+
+        self.players = sorted(self.players, key=itemgetter("ranking"))
         return self.players
 
     def sort_player_by_points(self):

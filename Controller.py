@@ -39,14 +39,17 @@ while True:
             v.load_page("list_tournament", tournament)
             #making a tour from tournament object
             tournament.sort_player_by_rank()
+            print(f"voici la liste trié avant premier tour {tournament.players}")
             tournament.current_tour.tour1(tournament.players)
             #prompt score from view
             score = v.load_page("add_score_to_match",
                         tournament.current_tour.match_list)
+            print(f"voici le score dans lodre attribué {score}")
             tournament.current_tour.add_score_to_match(score)
+            print(tournament.current_tour.match_list)
             ###store round already played on tournament.attribute
             #tournament.store_tour_already_played()
-            tournament.store_new_score_on_players(score)
+            print(tournament.players)
             print(tournament.players)
             #for each 3 other round play the second turn again
 
