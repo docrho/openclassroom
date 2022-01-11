@@ -99,15 +99,56 @@ class Tournament:
 
 #a terminer car quand les players sont trié differement le resultat ne sera pa le meme
     def store_player_data_from_match(self,):
-        return self.current_tour.match_list
+        player_dict ={
+            "lastname":[],
+            "first_name":[],
+            "birth_date":[],
+            "gender":[],
+            "ranking":[],
+            "points":[],
+        }
+        for player in self.players:
+            player_dict["lastname"].append(player.lastname)
+            player_dict["first_name"].append(player.first_name)
+            player_dict["birth_date"].append(player.birth_date)
+            player_dict["gender"].append(player.gender)
+            player_dict["ranking"].append(player.ranking)
+            player_dict["points"].append(player.point)
+        return self
 
     def sort_player_by_rank(self):
+        player_list_dict = []
         for player in self.players:
-
-        self.players = sorted(self.players, key=itemgetter("ranking"))
+            player_list_dict.append(
+                player.player_object_to_dict()
+            )
+        player_list_dict = sorted(player_list_dict, key=itemgetter("ranking"))
+        i = 0
+        for player in self.players:
+            player.player_dict_to_object_(player_list_dict[i])
+            i +=1
+        return self.playersplayer_list_dict = []
+        for player in self.players:
+            player_list_dict.append(
+                player.player_object_to_dict()
+            )
+        player_list_dict = sorted(player_list_dict, key=itemgetter("ranking"))
+        i = 0
+        for player in self.players:
+            player.player_dict_to_object_(player_list_dict[i])
+            i +=1
         return self.players
 
     def sort_player_by_points(self):
-        self.players = sorted(self.players, key=itemgetter("points"))
+        player_list_dict = []
+        for player in self.players:
+            player_list_dict.append(
+                player.player_object_to_dict()
+            )
+        player_list_dict = sorted(player_list_dict, key=itemgetter("point"))
+        i = 0
+        for player in self.players:
+            player.player_dict_to_object_(player_list_dict[i])
+            i += 1
         return self.players
 

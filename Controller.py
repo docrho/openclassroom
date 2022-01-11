@@ -37,6 +37,8 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
+            print("voici a quoi ressemble les player du tournament")
+            print(tournament.players)
             #making a tour from tournament object
             tournament.sort_player_by_rank()
             print(f"voici la liste trié avant premier tour {tournament.players}")

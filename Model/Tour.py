@@ -19,23 +19,23 @@ class Tour:
 
             self.match_list.append((
                 Player(
-                    tournament_players[seq]['lastname'],
-                    tournament_players[seq]['first_name'],
-                    tournament_players[seq]['birth_date'],
-                    tournament_players[seq]['gender'],
-                    tournament_players[seq]['ranking'],
-                    tournament_players[seq]['points'],
+                    tournament_players[seq].lastname,
+                    tournament_players[seq].first_name,
+                    tournament_players[seq].birth_date,
+                    tournament_players[seq].gender,
+                    tournament_players[seq].ranking,
+                    tournament_players[seq].point,
                 ),
-                tournament_players[seq]['points'],
+                tournament_players[seq].point,
                 Player(
-                    tournament_players[seq+3]['lastname'],
-                    tournament_players[seq+3]['first_name'],
-                    tournament_players[seq+3]['birth_date'],
-                    tournament_players[seq+3]['gender'],
-                    tournament_players[seq+3]['ranking'],
-                    tournament_players[seq+3]['points'],
+                    tournament_players[seq+3].lastname,
+                    tournament_players[seq+3].first_name,
+                    tournament_players[seq+3].birth_date,
+                    tournament_players[seq+3].gender,
+                    tournament_players[seq+3].ranking,
+                    tournament_players[seq+3].point,
                 ),
-                tournament_players[seq+3]['points'],
+                tournament_players[seq+3].point,
             ))
         return self.match_list
 

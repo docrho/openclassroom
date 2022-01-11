@@ -22,7 +22,7 @@ class Player:
         return self.lastname +""+ self.first_name
 
     def __repr__(self):
-        return self.lastname + " " + self.first_name
+        return self.lastname + " "+ self.first_name
 
     def append_player_from_id(self, player_id_list):
         for player_id in player_id_list:
@@ -86,3 +86,23 @@ class Player:
 
     def get_all_players_from_db(self):
         return self.db.players.all()
+
+    def player_object_to_dict(self):
+        returned_dict={
+            "lastname":self.lastname,
+            "firstname":self.first_name,
+            "birthdate":self.birth_date,
+            "gender":self.gender,
+            "ranking":self.ranking,
+            "point":self.point,
+        }
+        return returned_dict
+
+    def player_dict_to_object_(self, dictionary_player):
+        self.first_name = dictionary_player['firstname']
+        self.lastname = dictionary_player['lastname']
+        self.birth_date = dictionary_player['birthdate']
+        self.gender = dictionary_player['gender']
+        self.ranking = dictionary_player['ranking']
+        self.point = dictionary_player['point']
+        return "self"
