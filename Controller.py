@@ -37,11 +37,11 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
-            print("voici a quoi ressemble les player du tournament")
-            print(tournament.players)
+            #print("voici a quoi ressemble les player du tournament")
+            #print(tournament.players)
             #making a tour from tournament object
             tournament.sort_player_by_rank()
-            print(f"voici la liste trié avant premier tour {tournament.players}")
+            #print(f"voici la liste trié avant premier tour {tournament.players}")
             tournament.current_tour.tour1(tournament.players)
             #prompt score from view
             score = v.load_page("add_score_to_match",
@@ -49,14 +49,20 @@ while True:
             print(f"voici le score dans lodre attribué {score}")
             tournament.current_tour.add_score_to_match(score)
             print(tournament.current_tour.match_list)
+            print(tournament.players)
             ###store round already played on tournament.attribute
             #tournament.store_tour_already_played()
-            print(tournament.players)
-            print(tournament.players)
+            #print(tournament.players)
             #for each 3 other round play the second turn again
-
+            tournament.adding_score_to_players_instance_from_match(
+                tournament.current_tour.match_list
+            )
+            print('fin du premier tour')
+            print(tournament.players)
+            break
 
             for seq in range(3):
+
                 tournament.sort_player_by_points()
                 tournament.current_tour.tour2(tournament.players)
                 score = v.load_page("add_score_to_match",
@@ -67,7 +73,6 @@ while True:
                 #tournament.store_tour_already_played()
                 tournament.store_new_score_on_players(score)
                 print(tournament.players)
-
 
             #second turn
 

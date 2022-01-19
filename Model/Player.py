@@ -19,10 +19,10 @@ class Player:
         self.players_list = []
         self.db = DbManager()
     def __str__(self):
-        return self.lastname +""+ self.first_name
+        return str(self.lastname +" "+ self.first_name) #+ self.point
 
     def __repr__(self):
-        return self.lastname + " "+ self.first_name
+        return str(self.lastname + " "+ self.first_name) #+ "" + str(self.point)
 
     def append_player_from_id(self, player_id_list):
         for player_id in player_id_list:

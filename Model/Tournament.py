@@ -127,16 +127,6 @@ class Tournament:
         for player in self.players:
             player.player_dict_to_object_(player_list_dict[i])
             i +=1
-        return self.playersplayer_list_dict = []
-        for player in self.players:
-            player_list_dict.append(
-                player.player_object_to_dict()
-            )
-        player_list_dict = sorted(player_list_dict, key=itemgetter("ranking"))
-        i = 0
-        for player in self.players:
-            player.player_dict_to_object_(player_list_dict[i])
-            i +=1
         return self.players
 
     def sort_player_by_points(self):
@@ -152,3 +142,17 @@ class Tournament:
             i += 1
         return self.players
 
+    def adding_score_to_players_instance_from_match(self, match_list):
+        #transform the tuple from match into list to manipulate him
+        match_list_list=[]
+        for match in match_list:
+            current = list(match)
+            match_list_list.append(current)
+        i=0
+        #store on the new list string value to manipulate the index
+        for match in match_list_list:
+            match[i] = str(match[i])
+            i+=1
+        index = match_list_list[0].index("cicconi silvio")
+        print(f'coucou voici l index {index}')
+        return self.players
