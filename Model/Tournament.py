@@ -144,15 +144,29 @@ class Tournament:
 
     def adding_score_to_players_instance_from_match(self, match_list):
         #transform the tuple from match into list to manipulate him
-        match_list_list=[]
+        match_list_str=[]
         for match in match_list:
             current = list(match)
-            match_list_list.append(current)
+            match_list_str.append(current)
         i=0
         #store on the new list string value to manipulate the index
-        for match in match_list_list:
-            match[i] = str(match[i])
-            i+=1
-        index = match_list_list[0].index("cicconi silvio")
-        print(f'coucou voici l index {index}')
+        for match in match_list_str:
+            match[0] = str(match[0])
+            match[2] = str(match[2])
+        #store the score from match to player
+        print(f'voici la liste des players {self.players}')
+        print(f"voici la liste des match avec point {match_list_str}")
+        #index = match_list_str[0].index(self.lastname + " "+ self.first_name)
+        #print(f'coucou voici l index {index}')
+        for match in match_list_str:
+            for player in self.players:
+                try:
+                    index_found = match.index(player.lastname+" "+player.first_name)
+                    player.point += match[index_found+1]
+                    print(f'player trouvé {str(index_found) + player.lastname + player.first_name}')
+                except ValueError:
+                    print("player non trouvé")
+
+        for player in self.players:
+            print(f'{player.first_name+""+player.lastname+""+str(player.point)}')
         return self.players
