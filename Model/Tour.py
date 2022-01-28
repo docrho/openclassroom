@@ -7,16 +7,16 @@ class Tour:
     def __init__(self):
         self.match_list = []
         self.name = ""
-        self.start_time = ""
+        self.start_time = []
         self.start_Date = ""
-        self.end_time = ""
+        self.end_time = []
         self.end_Date = ""
 
     # can be static
     def current_datetime(self):
         return datetime.datetime.now()
     def tour1(self, tournament_players: Player()):
-        self.start_time = self.current_datetime()
+        self.start_time.append(self.current_datetime())
         self.name = 'Round1'
         self.match_list = []
         for seq in range(4):
@@ -44,29 +44,30 @@ class Tour:
         return self.match_list
 
     def tour2(self, tournament_players):
+        self.start_time.append(self.current_datetime())
         self.name = 'Round'
         self.match_list = []
         for seq in range(4):
 
             self.match_list.append((
                 Player(
-                    tournament_players[seq]['lastname'],
-                    tournament_players[seq]['first_name'],
-                    tournament_players[seq]['birth_date'],
-                    tournament_players[seq]['gender'],
-                    tournament_players[seq]['ranking'],
-                    tournament_players[seq]['points'],
+                    tournament_players[seq].lastname,
+                    tournament_players[seq].first_name,
+                    tournament_players[seq].birth_date,
+                    tournament_players[seq].gender,
+                    tournament_players[seq].ranking,
+                    tournament_players[seq].point,
                 ),
-                tournament_players[seq]['points'],
+                tournament_players[seq].point,
                 Player(
-                    tournament_players[seq+3]['lastname'],
-                    tournament_players[seq+3]['first_name'],
-                    tournament_players[seq+3]['birth_date'],
-                    tournament_players[seq+3]['gender'],
-                    tournament_players[seq+3]['ranking'],
-                    tournament_players[seq+3]['points'],
+                    tournament_players[seq+3].lastname,
+                    tournament_players[seq+3].first_name,
+                    tournament_players[seq+3].birth_date,
+                    tournament_players[seq+3].gender,
+                    tournament_players[seq+3].ranking,
+                    tournament_players[seq+3].point,
                 ),
-                tournament_players[seq+3]['points'],
+                tournament_players[seq+3].point,
             ))
         return self.match_list
         # ajouter condition if point sont egal alors par rank

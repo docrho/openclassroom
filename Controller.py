@@ -50,27 +50,27 @@ while True:
                 tournament.current_tour.match_list
             )
             ###store end time of turn
-            tournament.current_tour.end_time =\
+            tournament.current_tour.end_time.append(
                 tournament.current_tour.current_datetime()
+            )
             ###############################
             print('fin du premier tour')
-
+            #starting second turn
             for seq in range(3):
 
                 tournament.sort_player_by_points()
                 print(tournament.players)
-                break
                 tournament.current_tour.tour2(tournament.players)
                 score = v.load_page("add_score_to_match",
                                     tournament.current_tour.match_list)
-
                 tournament.current_tour.add_score_to_match(score)
-                print(tournament.current_tour.match_list)
-                #tournament.store_tour_already_played()
-                tournament.store_new_score_on_players(score)
-                print(tournament.players)
-
-            #second turn
+                tournament.adding_score_to_players_instance_from_match(
+                    tournament.current_tour.match_list
+                )
+                ###store end time of turn
+                tournament.current_tour.end_time.append(
+                    tournament.current_tour.current_datetime()
+                )
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()
@@ -128,10 +128,7 @@ while True:
         player.all_players
 
     elif responsemenu == "6":  # Remove a tournament
-        tournament = Tournament() #static needed
-        # le remove doit fonctionner que après une instance de tournois
-        #ensuite remove on ne devrai pas specifier l id quand on remove
-        #car c est déja instancié
+        tournament = Tournament()
         #remove from id
         ###########################
         if tournament.remove_tournament(v.response_input()):
@@ -183,32 +180,3 @@ while True:
 
         else:
             v.load_page("error", "tournament_id")
-    elif responsemenu == "9":  # Match
-        tournament = Tournament()
-        tournament._all_tournament_instance()
-
-        v.load_page("list_tournament", tournament.all_tournament_list)
-        # store the response on variable tournament_id
-        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
-        ########
-
-        ######faire une seule etape cela doit rester caché#####
-        if db.tournament_id_check(tournament_id):
-            # add to the variable the tournament who matched the query
-            tournament_data = db.tournament.get(doc_id=tournament_id)
-            # creating instance
-        ########### ici########
-
-            tournament.tournament_instance(tournament_data)
-            v.load_page("list_tournament", tournament.tournament_list)
-            # extract players from tournament
-            # attention trouver le bug
-            tournament_players_list = tournament.tournament_list[0].players
-            match = Match()
-            first_match = match.first_match(tournament_players_list)
-            print(first_match)
-        else:
-            v.load_page("error", "tournament_id")
-
-    elif responsemenu == "10":  # remove a player on Player database
-        print()
