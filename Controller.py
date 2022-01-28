@@ -37,33 +37,29 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
-            #print("voici a quoi ressemble les player du tournament")
-            #print(tournament.players)
-            #making a tour from tournament object
+            #sort player instance in tournament instance
             tournament.sort_player_by_rank()
-            #print(f"voici la liste trié avant premier tour {tournament.players}")
+            #starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
-            #prompt score from view
+            #ask view to type score of the first tour
             score = v.load_page("add_score_to_match",
                         tournament.current_tour.match_list)
-            print(f"voici le score dans lodre attribué {score}")
+            #adding score to match list of tuple
             tournament.current_tour.add_score_to_match(score)
-            print(tournament.current_tour.match_list)
-            print(tournament.players)
-            ###store round already played on tournament.attribute
-            #tournament.store_tour_already_played()
-            #print(tournament.players)
-            #for each 3 other round play the second turn again
             tournament.adding_score_to_players_instance_from_match(
                 tournament.current_tour.match_list
             )
+            ###store end time of turn
+            tournament.current_tour.end_time =\
+                tournament.current_tour.current_datetime()
+            ###############################
             print('fin du premier tour')
-            print(tournament.players)
-            break
 
             for seq in range(3):
 
                 tournament.sort_player_by_points()
+                print(tournament.players)
+                break
                 tournament.current_tour.tour2(tournament.players)
                 score = v.load_page("add_score_to_match",
                                     tournament.current_tour.match_list)

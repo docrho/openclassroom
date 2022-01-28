@@ -97,7 +97,7 @@ class Tournament:
         self.rounds_list = self.current_tour.match_list
         return self.rounds_list
 
-#a terminer car quand les players sont trié differement le resultat ne sera pa le meme
+#a terminer
     def store_player_data_from_match(self,):
         player_dict ={
             "lastname":[],
@@ -136,6 +136,7 @@ class Tournament:
                 player.player_object_to_dict()
             )
         player_list_dict = sorted(player_list_dict, key=itemgetter("point"))
+        player_list_dict.reverse()
         i = 0
         for player in self.players:
             player.player_dict_to_object_(player_list_dict[i])
@@ -158,15 +159,16 @@ class Tournament:
         print(f"voici la liste des match avec point {match_list_str}")
         #index = match_list_str[0].index(self.lastname + " "+ self.first_name)
         #print(f'coucou voici l index {index}')
+
         for match in match_list_str:
             for player in self.players:
                 try:
-                    index_found = match.index(player.lastname+" "+player.first_name)
-                    player.point += match[index_found+1]
-                    print(f'player trouvé {str(index_found) + player.lastname + player.first_name}')
+                    index_found = match.index(
+                        player.lastname+" "+player.first_name)
+                    player.point += int(match[index_found+1])
                 except ValueError:
-                    print("player non trouvé")
-
-        for player in self.players:
-            print(f'{player.first_name+""+player.lastname+""+str(player.point)}')
+                    pass
         return self.players
+
+    def check_if_same_score(self):
+        return ""

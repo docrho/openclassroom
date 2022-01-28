@@ -1,6 +1,6 @@
 from operator import itemgetter
 from Model.Player import Player
-
+import datetime
 
 class Tour:
 
@@ -12,7 +12,11 @@ class Tour:
         self.end_time = ""
         self.end_Date = ""
 
+    # can be static
+    def current_datetime(self):
+        return datetime.datetime.now()
     def tour1(self, tournament_players: Player()):
+        self.start_time = self.current_datetime()
         self.name = 'Round1'
         self.match_list = []
         for seq in range(4):
