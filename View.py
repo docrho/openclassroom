@@ -3,6 +3,7 @@ class Views:
     def start_match(self):
         print("Type 1 to start match or 0 to leave")
         return input()
+
     def remove_player(self, player):
         print("Type the Lastname of the player that you want to delete")
         player.lastname = input()
@@ -112,7 +113,6 @@ class Views:
                 "\n----------------------------------------"
             )
 
-
     def _create_tournament_players(self):
         choice_list = []
         print(
@@ -161,7 +161,8 @@ class Views:
 
     def basic_input(self):
         return input()
-    def add_score_to_match(self, tour : list()):
+
+    def add_score_to_match(self, tour: list):
         score_list = []
         match_list = list(tour)
         for match in match_list:

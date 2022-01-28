@@ -5,7 +5,6 @@ from Model.Db import DbManager
 from operator import itemgetter
 
 
-
 class Tournament:
     def __init__(self, name: str = "", place: str = "",
                  date: str = "", nb_turn: int = "",
@@ -19,12 +18,12 @@ class Tournament:
         self.players = []
         self.time = time
         self.description = description
-        #round already played
+        # round already played
         self.rounds_list = []
         self.current_tour = Tour()
         self.tours_list = []
         self.doc_id = doc_id
-        ####attribute from method
+        # attribute from method
         self.tournament_list = []
         self.all_tournament_list = []
         self.players_in_tournament = []
@@ -33,7 +32,8 @@ class Tournament:
 
     def __str__(self):
         return f"{self.name} {self.date}"
-    def add_tournament_info(self,tournament_info, serialized_players_list):
+
+    def add_tournament_info(self, tournament_info, serialized_players_list):
         self.name = tournament_info['name']
         self.place = tournament_info['place']
         self.date = tournament_info['date']
@@ -64,9 +64,9 @@ class Tournament:
         self.place = tournament["place"]
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
-        #deserialising player from databse
+        # deserialising player from databse
         players_deserialised = json.loads(tournament["players"])
-        #instancing player
+        # instancing player
         for player in players_deserialised:
             self.players.append(Player(
                 player["lastname"],
@@ -91,7 +91,7 @@ class Tournament:
         return self.db.tournament_id_check(id)
 
     def get_tournament_by_id(self, id):
-        return self.db.tournament.get(doc_id= id)
+        return self.db.tournament.get(doc_id=id)
 
     def store_tour_already_played(self):
         self.rounds_list = self.current_tour.match_list
@@ -107,7 +107,7 @@ class Tournament:
         i = 0
         for player in self.players:
             player.player_dict_to_object_(player_list_dict[i])
-            i +=1
+            i += 1
         return self.players
 
     def sort_player_by_points(self):
@@ -125,21 +125,18 @@ class Tournament:
         return self.players
 
     def adding_score_to_players_instance_from_match(self, match_list):
-        #transform the tuple from match into list to manipulate him
-        match_list_str=[]
+        # transform the tuple from match into list to manipulate him
+        match_list_str = []
         for match in match_list:
             current = list(match)
             match_list_str.append(current)
-        i=0
-        #store on the new list string value to manipulate the index
+        # store on the new list string value to manipulate the index
         for match in match_list_str:
             match[0] = str(match[0])
             match[2] = str(match[2])
-        #store the score from match to player
-        print(f'voici la liste des players {self.players}')
-        print(f"voici la liste des match avec point {match_list_str}")
-        #index = match_list_str[0].index(self.lastname + " "+ self.first_name)
-        #print(f'coucou voici l index {index}')
+        # store the score from match to player
+        # print(f'voici la liste des players {self.players}')
+        # print(f"voici la liste des match avec point {match_list_str}")
 
         for match in match_list_str:
             for player in self.players:
