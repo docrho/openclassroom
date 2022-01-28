@@ -1,4 +1,3 @@
-import json
 
 from tinydb import TinyDB
 from tinydb.operations import set
@@ -12,11 +11,6 @@ class DbManager(TinyDB):
         self.players = self.db.table("players")
         self.tournament = self.db.table('tournament')
 
-
-
-
-#        if for not broken return true
-
     def store_player(self, player):
         self.players.insert({
             "type": "player", "lastname": player.lastname,
@@ -28,7 +22,7 @@ class DbManager(TinyDB):
 
     def add_player(self, playerlist, player):
         for playerinlist in playerlist:
-            #checking if player exist
+            # checking if player exist
             if playerinlist.lastname == player.lastname \
                     and playerinlist.first_name == player.first_name \
                     and playerinlist.birth_date == player.birth_date:
@@ -64,8 +58,6 @@ class DbManager(TinyDB):
             return True
         else:
             return False  # otherwise return false
-
-
 
     def tournament_id_check(self, id):
         list_id = []

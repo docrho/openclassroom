@@ -1,9 +1,11 @@
 import json
 from Model.Db import DbManager
+
+
 class Player:
 
     def __init__(self, last_name="", first_name="", birth_date="", gender="",
-                 ranking="", point = 0, doc_id=""):
+                 ranking="", point=0, doc_id=""):
         self.lastname = last_name
         self.first_name = first_name
         self.birth_date = birth_date
@@ -11,18 +13,20 @@ class Player:
         self.ranking = ranking
         self.point = point
         self.doc_id = doc_id
-        #attribute report from method
+        # attribute report from method
         self.all_players = []
         self.all_players_id = []
         # serialized list of player from database
         self.serialized_players_list = []
         self.players_list = []
         self.db = DbManager()
+
     def __str__(self):
-        return str(self.lastname +" "+ self.first_name) #+ self.point
+        return str(self.lastname + " " + self.first_name)  # + self.point
 
     def __repr__(self):
-        return str(self.lastname + " "+ self.first_name) + "" + str(self.point)
+        return str(
+            self.lastname + " " + self.first_name) + "" + str(self.point)
 
     def append_player_from_id(self, player_id_list):
         for player_id in player_id_list:
@@ -39,15 +43,13 @@ class Player:
         self.serialized_players_list = json.dumps(self.players_list)
         return self.serialized_players_list
 
-    def players_id_checking(self, ids: list): # checking if id exist
+    def players_id_checking(self, ids: list):  # checking if id exist
         all_id = self.get_all_players_id(self.all_players)
         for id in ids:
             if str(id) not in str(all_id):
                 return False
         return True
 
-    def convert_match_list_in_Plist(self):
-        return ""
     @staticmethod
     def list_all_players():
         all_players_data = DbManager().players.all()
@@ -88,13 +90,13 @@ class Player:
         return self.db.players.all()
 
     def player_object_to_dict(self):
-        returned_dict={
-            "lastname":self.lastname,
-            "firstname":self.first_name,
-            "birthdate":self.birth_date,
-            "gender":self.gender,
-            "ranking":self.ranking,
-            "point":self.point,
+        returned_dict = {
+            "lastname": self.lastname,
+            "firstname": self.first_name,
+            "birthdate": self.birth_date,
+            "gender": self.gender,
+            "ranking": self.ranking,
+            "point": self.point,
         }
         return returned_dict
 
@@ -105,4 +107,5 @@ class Player:
         self.gender = dictionary_player['gender']
         self.ranking = dictionary_player['ranking']
         self.point = dictionary_player['point']
+
         return "self"

@@ -1,6 +1,6 @@
-from operator import itemgetter
 from Model.Player import Player
 import datetime
+
 
 class Tour:
 
@@ -15,6 +15,7 @@ class Tour:
     # can be static
     def current_datetime(self):
         return datetime.datetime.now()
+
     def tour1(self, tournament_players: Player()):
         self.start_time.append(self.current_datetime())
         self.name = 'Round1'
@@ -81,7 +82,8 @@ class Tour:
         for match in self.match_list:
             current_match_list = list(match)
             current_match_list[1] = current_match_list[1] + score_from_view[x]
-            current_match_list[3] = current_match_list[3]+ score_from_view[x+1]
+            current_match_list[3] = current_match_list[3] + score_from_view[
+                x+1]
             current_match_list = tuple(current_match_list)
             match_list_update.append(current_match_list)
             x += 2
