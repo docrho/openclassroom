@@ -2,9 +2,8 @@ from Model.Db import DbManager
 import View
 from Model.Player import Player
 from Model.Tournament import Tournament
-from Model.Match2 import Match
 
-from Model.Tour import Tour
+
 v = View.Views()
 db = DbManager()
 # function######
@@ -37,25 +36,29 @@ while True:
                 tournament_id)
             )
             v.load_page("list_tournament", tournament)
-            #sort player instance in tournament instance
+            # sort player instance in tournament instance
             tournament.sort_player_by_rank()
-            #starting first tour with player instance from tournament
+            # starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
-            #ask view to type score of the first tour
+            # ask view to type score of the first tour
             score = v.load_page("add_score_to_match",
-                        tournament.current_tour.match_list)
-            #adding score to match list of tuple
+                                tournament.current_tour.match_list)
+            # adding score to match list of tuple
             tournament.current_tour.add_score_to_match(score)
             tournament.adding_score_to_players_instance_from_match(
                 tournament.current_tour.match_list
             )
-            ###store end time of turn
+            # store end time of turn
             tournament.current_tour.end_time.append(
                 tournament.current_tour.current_datetime()
             )
+            if v.load_page("do_you_want_modify_rank"):
+                responsemenu = v.load_page(
+                    "display_players", tournament.players)
+                tournament.modify_rank(responsemenu)
             ###############################
             print('fin du premier tour')
-            #starting second turn
+            # starting second turn
             for seq in range(3):
 
                 tournament.sort_player_by_points()
@@ -67,7 +70,7 @@ while True:
                 tournament.adding_score_to_players_instance_from_match(
                     tournament.current_tour.match_list
                 )
-                ###store end time of turn
+                # store end time of turn
                 tournament.current_tour.end_time.append(
                     tournament.current_tour.current_datetime()
                 )
@@ -84,8 +87,8 @@ while True:
         player_id_list = v.load_page("create_tournament_players")
         # checking up if the id prompted exist
         if player.players_id_checking(player_id_list):
-            #this method add player and serialize them
-            #verifier les id dans append, la methode static
+            # this method add player and serialize them
+            # verifier les id dans append, la methode static
             player.append_player_from_id(player_id_list)
             # calling view for ask tournament name prompt ....
             tournament_info = v.create_tournament()
@@ -103,7 +106,7 @@ while True:
         # Taking all player data to compare them with current player,
         # its for avoiding double
         # instancing the deserialized data
-        list_all_players = Player.list_all_players()#static
+        list_all_players = Player.list_all_players()  # static
         # add_player return True if there is no double on database
         added_bol = db.add_player(list_all_players, player_prompt)
         # load a page to print successfull or not
@@ -115,7 +118,7 @@ while True:
     elif responsemenu == "4":  # remove a player on Player database
         player_to_remove = v.remove_player(Player())
         # player contain a list that contain lastname and birth_date from view
-        if db.remove_players(player_to_remove.lastname,#player.remove
+        if db.remove_players(player_to_remove.lastname,  # player.remove
                              player_to_remove.birth_date):
             v.load_page("success", "player_removed")
         else:
@@ -125,11 +128,10 @@ while True:
 
         player = Player()
         v.display_all_players(player.list_all_players())
-        player.all_players
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament()
-        #remove from id
+        # remove from id
         ###########################
         if tournament.remove_tournament(v.response_input()):
             v.load_page("success", "tournament_removed")
@@ -138,7 +140,7 @@ while True:
 
     elif responsemenu == "7":  # List all tournament
         tournament = Tournament()
-        tournament.list_all_tournament()#static
+        tournament.list_all_tournament()  # static
         v.load_page("list_tournament", tournament.all_tournament_list)
 
     elif responsemenu == "8":  # update a tournament

@@ -171,6 +171,40 @@ class Views:
             score_list.append(int(input()))
         return score_list
 
+    def display_players(self, players):
+        i = 0
+        response = int(10)
+        for player in players:
+            print(f"id : {i} {player.first_name} {player.lastname}"
+                  f" current rank is : {player.ranking}")
+            i += 1
+        print(f"Choose your player by tiping his id")
+        response = int(input())
+        if((response < 0)or(response>7)):
+            while ((response < 0) or (response > 7)):
+                print(f"Bad id choose again")
+                response = int(input())
+        else:
+            return response
+
+
+    def do_you_want_modify_rank(self):
+        print(f"Hi The turn is finished"
+              f" do you want to modify a rank from a player?\n"
+              f"If yes Type 1 otherwise type something else")
+        response = str(input())
+        if response == "1":
+            return True
+        else:
+            return False
+
+    def modify_rank(self, players,p_number):
+        i = 0
+        for player in self.players:
+            print(f"Le player")
+            i += 1
+        return players
+
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
             self._base_menu()
@@ -204,5 +238,13 @@ class Views:
             return self.success(args[0])
         elif page_name == "add_score_to_match":
             return self.add_score_to_match(args[0])
+        elif page_name == "display_players":
+            return self.display_players(args[0])
+        elif page_name == "do_you_want_modify_rank":
+            return self.do_you_want_modify_rank()
+        elif page_name == "basic_input":
+            return self.basic_input()
+        elif page_name == "modify_rank":
+            return self.modify_rank()
         elif page_name == "error":
             self._error(args)

@@ -148,5 +148,13 @@ class Tournament:
                     pass
         return self.players
 
+    def modify_rank(self, players):
+        i = 0
+        for player in self.players:
+            print(f"{i} {player.first_name} {player.lastname}")
+            i += 1
+        return self.players
+
+
     def check_if_same_score(self):
         return ""
