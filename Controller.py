@@ -53,9 +53,8 @@ while True:
                 tournament.current_tour.current_datetime()
             )
             if v.load_page("do_you_want_modify_rank"):
-                responsemenu = v.load_page(
+                tournament.players = v.load_page(
                     "display_players", tournament.players)
-                tournament.modify_rank(responsemenu)
             ###############################
             print('fin du premier tour')
             # starting second turn

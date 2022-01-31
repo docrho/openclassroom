@@ -184,8 +184,12 @@ class Views:
             while ((response < 0) or (response > 7)):
                 print(f"Bad id choose again")
                 response = int(input())
-        else:
-            return response
+        print(f"Okay you choose {players[response].lastname}"
+              f" {players[response].first_name}")
+        print(f"Type the rank that you want to atribute")
+        players[response].ranking = int(input())
+        print("The ranking is updated successfully")
+        return players
 
 
     def do_you_want_modify_rank(self):

@@ -148,7 +148,7 @@ class Tournament:
                     pass
         return self.players
 
-    def modify_rank(self, players):
+    def modify_rank(self, num_player, rank):
         i = 0
         for player in self.players:
             print(f"{i} {player.first_name} {player.lastname}")
