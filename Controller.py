@@ -52,12 +52,15 @@ while True:
             tournament.current_tour.end_time.append(
                 tournament.current_tour.current_datetime()
             )
+            # asking for rank change
             if v.load_page("do_you_want_modify_rank"):
                 tournament.players = v.load_page(
-                    "display_players", tournament.players)
+                    "players_modify_rank", tournament.players)
             ###############################
             print('fin du premier tour')
-            # starting second turn
+
+            # starting second turn and other
+
             for seq in range(3):
 
                 tournament.sort_player_by_points()
@@ -73,6 +76,10 @@ while True:
                 tournament.current_tour.end_time.append(
                     tournament.current_tour.current_datetime()
                 )
+                # asking for rank change
+                if v.load_page("do_you_want_modify_rank"):
+                    tournament.players = v.load_page(
+                        "players_modify_rank", tournament.players)
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()
@@ -126,7 +133,7 @@ while True:
     elif responsemenu == "5":  # list all players from Player database
 
         player = Player()
-        v.display_all_players(player.list_all_players())
+        v.load_page("display_all_players",player.list_all_players())
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament()
@@ -181,3 +188,16 @@ while True:
 
         else:
             v.load_page("error", "tournament_id")
+    elif responsemenu == "9":
+        tournament = Tournament()
+        tournament.list_all_tournament()
+        v.load_page("list_tournament", tournament.all_tournament_list)
+        print('choose the tournament id')
+        tournament_id = int(v.load_page("_update_tournament_menu_prompt"))
+        # checking if the tournament id exist
+        if tournament.tournament_id_checking(tournament_id):
+            # adding tournament from database on tournament instance
+            tournament.tournament_instance(tournament.get_tournament_by_id(
+                tournament_id)
+            )
+            v.load_page("display_all_players", tournament.players)

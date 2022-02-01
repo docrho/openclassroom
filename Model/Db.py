@@ -13,9 +13,11 @@ class DbManager(TinyDB):
 
     def store_player(self, player):
         self.players.insert({
-            "type": "player", "lastname": player.lastname,
+            "type": "player",
+            "lastname": player.lastname,
             "first_name": player.first_name,
-            "birth_date": player.birth_date, "gender": player.gender,
+            "birth_date": player.birth_date,
+            "gender": player.gender,
             "ranking": player.ranking,
             "points": player.point,
         })

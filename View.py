@@ -43,13 +43,35 @@ class Views:
             print("Tournament removed successfully")
 
     def display_all_players(self, all_players):
-        print("Player list:\n")
-        for player in all_players:
-            print(f"{player.doc_id} {player.lastname} "
-                  f"{player.first_name} {player.birth_date}"
-                  f" {player.ranking}"
-                  )
-        print("\n")
+        print(f"Type 1 to display players by alphabetical order\n"
+              f"Type 2 to display players by ranking point")
+        response = int(input())
+        player_list = []
+        if response == 1:
+                for player in all_players:
+                    player_list.append(f"{player.lastname} "
+                          f"{player.first_name} date : {player.birth_date}"
+                          f" {player.ranking} id : {player.doc_id}"
+                          )
+                sorted_list = sorted(player_list, key=str.lower)
+                print("List of players by alphabetical order\n")
+                for player in sorted_list:
+                    print(player)
+                print("\n")
+
+        elif response == 2:
+            for player in all_players:
+                player_list.append(f"{player.ranking} {player.lastname} "
+                                   f"{player.first_name} "
+                                   f"date :{player.birth_date}"
+                                   f" id : {player.doc_id}"
+                                   )
+            sorted_list = sorted(player_list)
+            print("List of players by ranking order\n")
+            for player in sorted_list:
+                print(player)
+            print("\n")
+
 
     def display_all_players_from_tournament(self, all_players):
         print("Player list:\n")
@@ -87,7 +109,7 @@ class Views:
               "\n6 to remove a tournament "
               "\n7 to list all tournaments "
               "\n8 update tournament "
-              "\n9 Match "
+              "\n9 List all player from tournament "
               "\n0 to quit the app")
 
     def _tournaments_displays(self):
@@ -171,7 +193,7 @@ class Views:
             score_list.append(int(input()))
         return score_list
 
-    def display_players(self, players):
+    def players_modify_rank(self, players):
         i = 0
         response = int(10)
         for player in players:
@@ -201,13 +223,6 @@ class Views:
             return True
         else:
             return False
-
-    def modify_rank(self, players,p_number):
-        i = 0
-        for player in self.players:
-            print(f"Le player")
-            i += 1
-        return players
 
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
@@ -242,13 +257,11 @@ class Views:
             return self.success(args[0])
         elif page_name == "add_score_to_match":
             return self.add_score_to_match(args[0])
-        elif page_name == "display_players":
-            return self.display_players(args[0])
+        elif page_name == "players_modify_rank":
+            return self.players_modify_rank(args[0])
         elif page_name == "do_you_want_modify_rank":
             return self.do_you_want_modify_rank()
         elif page_name == "basic_input":
             return self.basic_input()
-        elif page_name == "modify_rank":
-            return self.modify_rank()
         elif page_name == "error":
             self._error(args)
