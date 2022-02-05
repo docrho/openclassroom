@@ -11,7 +11,10 @@ class Tour:
         self.start_Date = ""
         self.end_time = []
         self.end_Date = ""
-
+    def __str__(self):
+        return self.name
+    def __repr__(self):
+        return self.name
     # can be static
     def current_datetime(self):
         return datetime.datetime.now()

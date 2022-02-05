@@ -33,11 +33,22 @@ class DbManager(TinyDB):
         return True
 
     def store_tournament(self, tournament):
+        tournament.players = self.serialise_players_object_from_tournament(
+            tournament.players
+        )
+        tournament.rounds_list = self.serialise_round_object_from_tournament(
+            tournament.rounds_list
+        )
+        tournament.tours_list = self.serialise_tour_object_from_tournament(
+            tournament.tours_list
+        )
         self.tournament.insert({
             "name": tournament.name,
             "place": tournament.place,
             "date": tournament.date,
             "nb_turn": tournament.nb_turn,
+            # serialise player
+
             "players": tournament.players,
             "time": tournament.time,
             "description": tournament.description,
@@ -75,12 +86,24 @@ class DbManager(TinyDB):
         self.tournament.update(set(key, update), doc_ids=[int(id)])
 
     def serialise_players_object_from_tournament(self, tournamentplayer):
-        serialized_player_list = []
+        jsonlist =[]
         for player in tournamentplayer:
-            serialized_player_list.append(
+            jsonlist.append(
                 json.dumps(player.__dict__, default=lambda o: o.__dict__))
+        return jsonlist
 
-        return serialized_player_list
+    def serialise_round_object_from_tournament(self, tournament_rounds):
+        jsonlist =[]
+        for round in tournament_rounds:
+            jsonlist.append(
+                json.dumps(round.__dict__, default=lambda o: o.__dict__))
+        return jsonlist
+    def serialise_tour_object_from_tournament(self, tournament_tour):
+        jsonlist =[]
+        for tour in tournament_tour:
+            jsonlist.append(
+                json.dumps(tour.__dict__, default=lambda o: o.__dict__))
+        return jsonlist
 
 
     def update_all_data_from_tournament(self, id, tournament):
@@ -102,7 +125,11 @@ class DbManager(TinyDB):
         self.tournament.update(
             set("description", tournament.description), doc_ids=[int(id)])
         self.tournament.update(
-            set("rounds_list", tournament.rounds_list), doc_ids=[int(id)])
+            set("rounds_list", self.serialise_round_object_from_tournament(
+                tournament.rounds_list
+            )), doc_ids=[int(id)])
         self.tournament.update(
-            set("tours_list", tournament.tours_list), doc_ids=[int(id)])
+            set("tours_list", self.serialise_tour_object_from_tournament(
+                tournament.tours_list
+            )), doc_ids=[int(id)])
         return True

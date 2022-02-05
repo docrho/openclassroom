@@ -19,9 +19,9 @@ class Tournament:
         self.time = time
         self.description = description
         # round already played
-        self.rounds_list = []
+        self.rounds_list = [Tour()]
         self.current_tour = Tour()
-        self.tours_list = []
+        self.tours_list = [Tour()]
         self.doc_id = doc_id
         # attribute from method
         self.tournament_list = []
@@ -33,15 +33,24 @@ class Tournament:
     def __str__(self):
         return f"{self.name} {self.date}"
 
-    def add_tournament_info(self, tournament_info, serialized_players_list):
+    def add_tournament_info(self, tournament_info, players_list):
         self.name = tournament_info['name']
         self.place = tournament_info['place']
         self.date = tournament_info['date']
         self.time = tournament_info['time']
         self.description = tournament_info['description']
         self.place = tournament_info['place']
-        self.players = serialized_players_list
-
+        for player in players_list:
+            self.players.append(
+                Player(
+                    player['lastname'],
+                    player['first_name'],
+                    player['birth_date'],
+                    player['gender'],
+                    player['ranking'],
+                    player['points'],
+                )
+            )
     def _all_tournament_instance(self, all_tournament):
         for tournament_data in all_tournament:
             self.all_tournament_list.append(
@@ -65,16 +74,16 @@ class Tournament:
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
         # deserialising player from databse
-        players_deserialised = json.loads(tournament["players"])
         # instancing player
-        for player in players_deserialised:
+        for player in tournament["players"]:
+            player = json.loads(player)
             self.players.append(Player(
                 player["lastname"],
                 player["first_name"],
                 player["birth_date"],
                 player["gender"],
                 player["ranking"],
-                player["points"],
+                player["point"],
             ))
         self.time = tournament["time"]
         self.description = tournament["description"]

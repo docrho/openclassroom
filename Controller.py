@@ -40,6 +40,7 @@ while True:
             v.load_page("list_tournament", tournament)
             # sort player instance in tournament instance
             tournament.sort_player_by_rank()
+            print(tournament.players)
 
             # starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
@@ -110,7 +111,7 @@ while True:
             tournament_info = v.create_tournament()
             # creating tournament with tournament method
             tournament.add_tournament_info(tournament_info,
-                                           player.serialized_players_list)
+                                           player.players_list)
             # store tournament on database
             db.store_tournament(tournament)
         else:

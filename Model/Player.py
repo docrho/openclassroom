@@ -26,7 +26,7 @@ class Player:
 
     def __repr__(self):
         return str(
-            self.lastname + " " + self.first_name) + "" + str(self.point)
+            self.lastname + " " + self.first_name) + " point :" + str(self.point)
 
     def append_player_from_id(self, player_id_list):
         for player_id in player_id_list:
