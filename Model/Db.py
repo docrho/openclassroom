@@ -10,6 +10,7 @@ class DbManager(TinyDB):
         self.players = self.db.table("players")
         self.tournament = self.db.table('tournament')
 
+
     def store_player(self, player):
         self.players.insert({
             "type": "player",
@@ -73,13 +74,13 @@ class DbManager(TinyDB):
     def update_tournament(self, key, id, update):
         self.tournament.update(set(key, update), doc_ids=[int(id)])
 
-    def serialise_players_object_from_tournament(self, players_object):
-        player_list_to_serialize = []
-        for player in players_object:
+    def serialise_players_object_from_tournament(self, tournamentplayer):
+        serialized_player_list = []
+        for player in tournamentplayer:
+            serialized_player_list.append(
+                json.dumps(player.__dict__, default=lambda o: o.__dict__))
 
-             player = json.dumps(player)
-
-        return players_object
+        return serialized_player_list
 
 
     def update_all_data_from_tournament(self, id, tournament):

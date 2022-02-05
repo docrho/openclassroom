@@ -31,7 +31,7 @@ class Tournament:
         self.db = DbManager()
 
     def __str__(self):
-        return json.dumps(dict(self), ensure_ascii=False)
+        return f"{self.name} {self.date}"
 
     def add_tournament_info(self, tournament_info, serialized_players_list):
         self.name = tournament_info['name']

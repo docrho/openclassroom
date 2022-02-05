@@ -40,7 +40,7 @@ while True:
             v.load_page("list_tournament", tournament)
             # sort player instance in tournament instance
             tournament.sort_player_by_rank()
-            print(tournament.players)
+
             # starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
             # store current tour on tour list un tournament
