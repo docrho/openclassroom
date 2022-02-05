@@ -51,7 +51,7 @@ class Views:
                 for player in all_players:
                     player_list.append(f"{player.lastname} "
                           f"{player.first_name} date : {player.birth_date}"
-                          f" {player.ranking} id : {player.doc_id}"
+                          f" Player rank : {player.ranking}"
                           )
                 sorted_list = sorted(player_list, key=str.lower)
                 print("List of players by alphabetical order\n")
