@@ -22,7 +22,7 @@ class Player:
         self.db = DbManager()
 
     def __str__(self):
-        return str(self.lastname + " " + self.first_name)  # + self.point
+        return json.dumps(dict(self), ensure_ascii=False)
 
     def __repr__(self):
         return str(

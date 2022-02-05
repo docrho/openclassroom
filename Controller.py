@@ -3,6 +3,8 @@ import View
 from Model.Player import Player
 from Model.Tournament import Tournament
 
+import json
+
 
 v = View.Views()
 db = DbManager()
@@ -38,8 +40,11 @@ while True:
             v.load_page("list_tournament", tournament)
             # sort player instance in tournament instance
             tournament.sort_player_by_rank()
+            print(tournament.players)
             # starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
+            # store current tour on tour list un tournament
+            tournament.store_tour_already_played()
             # ask view to type score of the first tour
             score = v.load_page("add_score_to_match",
                                 tournament.current_tour.match_list)
@@ -66,6 +71,7 @@ while True:
                 tournament.sort_player_by_points()
                 print(tournament.players)
                 tournament.current_tour.tour2(tournament.players)
+                tournament.store_tour_already_played()
                 score = v.load_page("add_score_to_match",
                                     tournament.current_tour.match_list)
                 tournament.current_tour.add_score_to_match(score)
@@ -80,6 +86,10 @@ while True:
                 if v.load_page("do_you_want_modify_rank"):
                     tournament.players = v.load_page(
                         "players_modify_rank", tournament.players)
+            if db.update_all_data_from_tournament(tournament_id, tournament):
+                print("tournament updated correctly")
+            else:
+                print("error while updating tournament")
 
     elif responsemenu == "2":  # create new tournament
         tournament = Tournament()
@@ -133,7 +143,7 @@ while True:
     elif responsemenu == "5":  # list all players from Player database
 
         player = Player()
-        v.load_page("display_all_players",player.list_all_players())
+        v.load_page("display_all_players", player.list_all_players())
 
     elif responsemenu == "6":  # Remove a tournament
         tournament = Tournament()

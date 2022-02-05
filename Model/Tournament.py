@@ -31,7 +31,7 @@ class Tournament:
         self.db = DbManager()
 
     def __str__(self):
-        return f"{self.name} {self.date}"
+        return json.dumps(dict(self), ensure_ascii=False)
 
     def add_tournament_info(self, tournament_info, serialized_players_list):
         self.name = tournament_info['name']
@@ -94,7 +94,7 @@ class Tournament:
         return self.db.tournament.get(doc_id=id)
 
     def store_tour_already_played(self):
-        self.rounds_list = self.current_tour.match_list
+        self.rounds_list.append(self.current_tour.match_list)
         return self.rounds_list
 
     def sort_player_by_rank(self):

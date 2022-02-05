@@ -1,8 +1,7 @@
-
+import json
 from tinydb import TinyDB
 from tinydb.operations import set
 from tinydb import where
-
 
 class DbManager(TinyDB):
 
@@ -73,3 +72,36 @@ class DbManager(TinyDB):
 
     def update_tournament(self, key, id, update):
         self.tournament.update(set(key, update), doc_ids=[int(id)])
+
+    def serialise_players_object_from_tournament(self, players_object):
+        player_list_to_serialize = []
+        for player in players_object:
+
+             player = json.dumps(player)
+
+        return players_object
+
+
+    def update_all_data_from_tournament(self, id, tournament):
+        self.tournament.update(
+            set("name", tournament.name), doc_ids=[int(id)])
+        self.tournament.update(
+            set("place", tournament.place), doc_ids=[int(id)])
+        self.tournament.update(
+            set("date", tournament.date), doc_ids=[int(id)])
+        self.tournament.update(
+            set("nb_turn", tournament.nb_turn), doc_ids=[int(id)])
+        ### serialise players object
+        player_serialized = self.serialise_players_object_from_tournament(
+            tournament.players)
+        self.tournament.update(
+            set("players", player_serialized), doc_ids=[int(id)])
+        self.tournament.update(
+            set("time", tournament.time), doc_ids=[int(id)])
+        self.tournament.update(
+            set("description", tournament.description), doc_ids=[int(id)])
+        self.tournament.update(
+            set("rounds_list", tournament.rounds_list), doc_ids=[int(id)])
+        self.tournament.update(
+            set("tours_list", tournament.tours_list), doc_ids=[int(id)])
+        return True
