@@ -209,7 +209,7 @@ class Views:
         print(f"Okay you choose {players[response].lastname}"
               f" {players[response].first_name}")
         print(f"Type the rank that you want to atribute")
-        players[response].ranking = int(input())
+        players[response].ranking = input()
         print("The ranking is updated successfully")
         return players
 

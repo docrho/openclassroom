@@ -65,11 +65,16 @@ while True:
             ###############################
             print('fin du premier tour')
 
+            #tournamentser = json.dumps(tournament.rounds_list.__dict__, default=lambda o: o.__dict__)
             # starting second turn and other
 
             for seq in range(3):
 
                 tournament.sort_player_by_points()
+                if tournament.check_if_same_points():
+                    tournament.sort_player_by_rank()
+                else:
+                    pass
                 print(tournament.players)
                 tournament.current_tour.tour2(tournament.players)
                 tournament.store_tour_already_played()
@@ -87,6 +92,7 @@ while True:
                 if v.load_page("do_you_want_modify_rank"):
                     tournament.players = v.load_page(
                         "players_modify_rank", tournament.players)
+
             if db.update_all_data_from_tournament(tournament_id, tournament):
                 print("tournament updated correctly")
             else:

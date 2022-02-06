@@ -19,9 +19,9 @@ class Tournament:
         self.time = time
         self.description = description
         # round already played
-        self.rounds_list = [Tour()]
+        self.rounds_list = []
         self.current_tour = Tour()
-        self.tours_list = [Tour()]
+        self.tours_list = []
         self.doc_id = doc_id
         # attribute from method
         self.tournament_list = []
@@ -144,8 +144,6 @@ class Tournament:
             match[0] = str(match[0])
             match[2] = str(match[2])
         # store the score from match to player
-        # print(f'voici la liste des players {self.players}')
-        # print(f"voici la liste des match avec point {match_list_str}")
 
         for match in match_list_str:
             for player in self.players:
@@ -157,13 +155,13 @@ class Tournament:
                     pass
         return self.players
 
-    def modify_rank(self, num_player, rank):
-        i = 0
+    def check_if_same_points(self):
+        all_point = []
+        all_point_set = []
         for player in self.players:
-            print(f"{i} {player.first_name} {player.lastname}")
-            i += 1
-        return self.players
-
-
-    def check_if_same_score(self):
-        return ""
+            all_point.append(player.point)
+        all_point_set = set(all_point)
+        if (len(all_point) != (len(all_point_set))):
+            return True
+        else:
+            return False
