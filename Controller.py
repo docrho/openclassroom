@@ -44,16 +44,14 @@ while True:
 
             # starting first tour with player instance from tournament
             tournament.current_tour.tour1(tournament.players)
-            # store current tour on tour list un tournament
-            tournament.store_tour_already_played()
             # ask view to type score of the first tour
             score = v.load_page("add_score_to_match",
                                 tournament.current_tour.match_list)
             # adding score to match list of tuple
             tournament.current_tour.add_score_to_match(score)
-            tournament.adding_score_to_players_instance_from_match(
-                tournament.current_tour.match_list
-            )
+            # store current tour on tour list un tournament
+            tournament.store_match_already_played()
+            tournament.adding_score_to_players_instance_from_match()
             # store end time of turn
             tournament.current_tour.end_time.append(
                 tournament.current_tour.current_datetime()
@@ -77,13 +75,11 @@ while True:
                     pass
                 print(tournament.players)
                 tournament.current_tour.tour2(tournament.players)
-                tournament.store_tour_already_played()
                 score = v.load_page("add_score_to_match",
                                     tournament.current_tour.match_list)
                 tournament.current_tour.add_score_to_match(score)
-                tournament.adding_score_to_players_instance_from_match(
-                    tournament.current_tour.match_list
-                )
+                tournament.store_match_already_played()
+                tournament.adding_score_to_players_instance_from_match()
                 # store end time of turn
                 tournament.current_tour.end_time.append(
                     tournament.current_tour.current_datetime()

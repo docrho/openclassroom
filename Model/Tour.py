@@ -51,7 +51,7 @@ class Tour:
         self.start_time.append(self.current_datetime())
         self.name = 'Round'
         self.match_list = []
-        for seq in range(4):
+        for seq in range(0,8,2):
 
             self.match_list.append((
                 Player(
@@ -64,14 +64,14 @@ class Tour:
                 ),
                 tournament_players[seq].point,
                 Player(
-                    tournament_players[seq+3].lastname,
-                    tournament_players[seq+3].first_name,
-                    tournament_players[seq+3].birth_date,
-                    tournament_players[seq+3].gender,
-                    tournament_players[seq+3].ranking,
-                    tournament_players[seq+3].point,
+                    tournament_players[seq+1].lastname,
+                    tournament_players[seq+1].first_name,
+                    tournament_players[seq+1].birth_date,
+                    tournament_players[seq+1].gender,
+                    tournament_players[seq+1].ranking,
+                    tournament_players[seq+1].point,
                 ),
-                tournament_players[seq+3].point,
+                tournament_players[seq+1].point,
             ))
         return self.match_list
         # ajouter condition if point sont egal alors par rank

@@ -50,8 +50,9 @@ class Views:
         if response == 1:
                 for player in all_players:
                     player_list.append(f"{player.lastname} "
-                          f"{player.first_name} date : {player.birth_date}"
-                          f" {player.ranking} id : {player.doc_id}"
+                          f"{player.first_name} date : {player.birth_date}\n"
+                          f" Rank : {player.ranking} id : {player.doc_id}"
+                          f" Points : {player.point}"
                           )
                 sorted_list = sorted(player_list, key=str.lower)
                 print("List of players by alphabetical order\n")

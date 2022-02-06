@@ -102,7 +102,7 @@ class Tournament:
     def get_tournament_by_id(self, id):
         return self.db.tournament.get(doc_id=id)
 
-    def store_tour_already_played(self):
+    def store_match_already_played(self):
         self.rounds_list.append(self.current_tour.match_list)
         return self.rounds_list
 
@@ -133,10 +133,10 @@ class Tournament:
             i += 1
         return self.players
 
-    def adding_score_to_players_instance_from_match(self, match_list):
+    def adding_score_to_players_instance_from_match(self):
         # transform the tuple from match into list to manipulate him
         match_list_str = []
-        for match in match_list:
+        for match in self.current_tour.match_list:
             current = list(match)
             match_list_str.append(current)
         # store on the new list string value to manipulate the index
