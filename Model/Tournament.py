@@ -134,9 +134,10 @@ class Tournament:
         return self.players
 
     def adding_score_to_players_instance_from_match(self):
+        match_list = self.current_tour.match_list
         # transform the tuple from match into list to manipulate him
         match_list_str = []
-        for match in self.current_tour.match_list:
+        for match in match_list:
             current = list(match)
             match_list_str.append(current)
         # store on the new list string value to manipulate the index
@@ -150,7 +151,7 @@ class Tournament:
                 try:
                     index_found = match.index(
                         player.lastname+" "+player.first_name)
-                    player.point += int(match[index_found+1])
+                    player.point = float(match[index_found+1])
                 except ValueError:
                     pass
         return self.players

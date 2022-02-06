@@ -131,8 +131,6 @@ class DbManager(TinyDB):
         self.tournament.update(
             set("description", tournament.description), doc_ids=[int(id)])
         tournament.rounds_list = tournament.rounds_list[0]
-        print("voici ce qui te fait chier ")
-        print(tournament.rounds_list)
         tournament.rounds_list = self.serialise_round_object_from_tournament(tournament.rounds_list)
         self.tournament.update(
             set("rounds_list", tournament.rounds_list), doc_ids=[int(id)])
