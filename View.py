@@ -233,6 +233,13 @@ class Views:
             print(f"current rank: {player.ranking} point: {player.point}")
         print("---------------------------------------\n")
         return True
+    
+    def update_all_data_from_tournament(self, response):
+        if response:
+            print("tournament updated correctly")
+        else:
+            print("error while updating tournament")
+        return response
 
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
@@ -273,6 +280,8 @@ class Views:
             return self.do_you_want_modify_rank()
         elif page_name == "show_player_on_tournament":
             return self.show_player_on_tournament(args[0])
+        elif page_name == "update_all_data_from_tournament":
+            return self.update_all_data_from_tournament(args[0])
         elif page_name == "basic_input":
             return self.basic_input()
         elif page_name == "error":
