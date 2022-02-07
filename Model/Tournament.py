@@ -51,6 +51,7 @@ class Tournament:
                     player['points'],
                 )
             )
+
     def _all_tournament_instance(self, all_tournament):
         for tournament_data in all_tournament:
             self.all_tournament_list.append(

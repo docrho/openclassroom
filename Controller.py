@@ -3,8 +3,6 @@ import View
 from Model.Player import Player
 from Model.Tournament import Tournament
 
-import json
-
 
 v = View.Views()
 db = DbManager()
@@ -37,6 +35,12 @@ while True:
             tournament.tournament_instance(tournament.get_tournament_by_id(
                 tournament_id)
             )
+            # store starting time
+            tournament.current_tour.start_time.append(
+                tournament.current_tour.current_datetime()
+            )
+            # show players on console
+            v.load_page("show_player_on_tournament", tournament)
             v.load_page("list_tournament", tournament)
             # sort player instance in tournament instance
             tournament.sort_player_by_rank()
@@ -63,7 +67,8 @@ while True:
             ###############################
             print('fin du premier tour')
 
-            #tournamentser = json.dumps(tournament.rounds_list.__dict__, default=lambda o: o.__dict__)
+            # tournamentser = json.dumps(
+            # tournament.rounds_list.__dict__, default=lambda o: o.__dict__)
             # starting second turn and other
 
             for seq in range(3):
@@ -73,7 +78,6 @@ while True:
                     tournament.sort_player_by_rank()
                 else:
                     pass
-                print(tournament.players)
                 tournament.current_tour.tour2(tournament.players)
                 score = v.load_page("add_score_to_match",
                                     tournament.current_tour.match_list)

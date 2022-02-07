@@ -43,22 +43,24 @@ class Views:
             print("Tournament removed successfully")
 
     def display_all_players(self, all_players):
-        print(f"Type 1 to display players by alphabetical order\n"
-              f"Type 2 to display players by ranking point")
+        print("Type 1 to display players by alphabetical order\n"
+              "Type 2 to display players by ranking point")
         response = int(input())
         player_list = []
         if response == 1:
-                for player in all_players:
-                    player_list.append(f"{player.lastname} "
-                          f"{player.first_name} date : {player.birth_date}\n"
-                          f" Rank : {player.ranking} id : {player.doc_id}"
-                          f" Points : {player.point}"
-                          )
-                sorted_list = sorted(player_list, key=str.lower)
-                print("List of players by alphabetical order\n")
-                for player in sorted_list:
-                    print(player)
-                print("\n")
+            for player in all_players:
+                player_list.append(f"{player.lastname} "
+                                   f"{player.first_name} date :"
+                                   f" {player.birth_date}\n"
+                                   f" Rank : {player.ranking} id :"
+                                   f" {player.doc_id}"
+                                   f" Points : {player.point}"
+                                   )
+            sorted_list = sorted(player_list, key=str.lower)
+            print("List of players by alphabetical order\n")
+            for player in sorted_list:
+                print(player)
+            print("\n")
 
         elif response == 2:
             for player in all_players:
@@ -72,7 +74,6 @@ class Views:
             for player in sorted_list:
                 print(player)
             print("\n")
-
 
     def display_all_players_from_tournament(self, all_players):
         print("Player list:\n")
@@ -124,6 +125,7 @@ class Views:
                     "tournament name ::  " + tournament.name,
                     "\ntournament place ::  " + tournament.place,
                     "\ntournament date ::  " + tournament.date,
+                    "\ntournament description ::  " + tournament.description,
                     "\n tournament id ::  " + str(tournament.doc_id),
                     "\n----------------------------------------"
                     )
@@ -140,7 +142,7 @@ class Views:
         choice_list = []
         print(
             "\nWelcome to the tournament creator\n"
-            "Please choose your 8 players with her number displayed below\n"
+            "Please select your 8 players with her id displayed above\n"
             )
         i = 1
         while i <= 8:
@@ -196,34 +198,41 @@ class Views:
 
     def players_modify_rank(self, players):
         i = 0
-        response = int(10)
         for player in players:
             print(f"id : {i} {player.first_name} {player.lastname}"
                   f" current rank is : {player.ranking}")
             i += 1
-        print(f"Choose your player by tiping his id")
+        print("Choose your player by tiping his id")
         response = int(input())
-        if((response < 0)or(response>7)):
-            while ((response < 0) or (response > 7)):
-                print(f"Bad id choose again")
+        if(response < 0) or (response > 7):
+            while (response < 0) or (response > 7):
+                print("Bad id choose again")
                 response = int(input())
         print(f"Okay you choose {players[response].lastname}"
               f" {players[response].first_name}")
-        print(f"Type the rank that you want to atribute")
+        print("Type the rank that you want to atribute")
         players[response].ranking = input()
         print("The ranking is updated successfully")
         return players
 
-
     def do_you_want_modify_rank(self):
-        print(f"Hi The turn is finished"
-              f" do you want to modify a rank from a player?\n"
-              f"If yes Type 1 otherwise type something else")
+        print("Hi The turn is finished"
+              " do you want to modify a rank from a player?\n"
+              "If yes Type 1 otherwise type something else")
         response = str(input())
         if response == "1":
             return True
         else:
             return False
+
+    def show_player_on_tournament(self, tournament):
+        print("This is the list of players playing in this tournament")
+        print("---------------------------------------\n")
+        for player in tournament.players:
+            print(f"{player.lastname} {player.first_name}")
+            print(f"current rank: {player.ranking} point: {player.point}")
+        print("---------------------------------------\n")
+        return True
 
     def load_page(self, page_name: str, *args,):
         if page_name == "home":
@@ -262,6 +271,8 @@ class Views:
             return self.players_modify_rank(args[0])
         elif page_name == "do_you_want_modify_rank":
             return self.do_you_want_modify_rank()
+        elif page_name == "show_player_on_tournament":
+            return self.show_player_on_tournament(args[0])
         elif page_name == "basic_input":
             return self.basic_input()
         elif page_name == "error":

@@ -11,11 +11,14 @@ class Tour:
         self.start_Date = ""
         self.end_time = []
         self.end_Date = ""
+
     def __str__(self):
         return self.name
+
     def __repr__(self):
         return self.name
     # can be static
+
     def current_datetime(self):
         return datetime.datetime.now()
 
@@ -51,7 +54,7 @@ class Tour:
         self.start_time.append(self.current_datetime())
         self.name = 'Round'
         self.match_list = []
-        for seq in range(0,8,2):
+        for seq in range(0, 8, 2):
 
             self.match_list.append((
                 Player(
