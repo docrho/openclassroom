@@ -74,6 +74,7 @@ class Tournament:
         self.place = tournament["place"]
         self.date = tournament["date"]
         self.nb_turn = tournament["nb_turn"]
+        self.rounds_list = tournament["rounds_list"]
         # deserialising player from databse
         # instancing player
         for player in tournament["players"]:
