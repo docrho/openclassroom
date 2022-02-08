@@ -27,7 +27,7 @@ Then
 
 2.pip install -r requirements.txt
 
-3.python3 Controller.py
+3.python3 chess_tournament.py
 
 4.Enjoy !!!!!
 
