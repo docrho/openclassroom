@@ -95,15 +95,17 @@ class DbManager(TinyDB):
 
     def serialise_round_object_from_tournament(self, tournament_rounds):
         jsonlist = []
-        for round in tournament_rounds:
-            round = list(round)
-            round[0] = json.dumps(
-                round[0].__dict__, default=lambda o: o.__dict__)
-            round[1] = json.dumps(round[1])
-            round[2] = json.dumps(
-                round[2].__dict__, default=lambda o: o.__dict__)
-            round[3] = json.dumps(round[3])
-            jsonlist.append(round)
+        for tournament_rounds in tournament_rounds:
+
+            for round in tournament_rounds:
+                round = list(round)
+                round[0] = json.dumps(
+                    round[0].__dict__, default=lambda o: o.__dict__)
+                round[1] = json.dumps(round[1])
+                round[2] = json.dumps(
+                    round[2].__dict__, default=lambda o: o.__dict__)
+                round[3] = json.dumps(round[3])
+                jsonlist.append(round)
         return jsonlist
 
     def serialise_tour_object_from_tournament(self, tournament_tour):
@@ -132,7 +134,6 @@ class DbManager(TinyDB):
         self.tournament.update(
             set("description", tournament.description), doc_ids=[int(id)])
         # select the tournament in the list to serialise them
-        tournament.rounds_list = tournament.rounds_list[0]
         tournament.rounds_list = self.serialise_round_object_from_tournament(
             tournament.rounds_list)
         self.tournament.update(
