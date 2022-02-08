@@ -251,11 +251,11 @@ class Views:
         else:
             return False
 
-    def display_all_round_or_match_from_tournament(self,round_list):
+    def display_all_round_or_match_from_tournament(self, round_list):
         i = 0
         x = 1
-        r = 1 #  round
-        t = 1 # turn
+        r = 1  # round
+        t = 1  # turn
         for round in round_list:
             print(f"match number {r} :")
             print(round[i]["lastname"] + " " + round[i]["first_name"] +

@@ -2,7 +2,7 @@ from Model import View
 from Model.Db import DbManager
 from Model.Player import Player
 from Model.Tournament import Tournament
-import json
+
 
 v = View.Views()
 db = DbManager()
@@ -15,6 +15,7 @@ def home():
     return response
 
 # starting app####
+
 
 def launch():
 
@@ -65,7 +66,7 @@ def launch():
                     tournament.players = v.load_page(
                         "players_modify_rank", tournament.players)
                 ###############################
-                #asking for saving tournament score in actual state
+                # asking for saving tournament score in actual state
                 if v.load_page("do_you_want_save_tournament"):
                     v.load_page("update_all_data_from_tournament",
                                 db.update_all_data_from_tournament(
@@ -245,4 +246,3 @@ def launch():
             v.load_page("display_all_round_or_match_from_tournament",
                         tournament.rounds_list
                         )
-
