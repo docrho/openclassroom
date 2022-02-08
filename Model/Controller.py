@@ -95,15 +95,15 @@ def launch():
                     if v.load_page("do_you_want_modify_rank"):
                         tournament.players = v.load_page(
                             "players_modify_rank", tournament.players)
-                v.load_page("update_all_data_from_tournament",
-                            db.update_all_data_from_tournament(
-                                tournament_id, tournament)
-                            )
-                if v.load_page("do_you_want_save_tournament"):
                     v.load_page("update_all_data_from_tournament",
                                 db.update_all_data_from_tournament(
                                     tournament_id, tournament)
                                 )
+                    if v.load_page("do_you_want_save_tournament"):
+                        v.load_page("update_all_data_from_tournament",
+                                    db.update_all_data_from_tournament(
+                                        tournament_id, tournament)
+                                    )
 
         elif responsemenu == "2":  # create new tournament
             tournament = Tournament()
