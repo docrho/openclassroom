@@ -233,7 +233,7 @@ class Views:
             print(f"current rank: {player.ranking} point: {player.point}")
         print("---------------------------------------\n")
         return True
-    
+
     def update_all_data_from_tournament(self, response):
         if response:
             print("tournament updated correctly")
