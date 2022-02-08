@@ -92,7 +92,7 @@ class Tournament:
         return True
 
     def remove_tournament(self, id: int()):
-        self.db.remove_tournament(id)
+        return self.db.remove_tournament(id)
 
     def list_all_tournament(self):
         return self._all_tournament_instance(self.db.tournament.all())
