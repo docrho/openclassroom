@@ -33,6 +33,12 @@ class Tournament:
     def __str__(self):
         return f"{self.name} {self.date}"
 
+    def deserialise_round_list(self):
+        for round in self.rounds_list:
+            round[0] = json.loads(round[0])
+            round[2] = json.loads(round[2])
+        return True
+
     def add_tournament_info(self, tournament_info, players_list):
         self.name = tournament_info['name']
         self.place = tournament_info['place']
